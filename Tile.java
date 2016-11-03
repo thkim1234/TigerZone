@@ -1,1 +1,3 @@
-// Tile.java file
+public class Tile {
+    
+}
