@@ -9,7 +9,7 @@ public class Player{
 
   //this is like visitor WEE
   //so this could really be what the client implements? Eh?
-  public void chooseLocation(Tile t){
+  public void chooseMove(Tile t){
     //obvi will be different, but we'll update these fields here
     currentChosenLocation = new Location();
     currentChosenOrientation = new Orientation();

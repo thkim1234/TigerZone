@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Game{
 
   private Board board;
@@ -15,7 +17,7 @@ public class Game{
 
   //lol we should use a player iterator
   private void updatePlayer(){
-    if(currentPlayer == players.size){
+    if(currentPlayer == players.size()){
       currentPlayer = 0;
     }
     else{
@@ -24,6 +26,7 @@ public class Game{
   }
 
   public void playGame(){
+
     while(!tiles.isEmpty()){
 
       Tile tile = tiles.getTopTile();
@@ -34,11 +37,10 @@ public class Game{
 
       board.placeTile(player.getChosenLocation(), player.getChosenOrientation(), tile);
 
-      board.placeMeeple(player.getChosenLocation(), player.getChosenMeeplePlacement());
+      board.placeMeepleOnBoard(player.getChosenLocation(), player.getChosenMeeplePlacement());
 
       updatePlayer();
     }
-  }
 
-  p
+  }
 }
