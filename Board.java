@@ -2,11 +2,15 @@ import java.util.*;
 
 public class Board{
 
-  private Slot[][] board;
+  private Map<Location, Slot> board;
 
-  public void placeTile(int r, int c, Tile t /*, some way of showing orientation*/){
-    if(board[r][c].canFit(t,o)){
-      board[r][c].placeTile(t,o);
+  public void placeTile(Location l, Orientation o, Tile t){
+    if(board.get(l).canFit(t,o)){
+      board.get(l).setTile(t,o);
     }
+  }
+
+  public void placeMeepleOnBoard(Location l, int meeplePlacement){
+    board.get(l).placeMeeple(meeplePlacement);
   }
 }

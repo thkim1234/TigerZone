@@ -1,6 +1,6 @@
 public class Slot{
 
-  //meeple placement
+  int meeplePlacement;
 
   private Orientation o;
 
@@ -16,6 +16,10 @@ public class Slot{
   public void setTile(Tile t, Orientation o){
     this.t = t;
     this.o = o;
+  }
+
+  public void placeMeeple(int meeplePlacement){
+    this.meeplePlacement = meeplePlacement;
   }
 
 
