@@ -7,26 +7,21 @@ public class Board{
   private ArrayList<Slot> openSlots;
   private ArrayList<Slot> placedSlots;
 
-  public class MoveOption {
-    Slot s;
-    int rotation;
-    MoveOption(Slot s, int rotation){
-      this.s = s;
-      this.rotation = rotation;
-    }
-  }
-
+  //create empty origin slot
   public Board(){
-    //create empty origin slot
+    openSlots = new ArrayList<Slot>();
+    placedSlots = new ArrayList<Slot>();
     openSlots.add(new Slot());
   }
 
-  public void placeTile(Slot s, Tile t, int rot){
-    s.setTile(t,rot);
-    placedSlots.add(s);
-    openSlots.addAll(s.openOutSides());
+  //places the tile given the moveOption
+  public void placeTile(Tile t, MoveOption m){
+    m.makeMove(t);
+    placedSlots.add(m.slot);
+    openSlots.addAll(m.slot.openOutSides());
   }
 
+  //tries all open slots and tile orientations, returns a list of possible moves
   public ArrayList<MoveOption> potentialMoves(Tile t){
     ArrayList<MoveOption> ans = new ArrayList<MoveOption>();
     for(Slot s: openSlots){

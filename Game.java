@@ -7,8 +7,12 @@ public class Game{
   private ArrayList<Player> players;
   private int currentPlayer;
 
+  //init everything
   public Game(){
-    //resets everything
+    board = new Board();
+    tiles = new TileDeck();
+    players = new ArrayList<Player>();
+    currentPlayer = 0;
   }
 
   public void displayBoard(){
@@ -27,21 +31,25 @@ public class Game{
 
   public void playGame(){
 
-    ArrayList<Slot> openSlots = new ArrayList<Slot>();
-    ArrayList<Slot> placedSlots = new ArrayList<Slot>();
-    Slot current = new Slot();
+    ArrayList<MoveOption> options;
+    Tile tile;
+    Player player;
+    MoveOption move;
+    int meeplePlacement;
 
     while(!tiles.isEmpty()){
 
-      Tile tile = tiles.getTopTile();
+      tile = tiles.getTopTile();
 
-      Player player = players.get(currentPlayer);
+      player = players.get(currentPlayer);
 
-      player.chooseMove(tile);
+      move = player.chooseMove(tile, board);
 
-      board.placeTile(player.getChosenLocation(), player.getChosenOrientation(), tile);
+      meeplePlacement = player.chooseMeeplePlacement(move.slot);
 
-      board.placeMeepleOnBoard(player.getChosenLocation(), player.getChosenMeeplePlacement());
+      board.placeTile(tile, move);
+
+      board.placeMeepleOnBoard(move.slot, meeplePlacement);
 
       updatePlayer();
     }
