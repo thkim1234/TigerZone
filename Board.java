@@ -11,7 +11,7 @@ public class Board{
   //create empty origin slot
   public Board(){
     openLocations = new ArrayList<Integer>();
-    openLocations.add(CENTER*100+CENTER);
+    openLocations.add(CENTER*1000+CENTER);
     map = new SlotMap();
   }
 
