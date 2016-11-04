@@ -41,7 +41,7 @@ public class Game{
 
       tile = tiles.getTopTile();
 
-      player = players.get(currentPlayer);
+      player = currentPlayer;
 
       move = player.chooseMove(tile, board);
 
