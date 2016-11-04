@@ -9,7 +9,7 @@ public class TileDeck {
   }
 
   public Tile getTopTile(){
-    return tiles.top();
+    return tiles.pop();
   }
 
   public void shuffle(){
