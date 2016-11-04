@@ -27,6 +27,10 @@ public class Game{
 
   public void playGame(){
 
+    ArrayList<Slot> openSlots = new ArrayList<Slot>();
+    ArrayList<Slot> placedSlots = new ArrayList<Slot>();
+    Slot current = new Slot();
+
     while(!tiles.isEmpty()){
 
       Tile tile = tiles.getTopTile();
