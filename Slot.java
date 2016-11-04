@@ -31,19 +31,19 @@ public class Slot{
     return true;
   }
 
-  //returns an ArrayList of open slots adjacent to this one
-  public ArrayList<Slot> openOutSides(){
-    ArrayList<Slot> ans = new ArrayList<Slot>();
-    for(int i = 0; i<NUM_SIDES; i++){
-      if(connections[i] == null){
-
-        ans.add(makeSide(i));
-
-        //somehow connect to other slots besides this one...
-      }
-    }
-    return ans;
-  }
+  // //returns an ArrayList of open slots adjacent to this one
+  // public ArrayList<Slot> openOutSides(){
+  //   ArrayList<Slot> ans = new ArrayList<Slot>();
+  //   for(int i = 0; i<NUM_SIDES; i++){
+  //     if(connections[i] == null){
+  //
+  //       ans.add(makeSide(i));
+  //
+  //       //somehow connect to other slots besides this one...
+  //     }
+  //   }
+  //   return ans;
+  // }
 
   //sets the tile, inits connection points based on tile
   public void setTile(Tile t, int rotationAmt){
@@ -69,7 +69,7 @@ public class Slot{
   private Slot makeSide(int side){
     Slot newSide = new Slot();
     newSide.connections[opposite(side)] = new SlotConnection();
-    newSide.connections[opposite(side)].connect(this, opposite(side));
+    newSide.connect(this, opposite(side));
 
     return newSide;
   }
@@ -90,6 +90,10 @@ public class Slot{
       this.type = adjSlot.connections[opposite(side)].type;
       adjSlot.connections[opposite(side)].s = Slot.this;
     }
+  }
+
+  public void connect(Slot slot, int side){
+    connections[side].connect(slot,side);
   }
 
   //just for code readability
