@@ -33,7 +33,6 @@ public class Game{
 
     ArrayList<MoveOption> options;
     Tile tile;
-    Player player;
     MoveOption move;
     int meeplePlacement;
 
@@ -41,15 +40,13 @@ public class Game{
 
       tile = tiles.getTopTile();
 
-      player = currentPlayer;
+      move = players.get(currentPlayer).chooseMove(tile, board);
 
-      move = player.chooseMove(tile, board);
-
-      meeplePlacement = player.chooseMeeplePlacement(move.slot);
+      meeplePlacement = players.get(currentPlayer).chooseMeeplePlacement();
 
       board.placeTile(tile, move);
 
-      board.placeMeepleOnBoard(move.slot, meeplePlacement);
+      board.placeMeepleOnBoard(move.location, meeplePlacement);
 
       updatePlayer();
     }
