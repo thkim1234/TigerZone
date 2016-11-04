@@ -6,7 +6,6 @@ public class Board{
   //private Map<Location, Slot> board;
   private ArrayList<Slot> openSlots;
   private ArrayList<Slot> placedSlots;
-  private Hashtable<Integer,TableEntry> tileTable = new Hashtable<Integer,TableEntry>();
 
   //create empty origin slot
   public Board(){
