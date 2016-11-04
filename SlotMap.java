@@ -5,7 +5,7 @@ class SlotMap{
     private Map<Integer,Slot> slotMap;
 
     public SlotMap () {
-        slotMap = new Map<Integer,Slot>()
+        slotMap = new HashMap<Integer,Slot>();
     }
 
     public void put(int key, Slot slot) {
