@@ -32,18 +32,22 @@ public class TileDeck {
   public void shuffle(){
     Tile[] deck;
     deck = new Tile[72];
-    for(int i = 0; i < tiles.size; i++){
-      deck[i] = tiles.pop(); //pops all tiles off of the deck stack and puts in deck array
+    Stack<Tile> temp1 = tiles;
+    int j = 0;
+    while(!temp1.empty()){
+        deck[j] = temp1.peek();
+        temp1.pop(); //pops all tiles off of the deck stack and puts in deck array
+        j++;
     }
     Random rand = new Random();
-    for(int i = 0; i<deck.size; i++){
-      int randInt = rand.nextInt(72);
-      Tile temp = deck[i];
-      deck[i] = deck[randInt];
-      deck[randInt] = temp;
+    for(int i = 0; i<deck.length; i++){
+        int randInt = rand.nextInt(72);
+        Tile temp = deck[i];
+        deck[i] = deck[randInt];
+        deck[randInt] = temp;
     }
 
-    for(int i = 0; i<deck.size; i++){
+    for(int i = 0; i<deck.length; i++){
       tiles.push(deck[i]);
     }
   }
@@ -51,6 +55,15 @@ public class TileDeck {
 
   public boolean isEmpty(){
     return tiles.size() == 0;
+  }
+  public String toString() {
+      Stack<Tile> temp = this.tiles;
+      String tileDeck = "";
+      while(!temp.empty()){
+          tileDeck += temp.peek() + "\n";
+          temp.pop();
+      }
+      return tileDeck;
   }
 
 

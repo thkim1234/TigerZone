@@ -18,4 +18,15 @@ public class Tile {
 
     }
 
+    public String toString() {
+        String returnString = "";
+        for(int i=0; i<Slot.NUM_SIDES; i++){
+            returnString += this.sideTypes[i];
+        }
+        returnString += this.centerType;
+        returnString += this.shieldLoc;
+
+        return returnString;
+    }
+
 }
