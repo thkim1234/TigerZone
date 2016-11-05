@@ -52,4 +52,20 @@ public class Game{
     }
 
   }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    public int getCurrentPlayer() {
+        return currentPlayer%2;
+    }
+
+    public TileDeck getTiles() {
+        return tiles;
+    }
 }
