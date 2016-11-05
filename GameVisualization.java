@@ -12,4 +12,8 @@ class GameVisualization {
     public void printPlayerTurn() {
         System.out.println(game.getCurrentPlayer());
     }
+
+    public void printBoard() {
+        System.out.println(game.getBoard());
+    }
  }

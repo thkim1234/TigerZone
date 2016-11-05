@@ -36,6 +36,7 @@ public class Game{
     MoveOption move;
     int meeplePlacement;
 
+    // Should probably use some sort of iterator here so we have some flexibility.
     while(!tiles.isEmpty()){
 
       tile = tiles.getTopTile();

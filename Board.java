@@ -62,4 +62,15 @@ public class Board{
   public void placeMeepleOnBoard(int loc, int meeplePlacement){
     map.get(loc).placeMeeple(meeplePlacement);
   }
+
+  public String toString() {
+    //Need to print out all the slots of the board. Or print out map.values();
+      String boardString = "";
+      Iterator<Slot> iter = map.values().iterator();
+      while(iter.hasNext()) {
+          boardString += iter.next() + "\n";
+      }
+
+      return boardString;
+  }
 }
