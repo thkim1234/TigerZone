@@ -7,13 +7,16 @@ public class Board{
   private ArrayList<Integer> openLocations;
   private SlotMap map;
   public static final int CENTER = 72;
+  private Slot firstSlot;
 
   //create empty origin slot
   public Board(){
     openLocations = new ArrayList<Integer>();
     openLocations.add(CENTER*1000+CENTER);
     map = new SlotMap();
-    map.put(CENTER*1000+CENTER, newSlot(CENTER*1000+CENTER));
+    firstSlot = newSlot(CENTER*1000+CENTER);
+    map.put(CENTER*1000+CENTER, firstSlot);
+
   }
 
   //places the tile given the moveOption

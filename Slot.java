@@ -18,9 +18,11 @@ public class Slot{
 
     for(int i = 0; i<NUM_SIDES; i++){
 
-      if(connections[i].type != t.getSide((rotationAmt+i)%NUM_SIDES)){
-        return false;
-      }
+        if(connections[i]!=null){
+            if(connections[i].type != t.getSide((rotationAmt + i) % NUM_SIDES)){
+                return false;
+            }
+        }
 
     }
 
@@ -52,7 +54,10 @@ public class Slot{
       }
 
       //set the connection points
-      connections[i].type = t.getSide(rotationAmt+i);
+        if(connections[i]!=null){
+            connections[i].type = t.getSide(rotationAmt+i);
+        }
+
 
     }
   }
@@ -77,6 +82,12 @@ public class Slot{
     protected Slot s;
     protected int side;
     protected char type;
+
+      public SlotConnection() {
+          this.s = new Slot();
+          this.side = -1;
+          this.type = '!';
+      }
 
     //sets this slotConnection based on the given side
     //and a (completed) connections slot

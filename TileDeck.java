@@ -22,7 +22,9 @@ public class TileDeck {
         tiles.push(new Tile(tileTypes[i]));
       }
     }
+
     this.shuffle();
+    tiles.push(new Tile(tileTypes[3]));
   }
 
 
@@ -41,7 +43,7 @@ public class TileDeck {
         j++;
     }
     Random rand = new Random();
-    for(int i = 0; i<deck.length; i++){
+    for(int i = 1; i<deck.length; i++){
         int randInt = rand.nextInt(71);
         Tile temp = deck[i];
         deck[i] = deck[randInt];

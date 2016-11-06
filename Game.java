@@ -16,6 +16,7 @@ public class Game{
     players = new ArrayList<Player>();
     players.add(0,player1);
     players.add(1,player2);
+    board.placeTile(tiles.getTopTile(),new MoveOption(72072,0));
     currentPlayer = 0;
   }
 
