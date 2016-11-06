@@ -22,6 +22,7 @@ public class TileDeck {
         tiles.push(new Tile(tileTypes[i]));
       }
     }
+    this.shuffle();
   }
 
 
