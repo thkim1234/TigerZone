@@ -62,7 +62,7 @@ public class Slot{
   }
 
   public void placeMeeple(int meeplePlacement){
-    this.meeplePlacement = meeplePlacement;
+    //call some combination of updateMeeple and updateMeepleOnConnection TBD
   }
 
   //creates a new slot connected to the given side of this slot
@@ -81,19 +81,41 @@ public class Slot{
     protected Slot s;
     protected int side;
     protected char type;
+    protected boolean[] meeplePlacement = new boolean[3];
 
     //sets this slotConnection based on the given side
     //and a (completed) connections slot
     protected void connect(Slot adjSlot, int side){
       this.s = adjSlot;
       this.side = side;
-      this.type = adjSlot.connections[opposite(side)].type;
-      adjSlot.connections[opposite(side)].s = Slot.this;
+      Connection adjC = adjSlot.connections[opposite(side)];
+      this.type = adjC.type;
+      adjC.s = Slot.this;
+      this.meeplePlacement[0] = adjC.meeplePlacement[2];
+      this.meeplePlacement[1] = adjC.meeplePlacement[1];
+      this.meeplePlacement[2] = adjC.meeplePlacement[0];
+    }
+
+    protected void updateMeepleOnConnection(int i){
+      this.meeplePlacement[i] = true;
+      if(s != null){
+        s.updateMeeples(opposite(side), (i+2)%2);
+      }
     }
   }
 
   public void connect(Slot slot, int side){
     connections[side].connect(slot,side);
+  }
+
+  public void updateMeeples(int side, int loc){
+    for(int i = 0; i<NUM_SIDES; i++){
+      if(i != side){
+        //logically, we need to do something different here to determine
+        //how updateMeepleOnConnection is called
+        connections[i].updateMeepleOnConnection(loc);
+      }
+    }
   }
 
   //just for code readability
