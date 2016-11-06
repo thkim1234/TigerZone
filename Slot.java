@@ -18,11 +18,7 @@ public class Slot{
 
     for(int i = 0; i<NUM_SIDES; i++){
 
-      if(rotationAmt+i == NUM_SIDES){
-        rotationAmt = -i;
-      }
-
-      if(connections[i].type != t.getSide(rotationAmt+i)){
+      if(connections[i].type != t.getSide((rotationAmt+i)%NUM_SIDES)){
         return false;
       }
 
