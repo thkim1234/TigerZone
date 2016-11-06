@@ -1,6 +1,6 @@
 public class Tile {
     private char centerType;
-    private char[] sideTypes;
+    private char[] sideTypes = new char[4];
     private char shieldLoc;
 
     public char getSide(int i){

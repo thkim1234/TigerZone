@@ -13,6 +13,7 @@ public class Board{
     openLocations = new ArrayList<Integer>();
     openLocations.add(CENTER*1000+CENTER);
     map = new SlotMap();
+    map.put(CENTER*1000+CENTER, newSlot(CENTER*1000+CENTER));
   }
 
   //places the tile given the moveOption
@@ -63,6 +64,9 @@ public class Board{
     map.get(loc).placeMeeple(meeplePlacement);
   }
 
+  public ArrayList<Integer> getOpenLocations() {
+    return this.openLocations;
+  }
   public String toString() {
     //Need to print out all the slots of the board. Or print out map.values();
       String boardString = "";

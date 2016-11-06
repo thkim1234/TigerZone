@@ -5,6 +5,8 @@ public class Game{
   private Board board;
   private TileDeck tiles;
   private ArrayList<Player> players;
+  private HumanPlayer player1 = new HumanPlayer();
+  private HumanPlayer player2 = new HumanPlayer();
   private int currentPlayer;
 
   //init everything
@@ -12,11 +14,9 @@ public class Game{
     board = new Board();
     tiles = new TileDeck();
     players = new ArrayList<Player>();
+    players.add(0,player1);
+    players.add(1,player2);
     currentPlayer = 0;
-  }
-
-  public void displayBoard(){
-
   }
 
   //lol we should use a player iterator
