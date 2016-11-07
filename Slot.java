@@ -18,11 +18,10 @@ public class Slot{
 
   //returns true if this tile can fit with the given rotation
   public boolean canFit(Tile t, int rotationAmt){
-
     for(int i = 0; i<NUM_SIDES; i++){
 
         if(connections[i]!=null){
-            if(connections[i].type != t.getSide((rotationAmt + i) % NUM_SIDES)){
+            if(connections[i].type != '!' && connections[i].type != t.getSide((rotationAmt + i) % NUM_SIDES)){
                 return false;
             }
         }
@@ -130,4 +129,5 @@ public class Slot{
       return slotString;
 
   }
+
 }
