@@ -11,6 +11,9 @@ public class Slot{
   //initializes SlotConnections
   public Slot(){
     connections = new SlotConnection[NUM_SIDES];
+    for(int i = 0; i<NUM_SIDES; i++){
+      connections[i] = new SlotConnection();
+    }
   }
 
   //returns true if this tile can fit with the given rotation
@@ -48,14 +51,9 @@ public class Slot{
     this.t = t;
     for(int i = 0; i<NUM_SIDES; i++){
 
-      //wrap around
-      if(rotationAmt+i == NUM_SIDES){
-        rotationAmt = -i;
-      }
-
       //set the connection points
         if(connections[i]!=null){
-            connections[i].type = t.getSide(rotationAmt+i);
+            connections[i].type = t.getSide((rotationAmt+i)%4);
         }
 
 
@@ -84,7 +82,6 @@ public class Slot{
     protected char type;
 
       public SlotConnection() {
-          this.s = new Slot();
           this.side = -1;
           this.type = '!';
       }
@@ -104,7 +101,7 @@ public class Slot{
   }
 
   //just for code readability
-  private static int opposite(int i){ return (i-2>=0)?(i-2):(i+2); }
+  private static int opposite(int i){ return (i+2)%4; }
 
   public String toString() {
       // Need to print connections (with their tiles), the tile in this slot, and meeple placement in this slot.

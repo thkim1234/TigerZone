@@ -10,12 +10,14 @@ public class Board{
   private Slot firstSlot;
 
   //create empty origin slot
-  public Board(){
+  public Board(Game gg){
     openLocations = new ArrayList<Integer>();
     openLocations.add(CENTER*1000+CENTER);
     map = new SlotMap();
     firstSlot = newSlot(CENTER*1000+CENTER);
     map.put(CENTER*1000+CENTER, firstSlot);
+    GameVisualization g = new GameVisualization(gg);
+    g.printBoard();
 
   }
 
@@ -52,10 +54,12 @@ public class Board{
   }
 
   private Slot newSlot(int location){
+    //System.out.println("calling newSlot from "+ location);
     Slot s = new Slot();
     int key;
     for(int i = 0; i<Slot.NUM_SIDES; i++){
       key = map.getAdjKey(location,i);
+      //System.out.println(key);
       if(map.containsKey(key)){
         s.connect(map.get(key),i);
       }

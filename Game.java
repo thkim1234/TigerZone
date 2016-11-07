@@ -11,7 +11,7 @@ public class Game{
 
   //init everything
   public Game(){
-    board = new Board();
+    board = new Board(this);
     tiles = new TileDeck();
     players = new ArrayList<Player>();
     players.add(0,player1);
