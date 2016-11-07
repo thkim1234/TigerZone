@@ -14,7 +14,7 @@ public class Board{
     openLocations = new ArrayList<Integer>();
     openLocations.add(CENTER*1000+CENTER);
     map = new SlotMap();
-    firstSlot = newSlot(CENTER*1000+CENTER);
+    firstSlot = firstSlot(CENTER*1000+CENTER);
     map.put(CENTER*1000+CENTER, firstSlot);
 
   }
@@ -23,17 +23,18 @@ public class Board{
   public void placeTile(Tile t, MoveOption m){
     map.get(m.location).setTile(t,m.rotation);
     addNewOptions(m.location);
+    map.remove(m.location);
   }
 
   //tries all open slots and tile orientations, returns a list of possible moves
   public ArrayList<MoveOption> potentialMoves(Tile t){
     ArrayList<MoveOption> ans = new ArrayList<MoveOption>();
     Slot s;
-    for(int l: openLocations){
-      s = map.get(l);
+    for(int location: openLocations){
+      s = map.get(location);
       for(int i=0; i<Slot.NUM_SIDES; i++){
         if(s.canFit(t,i)){
-          ans.add(new MoveOption(l,i));
+          ans.add(new MoveOption(location,i));
         }
       }
     }
@@ -53,12 +54,25 @@ public class Board{
 
   private Slot newSlot(int location){
     Slot s = new Slot();
-    int key;
-    for(int i = 0; i<Slot.NUM_SIDES; i++){
-      key = map.getAdjKey(location,i);
+    int key = location;
+    for(int i = 1; i<=Slot.NUM_SIDES; i++){
+//      key = map.get(location);
       if(map.containsKey(key)){
         s.connect(map.get(key),i);
       }
+    }
+    return s;
+  }
+
+  private Slot firstSlot(int location){
+    Slot s = new Slot();
+    int key = location;
+    for(int i = 0; i<Slot.NUM_SIDES; i++){
+//      key = map.getAdjKey(location, i);
+//      if(map.containsKey(key)){
+//      map.put(key,s);
+      s.connect(map.get(key),i);
+//      }
     }
     return s;
   }

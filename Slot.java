@@ -6,11 +6,18 @@ public class Slot{
 
   private int meeplePlacement; //to be made fixed later
   private Tile t;
+  private int orientation;
   protected SlotConnection[] connections;
 
   //initializes SlotConnections
   public Slot(){
-    connections = new SlotConnection[NUM_SIDES];
+      Tile t = new Tile();
+      orientation = 0;
+      meeplePlacement = 0;
+      connections = new SlotConnection[NUM_SIDES];
+      for (int i = 0; i < NUM_SIDES; i++) {
+          sidePorts[i] = new Slot();
+      }
   }
 
   //returns true if this tile can fit with the given rotation
@@ -45,25 +52,25 @@ public class Slot{
 
   //sets the tile, inits connection points based on tile
   public void setTile(Tile t, int rotationAmt){
-    this.t = t;
-    for(int i = 0; i<NUM_SIDES; i++){
-
-      //wrap around
-      if(rotationAmt+i == NUM_SIDES){
-        rotationAmt = -i;
+      this.t = t;
+      orientation = rotationAmt;
+      for (int i = 0; i < NUM_SIDES; i++) {
+          connections[i] = new SlotConnection()
       }
-
-      //set the connection points
+      for(int i = 0; i<NUM_SIDES; i++){
+//
+//      //wrap around
+//        if(rotationAmt+i == NUM_SIDES){
+        rotationAmt = rotationAmt%NUM_SIDES;
+//        }
+//
+//      //set the connection points
         if(connections[i]!=null){
-            connections[i].type = t.getSide(rotationAmt+i);
+            connections[i].type = t.getSide(rotationAmt);
         }
-
-
+        ++rotationAmt;
+//
     }
-  }
-
-  public void placeMeeple(int meeplePlacement){
-    this.meeplePlacement = meeplePlacement;
   }
 
   //creates a new slot connected to the given side of this slot
@@ -79,14 +86,19 @@ public class Slot{
   //each has an integer to denote which side it's on and a char to denote the type of connection
   private class SlotConnection{
 
-    protected Slot s;
+    protected Slot[] s;
     protected int side;
     protected char type;
 
       public SlotConnection() {
-          this.s = new Slot();
-          this.side = -1;
+          this.s = new Slot[];
+          this.side = new;
           this.type = '!';
+      }
+
+      public SlotConnection(char type, Slot adjSlot) {
+          this.s = new Slot();
+          this.type = type;
       }
 
     //sets this slotConnection based on the given side
@@ -103,8 +115,12 @@ public class Slot{
     connections[side].connect(slot,side);
   }
 
+  public void placeMeeple (int meeplePlacement) {
+      this.meeplePlacement = meeplePlacement;
+  }
+
   //just for code readability
-  private static int opposite(int i){ return (i-2>=0)?(i-2):(i+2); }
+  private static int opposite(int i){ return (i+2)%4; }
 
   public String toString() {
       // Need to print connections (with their tiles), the tile in this slot, and meeple placement in this slot.

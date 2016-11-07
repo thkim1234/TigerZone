@@ -7,6 +7,15 @@ public class Tile {
       return sideTypes[i];
     }
 
+    public Tile () {
+        centerType = 'g';
+        shieldLoc = '0';
+        for(int i=0; i<Slot.NUM_SIDES; i++){
+            sideTypes[i] = 'g';
+        }
+
+    }
+
     public Tile(String typeCode){
       int i;
       for(i=0; i<Slot.NUM_SIDES; i++){
