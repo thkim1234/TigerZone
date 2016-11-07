@@ -18,7 +18,8 @@ public class HumanPlayer extends Player {
         int index = 0;
         System.out.println("Select an option to play.");
         while(iter.hasNext()){
-            System.out.println("Option " + index + ": " + iter.next().location + " with rotation: " + iter.next().rotation);
+            MoveOption m = iter.next();
+            System.out.println("Option " + index + ": " + m.location + " with rotation: " + m.rotation);
             index++;
         }
         Scanner option = new Scanner(System.in);

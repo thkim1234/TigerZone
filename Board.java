@@ -33,11 +33,8 @@ public class Board{
     Slot s;
     for(int l: openLocations){
       s = map.get(l);
-      System.out.println("checking location" + l);
       for(int i=0; i<Slot.NUM_SIDES; i++){
-        System.out.println("with rotation location" + i);
         if(s.canFit(t,i)){
-          System.out.println("fits");
           ans.add(new MoveOption(l,i));
         }
       }
