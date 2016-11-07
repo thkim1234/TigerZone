@@ -2,3 +2,6 @@
 *.class
 *.iml
 *.src
+tigerzone.properties
+tigerzone.xml
+out/*
