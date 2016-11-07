@@ -77,9 +77,14 @@ public class Board{
   public String toString() {
     //Need to print out all the slots of the board. Or print out map.values();
       String boardString = "";
+      String keyStr = "";
+      int k;
+      Iterator<Integer> keysIter = map.keySet().iterator();
       Iterator<Slot> iter = map.values().iterator();
       while(iter.hasNext()) {
-          boardString += iter.next() + "\n";
+          k = keysIter.next();
+          keyStr = Integer.toString(k%1000-72) + " "+ Integer.toString(k/1000-72);
+          boardString += "location " + keyStr + ", " +iter.next() + "\n";
       }
 
       return boardString;

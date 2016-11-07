@@ -105,26 +105,26 @@ public class Slot{
   public String toString() {
       // Need to print connections (with their tiles), the tile in this slot, and meeple placement in this slot.
       String slotString = "";
-      slotString += "Tile: " + this.t +"\n";
-      slotString += "\tMeeple Placement: " + this.meeplePlacement +"\n";
-      for (int i = 0; i < connections.length; i++) {
-          switch (connections[i].side) {
-              case 0:
-                  slotString += "\tAbove Tile: " + connections[i].s.t +"\n";
-                  break;
-              case 1:
-                  slotString += "\tRight Tile: " + connections[i].s.t +"\n";
-                  break;
-              case 2:
-                  slotString += "\tBelow Tile: " + connections[i].s.t +"\n";
-                  break;
-              case 3:
-                  slotString += "\tLeft Tile: " + connections[i].s.t +"\n";
-                  break;
-              default:
-                  break;
-          }
-      }
+      slotString += "Tile: " + ((this.t==null)?"(empty)":this.t) +"";
+      //slotString += "\tMeeple Placement: " + this.meeplePlacement +"\n";
+      // for (int i = 0; i < connections.length; i++) {
+      //     switch (connections[i].side) {
+      //         case 0:
+      //             slotString += "\tAbove Tile: " + connections[i].s.t +"\n";
+      //             break;
+      //         case 1:
+      //             slotString += "\tRight Tile: " + connections[i].s.t +"\n";
+      //             break;
+      //         case 2:
+      //             slotString += "\tBelow Tile: " + connections[i].s.t +"\n";
+      //             break;
+      //         case 3:
+      //             slotString += "\tLeft Tile: " + connections[i].s.t +"\n";
+      //             break;
+      //         default:
+      //             break;
+      //     }
+      // }
 
       return slotString;
 
