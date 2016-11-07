@@ -16,9 +16,14 @@ public class HumanPlayer extends Player {
         ArrayList<MoveOption> temp = b.potentialMoves(t);
         Iterator<MoveOption> iter = temp.iterator();
         int index = 0;
-        System.out.println("Select an option to play.");
+        System.out.println("Here's your board: ");
+        System.out.println(b);
+        System.out.println("Select an option to play this tile: " + t);
         while(iter.hasNext()){
-            System.out.println("Option " + index + ": " + iter.next().location + " with rotation: " + iter.next().rotation);
+            MoveOption m = iter.next();
+            int i = m.location%1000-72;
+            int j = m.location/1000-72;
+            System.out.println("Option " + index + ": " + i + " "+ j + " with rotation: " + m.rotation);
             index++;
         }
         Scanner option = new Scanner(System.in);

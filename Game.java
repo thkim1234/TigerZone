@@ -8,6 +8,7 @@ public class Game{
   private HumanPlayer player1 = new HumanPlayer();
   private HumanPlayer player2 = new HumanPlayer();
   private int currentPlayer;
+  public static int NUM_PLAYERS = 2;
 
   //init everything
   public Game(){
@@ -22,12 +23,7 @@ public class Game{
 
   //lol we should use a player iterator
   private void updatePlayer(){
-    if(currentPlayer == players.size()){
-      currentPlayer = 0;
-    }
-    else{
-      currentPlayer++;
-    }
+    currentPlayer = (currentPlayer+1)%NUM_PLAYERS;
   }
 
   public void playGame(){

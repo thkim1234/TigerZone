@@ -33,11 +33,8 @@ public class Board{
     Slot s;
     for(int l: openLocations){
       s = map.get(l);
-      System.out.println("checking location" + l);
       for(int i=0; i<Slot.NUM_SIDES; i++){
-        System.out.println("with rotation location" + i);
         if(s.canFit(t,i)){
-          System.out.println("fits");
           ans.add(new MoveOption(l,i));
         }
       }
@@ -80,9 +77,14 @@ public class Board{
   public String toString() {
     //Need to print out all the slots of the board. Or print out map.values();
       String boardString = "";
+      String keyStr = "";
+      int k;
+      Iterator<Integer> keysIter = map.keySet().iterator();
       Iterator<Slot> iter = map.values().iterator();
       while(iter.hasNext()) {
-          boardString += iter.next() + "\n";
+          k = keysIter.next();
+          keyStr = Integer.toString(k%1000-72) + " "+ Integer.toString(k/1000-72);
+          boardString += "location " + keyStr + ", " +iter.next() + "\n";
       }
 
       return boardString;
