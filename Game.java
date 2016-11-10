@@ -1,5 +1,11 @@
 import java.util.*;
 
+/* Runs the game
+tracks:
+- players: the players
+- board: the current board
+*/
+
 public class Game{
 
   private Board board;
@@ -8,48 +14,65 @@ public class Game{
   private HumanPlayer player1 = new HumanPlayer();
   private HumanPlayer player2 = new HumanPlayer();
   private int currentPlayer;
-  public static final int NUM_PLAYERS = 2;
+  private int NUM_PLAYERS;
 
-  //init everything
-  public Game(){
+  //initializes a game with the players given
+  public Game(Player ... players){
     board = new Board();
     tiles = new TileDeck();
-    players = new ArrayList<Player>();
-    players.add(0,player1);
-    players.add(1,player2);
+
+    //add all of the players passed into the constructor
+    this.players = new ArrayList<Player>();
+    for(Player player: players){
+      this.players.add(player);
+    }
+
+    NUM_PLAYERS = this.players.size();
+
+    //place the first tile at the origin
     board.placeTile(tiles.getTopTile(),new MoveOption(Board.CENTER*1001,0));
+
+    //set the current player to the first of the given players
     currentPlayer = 0;
   }
 
-  //lol we should use a player iterator
+  //self explanatory
   private void updatePlayer(){
     currentPlayer = (currentPlayer+1)%NUM_PLAYERS;
   }
 
+  //runs the game
   public void playGame(){
 
-    ArrayList<MoveOption> options;
     Tile tile;
     MoveOption move;
     int meeplePlacement;
 
-    // Should probably use some sort of iterator here so we have some flexibility.
+    // while we have tiles to place
     while(!tiles.isEmpty()){
 
+      //get the tile to be placed
       tile = tiles.getTopTile();
 
+      //ask the current player for his choice of move
       move = players.get(currentPlayer).chooseMove(tile, board);
 
+      //ask the current player for his choice of meeple placement
       meeplePlacement = players.get(currentPlayer).chooseMeeplePlacement();
 
+      //place the tile as the player specified
       board.placeTile(tile, move);
 
+      //place the meeple as the player specified
       board.placeMeepleOnBoard(move.location, meeplePlacement);
 
+      //move forward in terms of turns
       updatePlayer();
     }
 
   }
+
+  //accessors:
 
     public Board getBoard() {
         return board;
