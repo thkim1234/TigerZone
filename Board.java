@@ -1,3 +1,5 @@
+import org.junit.Test;
+
 import java.util.*;
 import java.lang.*;
 
@@ -88,5 +90,10 @@ public class Board{
       }
 
       return boardString;
+  }
+
+  @Test
+  public void testSomething() {
+
   }
 }
