@@ -8,6 +8,7 @@ public class Game{
   private HumanPlayer player1 = new HumanPlayer();
   private HumanPlayer player2 = new HumanPlayer();
   private int currentPlayer;
+  public static final int NUM_PLAYERS = 2;
 
   //init everything
   public Game(){
@@ -16,18 +17,13 @@ public class Game{
     players = new ArrayList<Player>();
     players.add(0,player1);
     players.add(1,player2);
-    board.placeTile(tiles.getTopTile(),new MoveOption(72072,0));
+    board.placeTile(tiles.getTopTile(),new MoveOption(Board.CENTER*1001,0));
     currentPlayer = 0;
   }
 
   //lol we should use a player iterator
   private void updatePlayer(){
-    if(currentPlayer == players.size()){
-      currentPlayer = 0;
-    }
-    else{
-      currentPlayer++;
-    }
+    currentPlayer = (currentPlayer+1)%NUM_PLAYERS;
   }
 
   public void playGame(){

@@ -7,15 +7,13 @@ public class Board{
   private ArrayList<Integer> openLocations;
   private SlotMap map;
   public static final int CENTER = 72;
-  private Slot firstSlot;
 
   //create empty origin slot
   public Board(){
     openLocations = new ArrayList<Integer>();
-    openLocations.add(CENTER*1000+CENTER);
+    openLocations.add(CENTER*1001);
     map = new SlotMap();
-    firstSlot = firstSlot(CENTER*1000+CENTER);
-    map.put(CENTER*1000+CENTER, firstSlot);
+    map.put(CENTER*1001, newSlot(CENTER*1001));
 
   }
 
@@ -23,7 +21,6 @@ public class Board{
   public void placeTile(Tile t, MoveOption m){
     map.get(m.location).setTile(t,m.rotation);
     addNewOptions(m.location);
-    map.remove(m.location);
   }
 
   //tries all open slots and tile orientations, returns a list of possible moves
@@ -31,7 +28,10 @@ public class Board{
     ArrayList<MoveOption> ans = new ArrayList<MoveOption>();
     Slot s;
     for(int location: openLocations){
-      s = map.get(location);
+      // System.out.print("at location "+location);
+       s = map.get(location);
+      // System.out.print(" slot " + s);
+      // System.out.println(" "+t);
       for(int i=0; i<Slot.NUM_SIDES; i++){
         if(s.canFit(t,i)){
           ans.add(new MoveOption(location,i));
@@ -54,25 +54,12 @@ public class Board{
 
   private Slot newSlot(int location){
     Slot s = new Slot();
-    int key = location;
-    for(int i = 1; i<=Slot.NUM_SIDES; i++){
-//      key = map.get(location);
+    int key;
+    for(int i = 0; i<Slot.NUM_SIDES; i++){
+      key = map.getAdjKey(location,i);
       if(map.containsKey(key)){
         s.connect(map.get(key),i);
       }
-    }
-    return s;
-  }
-
-  private Slot firstSlot(int location){
-    Slot s = new Slot();
-    int key = location;
-    for(int i = 0; i<Slot.NUM_SIDES; i++){
-//      key = map.getAdjKey(location, i);
-//      if(map.containsKey(key)){
-//      map.put(key,s);
-      s.connect(map.get(key),i);
-//      }
     }
     return s;
   }
@@ -87,9 +74,11 @@ public class Board{
   public String toString() {
     //Need to print out all the slots of the board. Or print out map.values();
       String boardString = "";
-      Iterator<Slot> iter = map.values().iterator();
+      Iterator<Integer> iter = map.keySet().iterator();
+      int current;
       while(iter.hasNext()) {
-          boardString += iter.next() + "\n";
+          current = iter.next();
+          boardString += (current/1000-CENTER)+" "+(current%1000-CENTER)+"    "+map.get(current) + "\n";
       }
 
       return boardString;
