@@ -7,7 +7,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-        SlotTest.class
+        SlotTest.class,
+        SlotMapTest.class
         //Add more test here with a comma separating them
 })
 
