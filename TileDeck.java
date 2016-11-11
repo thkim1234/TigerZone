@@ -55,6 +55,14 @@ public class TileDeck {
     }
   }
 
+  public int getTileDeckSize() {
+      return tiles.size();
+  }
+
+  public Stack<Tile> getTiles() {
+      return tiles;
+  }
+
 
   public boolean isEmpty(){
     return tiles.size() == 0;
