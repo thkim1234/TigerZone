@@ -108,11 +108,6 @@ public class Board{
     map.get(loc).placeMeeple(meeplePlacement);
   }
 
-  //accessor
-  public ArrayList<Integer> getOpenLocations() {
-    return this.openLocations;
-  }
-
   public String toString() {
       String boardString = "";
       Iterator<Integer> iter = map.keySet().iterator();
@@ -124,4 +119,12 @@ public class Board{
 
       return boardString;
   }
+
+  //Accessors
+  public SlotMap getMap(){ return map; }
+  public ArrayList<Integer> getOpenLocations() {
+    return this.openLocations;
+  }
+  public Slot getSlot(int location){ return map.get(location); }
+
 }
