@@ -8,7 +8,9 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
         SlotTest.class,
-        SlotMapTest.class
+        SlotMapTest.class,
+        TileTest.class,
+        TileDeckTest.class
         //Add more test here with a comma separating them
 })
 

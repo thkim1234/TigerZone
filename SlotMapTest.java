@@ -23,4 +23,6 @@ public class SlotMapTest {
         assertEquals(testSlotMap.getAdjKey(0,2),-1000);
         assertEquals(testSlotMap.getAdjKey(0,3),-1);
     }
+
+
 }
