@@ -3,10 +3,6 @@ public class Tile {
     private char[] sideTypes = new char[4];
     private char shieldLoc;
 
-    public char getSide(int i){
-      return sideTypes[i];
-    }
-
     public Tile () {
         centerType = 'g';
         shieldLoc = '0';
@@ -37,5 +33,13 @@ public class Tile {
 
         return returnString;
     }
+
+    public char getSide(int i){
+        return sideTypes[i];
+    }
+    public char getCenterType() { return this.centerType; }
+    public char getShieldLoc() { return this.shieldLoc; }
+    public char[] getSideTypes() { return this.sideTypes; }
+
 
 }
