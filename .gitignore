@@ -2,3 +2,6 @@
 *.class
 *.iml
 *.src
+*.properties
+*.xml
+out/*
