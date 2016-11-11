@@ -12,6 +12,10 @@ public class TileTest {
     @Before
     public void setUp() throws Exception { }
 
+    /*
+    * This test creates a default tile object and checks to see if its fields
+    * are appropriately initialized
+    */
     @Test
     public void testEmptyTileConstructor(){
         tile = new Tile();
@@ -22,7 +26,10 @@ public class TileTest {
             assertEquals(sideTypes[i], 'g');
         }
     }
-
+    /*
+    * This test checks to see if the correct tile object is created
+    * for every possible typeCode
+    */
     @Test
     public void testTypeCodeTileConstructor(){
         String typeCode;
@@ -36,7 +43,10 @@ public class TileTest {
             assertEquals(typeCode.charAt(Slot.NUM_SIDES + 1), tile.getShieldLoc());
         }
     }
-
+    /*
+    * This test checks the String representation of every possible typeCode
+    * and verifies it against the typeCode string
+    */
     @Test
     public void testTileToString(){
         String returnString;
