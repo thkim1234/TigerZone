@@ -92,6 +92,9 @@ public class Slot{
     return connectedRegions;
   }
 
+  public Region[] getRegions(){
+    return regions;
+  }
   //to be changed later
   public void placeMeeple (int meeplePlacement) {
       this.meeplePlacement = meeplePlacement;

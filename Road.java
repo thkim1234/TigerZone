@@ -21,9 +21,6 @@ public class Road extends Region{
 
   public void closePort(int port){
     openPorts.remove(port);
-    if(openPorts.isEmpty()){
-      notifyComplete();
-    }
   }
 
 

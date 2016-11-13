@@ -16,6 +16,7 @@ public class Board{
 
   //Map of slot objects, stored by indices relative to the origin
   private SlotMap map;
+  private RegionManager regionManager;
 
   //This number is so that we need not incorporate negatives;
   //the center of the board should be at least equal to the number of tiles
@@ -27,16 +28,22 @@ public class Board{
     openLocations.add(CENTER*1001);
     map = new SlotMap();
     map.put(CENTER*1001, newSlot(CENTER*1001));
+    regionManager = new RegionManager();
   }
 
   //places the tile given the moveOption
   public void placeTile(Tile tile, MoveOption move){
 
+    Slot slot = map.get(move.location);
+
     //access the slot object at the given index, sets the tile within that slot object
-    map.get(move.location).setTile(tile,move.rotation);
+    slot.setTile(tile,move.rotation);
 
     //update openLocations to reflect the updated board
     addNewOptions(move.location);
+
+    //update the regions
+    regionManager.addRegionsBasedOnTile(slot, tile, move.rotation);
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
