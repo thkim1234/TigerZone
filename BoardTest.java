@@ -28,29 +28,43 @@ public class BoardTest {
 
 
     /*
-    * Need some assitance with how we should write a test that tests possible tile placements.
-    * */
+    * This test creates a tile and places it on the board. It then checks the board (SlotMap)
+    * to see that this tile was in fact placed.
+    */
     @Test
     public void testTilePlacement(){
-
+        Tile tile = new Tile();
+        MoveOption move = new MoveOption(72072, 0);
+        board.placeTile(tile, move);
+        SlotMap map = board.getMap();
+        assertNotNull(map.get(move.location));
     }
 
-    /* This appears to already be verified with the can fit function should we just reuse that here?*/
+    /* This test places a tile on the board. It then tests to see if a potentialMove list is returned
+    * for a new tile in consideration
+    */
     @Test
     public void testPotentialMoves(){
-
+        Tile tile = new Tile();
+        MoveOption move = new MoveOption(72072, 0);
+        board.placeTile(tile, move);
+        Tile tile2 = new Tile("ggggm0");
+        assertNotNull(board.potentialMoves(tile2));
     }
 
     /*
-    * Two things: 1 this method is private, how should we go about testing it. Two, how many possible locations
-    * should we test to justify a robust test
+    * This test places a tile on the board then tests to see
     * */
     @Test
     public void testAddNewOptions(){
-
+        Tile tile = new Tile();
+        MoveOption move = new MoveOption(72072, 0);
+        board.placeTile(tile, move);
+        board.
+        //assertTrue(listBefore != listAfter);
     }
 
-    //The same applies wih the newSlot function. Perhaps nest the test classes. Not sure though
+
 
 
     //Hold on testing meeple placement until implemented.
