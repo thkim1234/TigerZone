@@ -83,7 +83,7 @@ public class Game{
     }
 
     public int getCurrentPlayer() {
-        return currentPlayer%2;
+        return currentPlayer%NUM_PLAYERS;
     }
 
     public TileDeck getTiles() {

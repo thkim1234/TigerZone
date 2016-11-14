@@ -1,4 +1,3 @@
-import org.junit.*;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
@@ -10,7 +9,11 @@ import org.junit.runners.Suite;
         SlotTest.class,
         SlotMapTest.class,
         TileTest.class,
-        TileDeckTest.class
+        TileDeckTest.class,
+        HumanPlayerTest.class,
+        MoveOptionTest.class,
+        BoardTest.class,
+        GameTest.class
         //Add more test here with a comma separating them
 })
 
