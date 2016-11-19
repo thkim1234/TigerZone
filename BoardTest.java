@@ -53,19 +53,22 @@ public class BoardTest {
     }
 
     /*
-    * This test places a tile on the board then tests to see
+    * This test places a tile on the board then tests to see if the openLocations list has indeed been
+    * updated. The comparison is done by cloning the current state of openLocations and comparing it to
+    * the state of openLocations after a tile is placed on the board
     * */
     @Test
     public void testAddNewOptions(){
+        ArrayList<Integer> listBefore;
+        ArrayList<Integer> listAfter;
+        listBefore = (ArrayList<Integer>) board.getOpenLocations().clone();
         Tile tile = new Tile();
         MoveOption move = new MoveOption(72072, 0);
         board.placeTile(tile, move);
-        board.
-        //assertTrue(listBefore != listAfter);
+        listAfter = (ArrayList<Integer>) board.getOpenLocations().clone();
+        assertTrue(!listBefore.equals(listAfter));
     }
 
-
-
-
+    
     //Hold on testing meeple placement until implemented.
 }
