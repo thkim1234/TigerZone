@@ -3,6 +3,7 @@ import java.util.*;
 public class Road extends Region{
   protected HashMap<Integer, Boolean> openPorts;
   protected HashMap<Integer, Boolean> slotsContained;
+  protected HashMap<Field,Boolean> adjacentFields;
 
   public Road(){
     openPorts = new HashMap<Integer,Boolean>();
@@ -23,6 +24,9 @@ public class Road extends Region{
     openPorts.remove(port);
   }
 
+  public void addAdjacent(Region adjacentRegion){
+    adjacentFields.put((Field) adjacentRegion, true);
+  }
 
 
 }

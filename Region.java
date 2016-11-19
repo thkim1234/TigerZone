@@ -3,7 +3,7 @@ import java.util.*;
 public abstract class Region{
 
   private HashMap<Player,Integer> meeplesByPlayer;
-  private HashMap<Integer,Boolean> openPorts;
+  protected HashMap<Integer,Boolean> openPorts;
 
   public abstract void absorb(Region otherRegion);
 

@@ -14,11 +14,11 @@ public class RegionManager{
   }
 
   //update the regions array (corresponding to a slot) to reflect this placed tile
-  public void addRegionsBasedOnTile(Slot slot, Tile tile, int rotation){
+  public void addRegionsBasedOnTile(Slot slot, int slotIndex, Tile tile, int rotation){
     Region[] slotRegions = slot.getRegions();
 
     //make the potential new regions
-    RegionWithType[] newRegions = createRegions(tile);
+    RegionWithType[] newRegions = createRegions(tile, slotIndex);
 
     //iterate through the slot regions passed in
     for(int i = 0; i<slotRegions.length; i++){
@@ -77,7 +77,7 @@ public class RegionManager{
   }
 
   //this will be the conversion from a tile into a regions array
-  private RegionWithType[] createRegions(Tile t){
+  private RegionWithType[] createRegions(Tile t, int slotNum){
 
     //get the information about the regions based on the tile
     TileAttributes tileInfo = tileManager.getTileAttributes(t);
@@ -89,6 +89,8 @@ public class RegionManager{
       newRegions[i] = new RegionWithType(makeRegion(tileInfo.portTypes[i]), tileInfo.portTypes[i]);
     }
 
+    RegionWithType[] regionsByPort = new RegionWithType[12];
+
     //go back through and add adjacent fields and ports
     for(int i = 0; i<tileInfo.numRegions; i++){
 
@@ -99,11 +101,17 @@ public class RegionManager{
 
       //add port numbers for this region
       for(int port: tileInfo.ports[i]){
-        newRegions[i].region.addOpenPort(port);
+
+        //add port numbers for this region
+        newRegions[i].region.addOpenPort(port+100*slotNum);
+
+        //sort the regions by port
+        regionsByPort[port] = newRegions[i];
       }
+
     }
 
 
-    return newRegions;
+    return regionsByPort;
   }
 }

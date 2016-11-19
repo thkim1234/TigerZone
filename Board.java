@@ -14,6 +14,9 @@ public class Board{
   //Open locations for potential moves, updated whenever a new tile is placed
   private ArrayList<Integer> openLocations;
 
+  //effectively a map of regions
+  RegionManager regionManager;
+
   //Map of slot objects, stored by indices relative to the origin
   private SlotMap map;
 
@@ -27,16 +30,23 @@ public class Board{
     openLocations.add(CENTER*1001);
     map = new SlotMap();
     map.put(CENTER*1001, newSlot(CENTER*1001));
+    regionManager = new RegionManager();
   }
 
   //places the tile given the moveOption
   public void placeTile(Tile tile, MoveOption move){
 
+    //get the slot we're putting this in
+    Slot slot = map.get(move.location);
+
     //access the slot object at the given index, sets the tile within that slot object
-    map.get(move.location).setTile(tile,move.rotation);
+    slot.setTile(tile,move.rotation);
 
     //update openLocations to reflect the updated board
     addNewOptions(move.location);
+
+    //update the map of regions to reflect the new information
+    regionManager.addRegionsBasedOnTile(slot,move.location,tile,move.rotation);
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
