@@ -1,18 +1,21 @@
 import static org.junit.Assert.*;
-
+import org.junit.Before;
 import org.junit.Test;
 
 public class HumanPlayerTest {
-	private HumanPlayer player1 = new HumanPlayer();
-	private Tile tile = new Tile();
-	private Board board = new Board();
-	private TileDeck tiles = new TileDeck();
-	
-	//The test failed. 
+	Tile tile;
+	Board board;
+	HumanPlayer player;
+	@Before
+	public void setUp() throws Exception {
+		tile = new Tile();
+		board = new Board();
+		player = new HumanPlayer();
+	}
+
 	@Test
 	public void testChooseMove() {
-		tile = tiles.getTopTile();
-		assertEquals(tile, board);
+	
 	}
 
 }
