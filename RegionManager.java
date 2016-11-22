@@ -1,109 +1,106 @@
 import java.util.*;
 
 public class RegionManager{
-  ArrayList<Field> fields;
-  ArrayList<City> cities;
-  ArrayList<Road> roads;
-  TileManager tileManager;
+  HashMap<RegionContainer,Boolean> fields;
+  HashMap<RegionContainer,Boolean> cities;
+  HashMap<RegionContainer,Boolean> roads;
+  SlotMap slots;
 
-  public RegionManager(){
-    fields = new ArrayList<Field>();
-    cities = new ArrayList<City>();
-    roads = new ArrayList<Road>();
-    tileManager = new TileManager();
+  public RegionManager(SlotMap map){
+    fields = new HashMap<RegionContainer,Boolean>();
+    cities = new HashMap<RegionContainer,Boolean>();
+    roads = new HashMap<RegionContainer,Boolean>();
+    slots = map;
+
+    TileManager.init();
   }
 
   //update the regions array (corresponding to a slot) to reflect this placed tile
-  public void addRegionsBasedOnTile(Slot slot, int slotIndex, Tile tile, int rotation){
-    Region[] slotRegions = slot.getRegions();
+  public void addRegionsBasedOnTile(Tile tile, MoveOption move){
+
+    //get the slot's region information (by ports)
+    RegionContainer[] slotRegions = slots.get(move.location).getRegions();
 
     //make the potential new regions
-    RegionWithType[] newRegions = createRegions(tile, slotIndex);
+    RegionContainer[] newRegions = createRegions(tile);
+
+    Iterator<RegionContainer> newRegionsIt = (new RotatedIterator<RegionContainer>(newRegions,move.rotation)).iterator();
+
+    RegionContainer currentNewRegion;
 
     //iterate through the slot regions passed in
     for(int i = 0; i<slotRegions.length; i++){
 
-      //if there is no region already, add the new one to the appropriate list
-      if(slotRegions[i] == null){
+      currentNewRegion = newRegionsIt.next();
 
-        //set this region to the
-        slotRegions[i] = newRegions[(i+3*rotation)%12].region;
-        add(newRegions[(i+3*rotation)%12]);
+      //if there is no region to merge with, do so
+      if(slotRegions[i] != null){
+
+        //absorb the existing neighboring region
+        currentNewRegion.absorb(slotRegions[i]);
+
+        //replace the neighboring region with the newly merged region
+        slotRegions[i].replaceWith(currentNewRegion);
+
+        //erase old region from the list
+        getListByType(currentNewRegion.type).remove(slotRegions[i]);
+
+        //remove the port we linked through from the list of open ports
+        currentNewRegion.closePort(move.location*100+i);
 
       } else {
-        //this region exists, so absorb the new one created
-        slotRegions[i].absorb(newRegions[(i+3*rotation)%12].region);
+
+        //otherwise, open the port on the adjacent tile
+        currentNewRegion.addOpenPort(slots.getAdjKey(move.location,i/3)*100+oppositePort[i]);
       }
+
+      //set the region on the slot
+      slotRegions[i] = currentNewRegion;
+
+      //add the region to the lists
+      getListByType(currentNewRegion.type).put(currentNewRegion, true);
+
     }
   }
 
-  //hopefully self explanatory
-  private class RegionWithType{
-    Region region;
-    char type;
-    RegionWithType(Region region, char type){
-      this.region = region;
-      this.type = type;
-    }
-  }
-
-  //hopefully self explanatory
-  private void add(RegionWithType rwt){
-    switch(rwt.type){
-      case 'f':
-        fields.add((Field) rwt.region);
-      break;
-      case 'r':
-        roads.add((Road) rwt.region);
-      break;
-      case 'c':
-        cities.add((City) rwt.region);
-      break;
-    }
-  }
-
-  //just a nice lil PSF
-  private Region makeRegion(char type){
-    Region newRegion = new City();
+  private HashMap<RegionContainer,Boolean> getListByType(char type){
     switch(type){
-      case 'f':
-        newRegion = new Field();
-        break;
+      case 'g':
+        return fields;
       case 'r':
-        newRegion = new Road();
-        break;
+        return roads;
     }
-    return newRegion;
+    return cities;
   }
 
   //this will be the conversion from a tile into a regions array
-  private RegionWithType[] createRegions(Tile t, int slotNum){
+  private RegionContainer[] createRegions(Tile t){
 
     //get the information about the regions based on the tile
-    TileAttributes tileInfo = tileManager.getTileAttributes(t);
+    TileAttributes tileInfo = TileManager.getTileAttributes(t);
 
-    RegionWithType[] newRegions = new RegionWithType[tileInfo.numRegions];
+    //
+    RegionContainer[] newRegions = new RegionContainer[tileInfo.numRegions];
 
     //initialize the array of regions with the right types of region
     for(int i = 0; i<tileInfo.numRegions; i++){
-      newRegions[i] = new RegionWithType(makeRegion(tileInfo.portTypes[i]), tileInfo.portTypes[i]);
+      newRegions[i] = new RegionContainer(tileInfo.portTypes[i]);
     }
 
-    RegionWithType[] regionsByPort = new RegionWithType[12];
+    RegionContainer[] regionsByPort = new RegionContainer[12];
 
     //go back through and add adjacent fields and ports
     for(int i = 0; i<tileInfo.numRegions; i++){
 
       //add adjacent fields for this region
-      for(int fieldIndex: tileInfo.fields[i]){
-        newRegions[i].region.addAdjacent(newRegions[fieldIndex].region);
+      if (tileInfo.fields[i].length > 0) {
+        for (int fieldIndex : tileInfo.fields[i]) {
+          newRegions[i].addAdjacent(newRegions[fieldIndex]);
+        }
       }
 
-      //add port numbers for this region
+      //sort the regions by port
       for(int port: tileInfo.ports[i]){
-
-        //add port numbers for this region
-        newRegions[i].region.addOpenPort(port+100*slotNum);
 
         //sort the regions by port
         regionsByPort[port] = newRegions[i];
@@ -114,4 +111,12 @@ public class RegionManager{
 
     return regionsByPort;
   }
+
+  public String toString(){
+    return Integer.toString(fields.keySet().size())+" fields: \n" + fields.keySet().toString()+"\n"
+          + Integer.toString(cities.keySet().size())+" cities: \n" + cities.keySet().toString()+"\n"
+          + Integer.toString(roads.keySet().size())+" roads: \n" + roads.keySet().toString()+"\n";
+  }
+
+  private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};
 }

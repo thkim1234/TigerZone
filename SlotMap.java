@@ -7,16 +7,16 @@ class SlotMap extends HashMap<Integer,Slot>{
 
         switch (direction) {
             case 0:
-                tempKey = tempKey+1000;
-                break;
-            case 1:
                 tempKey = tempKey+1;
                 break;
+            case 1:
+                tempKey = tempKey+1000;
+                break;
             case 2:
-                tempKey = tempKey-1000;
+                tempKey = tempKey-1;
                 break;
             case 3:
-                tempKey = tempKey-1;
+                tempKey = tempKey-1000;
                 break;
             default:
                 break;

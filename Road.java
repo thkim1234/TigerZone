@@ -6,12 +6,9 @@ public class Road extends Region{
   protected HashMap<Field,Boolean> adjacentFields;
 
   public Road(){
-    openPorts = new HashMap<Integer,Boolean>();
+    super.init();
     slotsContained = new HashMap<Integer,Boolean>();
-  }
-
-  public void addPort(int port){
-    openPorts.put(port, true);
+    adjacentFields = new HashMap<Field,Boolean>();
   }
 
   public void absorb(Region otherRegion){
@@ -20,13 +17,19 @@ public class Road extends Region{
     slotsContained.putAll(otherRoad.slotsContained);
   }
 
-  public void closePort(int port){
-    openPorts.remove(port);
-  }
-
   public void addAdjacent(Region adjacentRegion){
     adjacentFields.put((Field) adjacentRegion, true);
   }
 
+  public String toString(){
+    String s = super.toString();
+    Iterator<Field> it = adjacentFields.keySet().iterator();
+    s += "adjacent fields: {";
+    while(it.hasNext()){
+      s += it.next();
+    }
+
+    return s + "}\n";
+  }
 
 }

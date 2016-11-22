@@ -11,13 +11,13 @@ public class Slot{
   private int meeplePlacement; //to be fixed later
   private Tile tile; //the tile placed in this slot
   protected SlotConnection[] connections; //the side types of this slot (set when tile is placed OR when this is connected to another tile)
-  protected Region[] regions;
+  protected RegionContainer[] regions;
 
   //initializes empty Slot with blank connections and no meeple
   public Slot(){
       meeplePlacement = 0;
       connections = new SlotConnection[NUM_SIDES];
-      regions = new Region[12];
+      regions = new RegionContainer[12];
       for (int i = 0; i < NUM_SIDES; i++) {
           connections[i] = new SlotConnection(i);
       }
@@ -77,9 +77,9 @@ public class Slot{
   }
 
   //return the distinct regions coming into this slot
-  public ArrayList<Region> getConnectedRegions(){
+  public ArrayList<RegionContainer> getConnectedRegions(){
     boolean repeat;
-    ArrayList<Region> connectedRegions = new ArrayList<Region>();
+    ArrayList<RegionContainer> connectedRegions = new ArrayList<RegionContainer>();
     for(int i = 0; i<regions.length; i++){
       if(regions[i] != null){
         repeat = false;
@@ -92,7 +92,7 @@ public class Slot{
     return connectedRegions;
   }
 
-  public Region[] getRegions(){
+  public RegionContainer[] getRegions(){
     return regions;
   }
   //to be changed later
@@ -110,5 +110,5 @@ public class Slot{
 
   }
 
-  private int[] oppositeRegion = {8,7,6,12,11,10,2,1,0,5,4,3};
+  private static int[] oppositeRegion = {8,7,6,11,10,9,2,1,0,5,4,3};
 }

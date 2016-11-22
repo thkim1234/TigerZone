@@ -5,8 +5,8 @@ public class City extends Region{
   protected HashMap<Integer, Boolean> slotsContained;
 
   public City(){
+    super.init();
     adjacentFields = new HashMap<Field, Boolean>();
-    openPorts = new HashMap<Integer,Boolean>();
     slotsContained = new HashMap<Integer,Boolean>();
   }
 
@@ -33,6 +33,17 @@ public class City extends Region{
 
   public void addAdjacent(Region adjacentRegion){
     adjacentFields.put((Field) adjacentRegion, true);
+  }
+
+  public String toString(){
+    String s = super.toString();
+    Iterator<Field> it = adjacentFields.keySet().iterator();
+    s += "  adjacent fields: ";
+    while(it.hasNext()){
+      s += "    "+ it.next();
+    }
+
+    return s + "\n";
   }
 
 

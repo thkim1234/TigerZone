@@ -3,6 +3,7 @@ public class Field extends Region{
   protected int completedCities;
 
   public Field(){
+    super.init();
     completedCities = 0;
   }
 

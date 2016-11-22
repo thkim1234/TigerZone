@@ -30,7 +30,7 @@ public class Board{
     openLocations.add(CENTER*1001);
     map = new SlotMap();
     map.put(CENTER*1001, newSlot(CENTER*1001));
-    regionManager = new RegionManager();
+    regionManager = new RegionManager(map);
   }
 
   //places the tile given the moveOption
@@ -46,7 +46,7 @@ public class Board{
     addNewOptions(move.location);
 
     //update the map of regions to reflect the new information
-    regionManager.addRegionsBasedOnTile(slot,move.location,tile,move.rotation);
+    regionManager.addRegionsBasedOnTile(tile,move);
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
@@ -124,13 +124,15 @@ public class Board{
   }
 
   public String toString() {
-      String boardString = "";
+      String boardString = "LOCATIONS: \n";
       Iterator<Integer> iter = map.keySet().iterator();
       int current;
       while(iter.hasNext()) {
           current = iter.next();
           boardString += (current/1000-CENTER)+" "+(current%1000-CENTER)+"    "+map.get(current) + "\n";
       }
+
+      boardString += "\n REGIONS: \n" + regionManager;
 
       return boardString;
   }
