@@ -6,8 +6,14 @@ import java.util.*;
  */
 public class HumanPlayer extends Player {
 
+    private int score;
+
     public HumanPlayer() {
 
+    }
+
+    public void addScore(int score){
+        this.score += score;
     }
 
     @Override

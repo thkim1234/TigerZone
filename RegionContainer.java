@@ -48,10 +48,13 @@ public class RegionContainer{
       break;
       case 'c':
         this.region = new City();
+      break;
+      case 'm':
+        this.region = new Monastery();
     }
   }
 
   public String toString(){
-    return region.toString();
+    return Character.toString(type) + ": "+ region.toString();
   }
 }

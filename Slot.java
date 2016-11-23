@@ -110,5 +110,9 @@ public class Slot{
 
   }
 
+  public boolean hasTile(){
+      return tile != null;
+  }
+
   private static int[] oppositeRegion = {8,7,6,11,10,9,2,1,0,5,4,3};
 }

@@ -6,4 +6,6 @@ public abstract class Player {
 
   public abstract int chooseMeeplePlacement();
 
+  public abstract void addScore(int score);
+
 }

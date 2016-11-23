@@ -4,12 +4,16 @@ public class RegionManager{
   HashMap<RegionContainer,Boolean> fields;
   HashMap<RegionContainer,Boolean> cities;
   HashMap<RegionContainer,Boolean> roads;
+  HashMap<RegionContainer,Boolean> monasteries;
+  HashMap<Integer, ArrayList<RegionContainer>> slotListeners;
   SlotMap slots;
 
   public RegionManager(SlotMap map){
     fields = new HashMap<RegionContainer,Boolean>();
     cities = new HashMap<RegionContainer,Boolean>();
     roads = new HashMap<RegionContainer,Boolean>();
+    monasteries = new HashMap<RegionContainer,Boolean>();
+    slotListeners = new HashMap<Integer,ArrayList<RegionContainer>>();
     slots = map;
 
     TileManager.init();
@@ -22,7 +26,7 @@ public class RegionManager{
     RegionContainer[] slotRegions = slots.get(move.location).getRegions();
 
     //make the potential new regions
-    RegionContainer[] newRegions = createRegions(tile);
+    RegionContainer[] newRegions = createRegions(tile, move.location);
 
     Iterator<RegionContainer> newRegionsIt = (new RotatedIterator<RegionContainer>(newRegions,move.rotation)).iterator();
 
@@ -61,6 +65,8 @@ public class RegionManager{
       getListByType(currentNewRegion.type).put(currentNewRegion, true);
 
     }
+
+    notifyPlaced(move.location);
   }
 
   private HashMap<RegionContainer,Boolean> getListByType(char type){
@@ -69,12 +75,14 @@ public class RegionManager{
         return fields;
       case 'r':
         return roads;
+      case 'm':
+        return monasteries;
     }
     return cities;
   }
 
   //this will be the conversion from a tile into a regions array
-  private RegionContainer[] createRegions(Tile t){
+  private RegionContainer[] createRegions(Tile t, int location){
 
     //get the information about the regions based on the tile
     TileAttributes tileInfo = TileManager.getTileAttributes(t);
@@ -84,7 +92,8 @@ public class RegionManager{
 
     //initialize the array of regions with the right types of region
     for(int i = 0; i<tileInfo.numRegions; i++){
-      newRegions[i] = new RegionContainer(tileInfo.portTypes[i]);
+
+        newRegions[i] = new RegionContainer(tileInfo.portTypes[i]);
     }
 
     RegionContainer[] regionsByPort = new RegionContainer[12];
@@ -102,21 +111,56 @@ public class RegionManager{
       //sort the regions by port
       for(int port: tileInfo.ports[i]){
 
-        //sort the regions by port
-        regionsByPort[port] = newRegions[i];
+        //if it's in the center, initialize ports for neighboring tiles
+        if(port == -1){
+          initCenterRegion(newRegions[i], location);
+        } else {
+          //sort the regions by port
+          regionsByPort[port] = newRegions[i];
+        }
       }
 
     }
 
-
     return regionsByPort;
   }
+
+  //add all ports in tiles surrounding this region
+  private void initCenterRegion(RegionContainer centerRegion, int location){
+    for(int neighbor: addForNeighbors){
+      if(slots.containsKey(location+neighbor) && slots.get(location+neighbor).hasTile()){
+        centerRegion.closePort(1);
+      } else {
+        if(slotListeners.containsKey(location+neighbor)){
+          slotListeners.get(location+neighbor).add(centerRegion);
+        } else {
+          ArrayList<RegionContainer> newList = new ArrayList<RegionContainer>();
+          newList.add(centerRegion);
+          slotListeners.put(location+neighbor, newList);
+        }
+      }
+    }
+    getListByType(centerRegion.type).put(centerRegion, true);
+  }
+
+  private void notifyPlaced(int slotLocation){
+    if(slotListeners.containsKey(slotLocation)){
+      ArrayList<RegionContainer> observingRegions = slotListeners.get(slotLocation);
+      for(RegionContainer region: observingRegions){
+        region.closePort(1);
+      }
+    }
+  }
+
 
   public String toString(){
     return Integer.toString(fields.keySet().size())+" fields: \n" + fields.keySet().toString()+"\n"
           + Integer.toString(cities.keySet().size())+" cities: \n" + cities.keySet().toString()+"\n"
-          + Integer.toString(roads.keySet().size())+" roads: \n" + roads.keySet().toString()+"\n";
+          + Integer.toString(roads.keySet().size())+" roads: \n" + roads.keySet().toString()+"\n"
+          + Integer.toString(monasteries.keySet().size())+" monasteries: \n" + monasteries.keySet().toString()+"\n";
   }
 
   private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};
+  private int[] addForNeighbors = {-1001,-1000,-999,-1,1,999,1000,1001};
+
 }
