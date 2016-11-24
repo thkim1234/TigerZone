@@ -43,7 +43,7 @@ public class Road extends Region{
     if(liveAnimals < 0){
       liveAnimals = 0;
     }
-    return slotsContained.size()*(1+liveAnimals);
+    return slotsContained.size()+(1+liveAnimals);
   }
 
   //observer pattern!

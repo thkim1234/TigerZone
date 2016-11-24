@@ -71,11 +71,11 @@ public class RegionManager{
 
   private HashMap<RegionContainer,Boolean> getListByType(char type){
     switch(type){
-      case 'g':
+      case 'J':
         return fields;
-      case 'r':
+      case 'T':
         return roads;
-      case 'm':
+      case 'L':
         return monasteries;
     }
     return cities;

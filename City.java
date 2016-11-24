@@ -47,7 +47,7 @@ public class City extends Region{
       uniqueLiveAnimals = 0;
     }
     int factor = (super.openPorts.size() == 0) ? 2 : 1;
-    return factor*slotsContained.size()*(1+uniqueLiveAnimals);
+    return factor*slotsContained.size()+(1+uniqueLiveAnimals);
   }
 
   public void addAdjacent(Region adjacentRegion){

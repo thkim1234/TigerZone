@@ -40,16 +40,16 @@ public class RegionContainer{
   public RegionContainer(char type){
     this.type = type;
     switch(type){
-      case 'g':
+      case 'J':
         this.region = new Field();
       break;
-      case 'r':
+      case 'T':
         this.region = new Road();
       break;
-      case 'c':
+      case 'L':
         this.region = new City();
       break;
-      case 'm':
+      case 'X':
         this.region = new Monastery();
     }
   }
