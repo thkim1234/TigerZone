@@ -15,7 +15,7 @@ public class HumanPlayerTest {
 
 	@Test
 	public void testChooseMove() {
-	
+
 	}
 
 }

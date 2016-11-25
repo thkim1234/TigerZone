@@ -69,6 +69,6 @@ public class BoardTest {
         assertTrue(!listBefore.equals(listAfter));
     }
 
-    
+
     //Hold on testing meeple placement until implemented.
 }
