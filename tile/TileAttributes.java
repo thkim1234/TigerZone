@@ -5,4 +5,5 @@ public class TileAttributes{
   public char[] portTypes;
   public int[][] jungles;
   public int[][] ports;
+  public int[][] nodes;
 }

@@ -18,7 +18,7 @@ public class Tile {
       }
 
       centerType = typeCode.charAt(i);
-      shieldLoc = typeCode.charAt(i+1);
+      //shieldLoc = typeCode.charAt(i+1);
 
     }
 
@@ -28,7 +28,7 @@ public class Tile {
             returnString += this.sideTypes[i];
         }
         returnString += this.centerType;
-        returnString += this.shieldLoc;
+        //returnString += this.shieldLoc;
 
         return returnString;
     }

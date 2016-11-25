@@ -85,11 +85,11 @@ public class RegionManager{
 
   private HashMap<RegionContainer,Boolean> getListByType(char type){
     switch(type){
-      case 'g':
+      case 'J':
         return jungles;
-      case 'r':
+      case 'T':
         return trails;
-      case 'm':
+      case 'X':
         return dens;
     }
     return lakes;

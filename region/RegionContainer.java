@@ -50,7 +50,7 @@ public class RegionContainer{
       case 'L':
         this.region = new Lake();
       break;
-      case 'D':
+      case 'X':
         this.region = new Den();
     }
   }
