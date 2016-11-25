@@ -36,7 +36,7 @@ public class TileManager{
     public static String[] tileTypes = {"JJJJ-", "JJJJX", "JJTJX", "TTTT-", "TJTJ-", "TJJT-", "TJTT-", "LLLL-", "JLLL-", "LLJJ-", "JLJL-", "LJLJ-", "LJJJ-", "JLLJ-", "TLJT-", "TLJTP", "JLTT-", "JLTTB", "TLTJ-", "TLTJD", "TLLL-", "TLTT-", "TLTTP", "TLLT-", "TLLTB", "LJTJ-", "LJTJD","TLLLC"};
 //public static int[] numType = {1,4,2,1,8,9,4,1,4,5,3,3,5,2,1,2,1,2,1,2,3,1,2,3,2,1,2,2};
     public static int[] numReg =  {1,2,3,8,3,3,6,1,2,2,3,3,2,3,4,4,4,4,4,4,4,7,7,4,4,4,4,4};
-    public static String[] portType = {"J","JX","JXT","JTJTJTJT","JTJ","JTJ","JTJTJT","L","JL","LJ","JLJ","LJL","LJ","JLL","JTJL","JTJL","JLTJ","JLTL","JTJL","JTJL","JTJL","JTJLTJT","JTJLTJT","JTJL","JTJL","LJTJ","LJTJ","JTJL"};
+    public static String[] portType = {"J","JX","JXT","JTJTJTJT","JTJ","JTJ","JTJTJT","L","JL","LJ","JLJ","LJL","LJ","JLL","JTJL","JTJL","JLTJ","JLTJ","JTJL","JTJL","JTJL","JTJLTJT","JTJLTJT","JTJL","JTJL","LJTJ","LJTJ","JTJL"};
 
     public static int[][][] junglesAdj = {
     /* tile 1*/   { {} },
@@ -55,8 +55,8 @@ public class TileManager{
     /* tile 14*/  { {},{0},{0} },
     /* tile 15*/  { {},{0,2},{},{2} },
     /* tile 16*/  { {},{0,2},{},{2} },
-    /* tile 17*/  { {},{0},{},{0,3} },
-    /* tile 18*/  { {},{0},{},{0,3} },
+    /* tile 17*/  { {},{0},{0,3},{} },
+    /* tile 18*/  { {},{0},{0,3},{} },
     /* tile 19*/  { {},{0,2},{},{2} },
     /* tile 20*/  { {},{0,2},{},{2} },
     /* tile 21*/  { {},{0,2},{},{0,2} },
@@ -91,8 +91,8 @@ public class TileManager{
     /* tile 14*/  { {0,1,2,9,10,11},{3,4,5},{6,7,8} },
     /* tile 15*/  { {0,11},{1,10},{2,6,8,9},{3,4,5} },
     /* tile 16*/  { {0,11},{1,10},{2,6,8,9},{3,4,5} },
-    /* tile 17*/  { {0,1,2,6},{7,10},{8,9},{3,4,5} },
-    /* tile 18*/  { {0,1,2,6},{7,10},{8,9},{3,4,5} },
+    /* tile 17*/  { {0,1,2,6,11},{3,4,5},{7,10},{8,9} },
+    /* tile 18*/  { {0,1,2,6,11},{3,4,5},{7,10},{8,9} },
     /* tile 19*/  { {0,8,9,10,11},{1,7},{2,6},{3,4,5} },
     /* tile 20*/  { {0,8,9,10,11},{1,7},{2,6},{3,4,5} },
     /* tile 21*/  { {0},{1},{2},{3,4,5,6,7,8,9,10,11} },

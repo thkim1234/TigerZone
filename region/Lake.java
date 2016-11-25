@@ -53,6 +53,11 @@ public class Lake extends Region{
   }
 
   public void addAdjacent(Region adjacentRegion){
+    try{
+      adjacentJungles.put((Jungle) adjacentRegion, true);
+    } catch (Exception e){
+      //if
+    }
     adjacentJungles.put((Jungle) adjacentRegion, true);
   }
 

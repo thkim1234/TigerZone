@@ -12,6 +12,8 @@ public class GameTrail extends Region{
     super.init();
     slotsContained = new HashMap<Integer,Boolean>();
     adjacentJungles = new HashMap<Jungle,Boolean>();
+    animals = new ArrayList<Character>();
+
   }
 
   //absorb another region
@@ -19,6 +21,7 @@ public class GameTrail extends Region{
     super.absorb(otherRegion);
     GameTrail otherGameTrail = (GameTrail) otherRegion;
     slotsContained.putAll(otherGameTrail.slotsContained);
+    animals.addAll(otherGameTrail.animals);
   }
 
   public void addCrocodile(){

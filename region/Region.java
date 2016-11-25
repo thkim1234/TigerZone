@@ -31,6 +31,11 @@ public abstract class Region{
 
   public void score(){
 
+    //if there are no meeples, we don't care
+    if(meeplesByPlayer.size() == 0){
+      return;
+    }
+
     //find the player with the most meeples in the area
     int maxOfMeeplesByPlayer = 0;
     ArrayList<Player> playersWithMax = new ArrayList<Player>();

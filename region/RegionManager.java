@@ -60,9 +60,6 @@ public class RegionManager{
         //replace the neighboring region with the newly merged region
         slotRegions[i].replaceWith(currentNewRegion);
 
-        //erase old region from the list
-        getListByType(currentNewRegion.type).remove(slotRegions[i]);
-
         //remove the port we linked through from the list of open ports
         currentNewRegion.closePort(move.location*100+i);
 
