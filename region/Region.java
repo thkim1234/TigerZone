@@ -1,7 +1,11 @@
+package region;
 
 import java.util.*;
+import gameplay.Player;
 
 public abstract class Region{
+
+  private int id;
 
   protected HashMap<Player,Integer> meeplesByPlayer;
   protected HashMap<Integer,Boolean> openPorts;
@@ -20,6 +24,7 @@ public abstract class Region{
   }
 
   public void init(){
+    id = RegionManager.getId();
     openPorts = new HashMap<Integer, Boolean>();
     meeplesByPlayer = new HashMap<Player, Integer>();
   }
@@ -70,23 +75,24 @@ public abstract class Region{
   }
 
   public void setSlot(int center){
-    //by default do nothing, I added this for the monastery
+    //by default do nothing, I added this for the den
   }
 
   //for template method - yippee!
   protected abstract int totalScore();
 
   public String toString(){
-    Iterator<Integer> it = openPorts.keySet().iterator();
-    String s = "open ports: ";
-    int current;
-    while(it.hasNext()){
-      current = it.next();
-      s += "[ "+(current/(100000)-72)+", "+((current%100000)/100-72)+" -- "+(current%100)+"]";
-    }
-    return s + "  ";
-          // "cities: \n" + cities.toString()+"\n"
-          // "roads: \n" + roads.toString()+"\n"
+//    Iterator<Integer> it = openPorts.keySet().iterator();
+//    String s = "open ports: ";
+//    int current;
+//    while(it.hasNext()){
+//      current = it.next();
+//      s += "[ "+(current/(100000)-72)+", "+((current%100000)/100-72)+" -- "+(current%100)+"]";
+//    }
+//    return s + "  ";
+//          // "lakes: \n" + lakes.toString()+"\n"
+//          // "trails: \n" + trails.toString()+"\n"
+      return Integer.toString(id);
   }
 
 }

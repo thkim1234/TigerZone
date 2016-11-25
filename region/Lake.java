@@ -1,14 +1,16 @@
+package region;
+
 import java.util.*;
 
-public class City extends Region{
-  protected HashMap<Field,Boolean> adjacentFields;
+public class Lake extends Region{
+  protected HashMap<Jungle,Boolean> adjacentJungles;
   protected HashMap<Integer, Boolean> slotsContained;
   protected HashMap<Character, Boolean> animals;
   int crocodiles;
 
-  public City(){
+  public Lake(){
     super.init();
-    adjacentFields = new HashMap<Field, Boolean>();
+    adjacentJungles = new HashMap<Jungle, Boolean>();
     slotsContained = new HashMap<Integer,Boolean>();
     animals = new HashMap<Character, Boolean>();
     crocodiles = 0;
@@ -20,9 +22,9 @@ public class City extends Region{
 
   public void absorb(Region otherRegion){
     super.absorb(otherRegion);
-    City otherCity = (City) otherRegion;
-    slotsContained.putAll(otherCity.slotsContained);
-    adjacentFields.putAll(otherCity.adjacentFields);
+    Lake otherLake = (Lake) otherRegion;
+    slotsContained.putAll(otherLake.slotsContained);
+    adjacentJungles.putAll(otherLake.adjacentJungles);
   }
 
   public void addAnimal(char c){ animals.put(c, true); }
@@ -35,9 +37,9 @@ public class City extends Region{
   }
 
   private void notifyComplete(){
-    Set<Field> adjFields = adjacentFields.keySet();
-    for(Field field: adjFields){
-      field.addCompleteCity(this);
+    Set<Jungle> adjJungles = adjacentJungles.keySet();
+    for(Jungle jungle : adjJungles){
+      jungle.addCompleteLake(this);
     }
   }
 
@@ -51,19 +53,19 @@ public class City extends Region{
   }
 
   public void addAdjacent(Region adjacentRegion){
-    adjacentFields.put((Field) adjacentRegion, true);
+    adjacentJungles.put((Jungle) adjacentRegion, true);
   }
 
-  public String toString(){
-    String s = super.toString();
-    Iterator<Field> it = adjacentFields.keySet().iterator();
-    s += "  adjacent fields: ";
-    while(it.hasNext()){
-      s += "  "+ it.next();
+    public String toString(){
+        String s = super.toString();
+        Iterator<Jungle> it = adjacentJungles.keySet().iterator();
+        s += " adjacent jungles: {";
+        while(it.hasNext()){
+            s += it.next()+",";
+        }
+
+        return s + "}\n";
     }
-
-    return s + "\n";
-  }
 
 
 

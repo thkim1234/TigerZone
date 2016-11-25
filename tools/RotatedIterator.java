@@ -1,3 +1,5 @@
+package tools;
+
 import java.util.*;
 
 public class RotatedIterator<T> implements Iterable<T>{

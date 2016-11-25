@@ -1,18 +1,32 @@
+package region;
+
+import board.SlotMap;
+import tile.*;
+import gameplay.*;
+import tools.*;
+import region.*;
+
 import java.util.*;
 
 public class RegionManager{
-  HashMap<RegionContainer,Boolean> fields;
-  HashMap<RegionContainer,Boolean> cities;
-  HashMap<RegionContainer,Boolean> roads;
-  HashMap<RegionContainer,Boolean> monasteries;
+  HashMap<RegionContainer,Boolean> jungles;
+  HashMap<RegionContainer,Boolean> lakes;
+  HashMap<RegionContainer,Boolean> trails;
+  HashMap<RegionContainer,Boolean> dens;
   HashMap<Integer, ArrayList<RegionContainer>> slotListeners;
   SlotMap slots;
 
+  private static int id = 0;
+
+  public static int getId(){
+    return id++;
+  }
+
   public RegionManager(SlotMap map){
-    fields = new HashMap<RegionContainer,Boolean>();
-    cities = new HashMap<RegionContainer,Boolean>();
-    roads = new HashMap<RegionContainer,Boolean>();
-    monasteries = new HashMap<RegionContainer,Boolean>();
+    jungles = new HashMap<RegionContainer,Boolean>();
+    lakes = new HashMap<RegionContainer,Boolean>();
+    trails = new HashMap<RegionContainer,Boolean>();
+    dens = new HashMap<RegionContainer,Boolean>();
     slotListeners = new HashMap<Integer,ArrayList<RegionContainer>>();
     slots = map;
 
@@ -28,7 +42,7 @@ public class RegionManager{
     //make the potential new regions
     RegionContainer[] newRegions = createRegions(tile, move.location);
 
-    Iterator<RegionContainer> newRegionsIt = (new RotatedIterator<RegionContainer>(newRegions,move.rotation)).iterator();
+    Iterator<RegionContainer> newRegionsIt = (new RotatedIterator<RegionContainer>(newRegions,3*move.rotation)).iterator();
 
     RegionContainer currentNewRegion;
 
@@ -56,13 +70,13 @@ public class RegionManager{
 
         //otherwise, open the port on the adjacent tile
         currentNewRegion.addOpenPort(slots.getAdjKey(move.location,i/3)*100+oppositePort[i]);
+
+        //add the region to the lists
+        getListByType(currentNewRegion.type).put(currentNewRegion, true);
       }
 
       //set the region on the slot
-      slotRegions[i] = currentNewRegion;
-
-      //add the region to the lists
-      getListByType(currentNewRegion.type).put(currentNewRegion, true);
+      slots.get(move.location).setRegion(i,currentNewRegion);
 
     }
 
@@ -72,13 +86,13 @@ public class RegionManager{
   private HashMap<RegionContainer,Boolean> getListByType(char type){
     switch(type){
       case 'g':
-        return fields;
+        return jungles;
       case 'r':
-        return roads;
+        return trails;
       case 'm':
-        return monasteries;
+        return dens;
     }
-    return cities;
+    return lakes;
   }
 
   //this will be the conversion from a tile into a regions array
@@ -98,13 +112,13 @@ public class RegionManager{
 
     RegionContainer[] regionsByPort = new RegionContainer[12];
 
-    //go back through and add adjacent fields and ports
+    //go back through and add adjacent jungles and ports
     for(int i = 0; i<tileInfo.numRegions; i++){
 
-      //add adjacent fields for this region
-      if (tileInfo.fields[i].length > 0) {
-        for (int fieldIndex : tileInfo.fields[i]) {
-          newRegions[i].addAdjacent(newRegions[fieldIndex]);
+      //add adjacent jungles for this region
+      if (tileInfo.jungles[i].length > 0) {
+        for (int jungleIndex : tileInfo.jungles[i]) {
+          newRegions[i].addAdjacent(newRegions[jungleIndex]);
         }
       }
 
@@ -154,10 +168,10 @@ public class RegionManager{
 
 
   public String toString(){
-    return Integer.toString(fields.keySet().size())+" fields: \n" + fields.keySet().toString()+"\n"
-          + Integer.toString(cities.keySet().size())+" cities: \n" + cities.keySet().toString()+"\n"
-          + Integer.toString(roads.keySet().size())+" roads: \n" + roads.keySet().toString()+"\n"
-          + Integer.toString(monasteries.keySet().size())+" monasteries: \n" + monasteries.keySet().toString()+"\n";
+    return Integer.toString(jungles.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n"
+          + Integer.toString(lakes.keySet().size())+" lakes: \n" + lakes.keySet().toString()+"\n"
+          + Integer.toString(trails.keySet().size())+" trails: \n" + trails.keySet().toString()+"\n"
+          + Integer.toString(dens.keySet().size())+" dens: \n" + dens.keySet().toString()+"\n";
   }
 
   private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};

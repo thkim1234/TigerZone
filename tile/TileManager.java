@@ -1,6 +1,8 @@
+package tile;
+
 import java.util.*;
 
-class TileManager{
+public class TileManager{
 
   private static HashMap<String,Integer> tilesToIndices;
 
@@ -16,7 +18,7 @@ class TileManager{
     TileAttributes tileAttributes = new TileAttributes();
     tileAttributes.numRegions = numReg[index];
     tileAttributes.portTypes = portType[index].toCharArray();
-    tileAttributes.fields = fieldsAdj[index];
+    tileAttributes.jungles = junglesAdj[index];
     tileAttributes.ports = portNum[index];
     return tileAttributes;
   }
@@ -28,9 +30,9 @@ class TileManager{
   public static String[] tileTypes = {"ggggg0", "ggggm0", "ggrgm0", "rrrrr0", "rgrgr0", "rggrg0", "rgrrr0", "ccccc0", "gcccc0", "ccggg0", "gcgcc0", "cgcgg0", "cgggg0", "gccgg0", "rcgrg0", "rcgrg2", "gcrrg0", "gcrrg3", "rcrgr0", "rcrgr1", "rcccc0", "rcrrr0", "rcrrr2", "rccrg0", "rccrg3", "cgrgr0", "cgrgr1"};
   //public static int[] numType = {1,4,2,1,8,9,4,1,4,5,3,3,5,2,1,2,1,2,1,2,3,1,2,3,2,1,2};
   public static int[] numReg =  {1,2,3,8,3,3,6,1,2,2,3,3,2,3,4,4,4,4,4,4,4,7,7,4,4,4,4};
-  //don't forget int id field, which is just their ordering/index
+  //don't forget int id jungle, which is just their ordering/index
   public static String[] portType = {"g","gm","gmr","grgrgrgr","grg","grg","grgrgr","c","gc","cg","gcg","cgc","cg","gcc","grgc","grgc","gcrg","gcrc","grgc","grgc","grgc","grgcrgr","grgcrgr","grgc","grgc","cgrg","cgrg"};
-  public static int[][][] fieldsAdj = {
+  public static int[][][] junglesAdj = {
     /* tile 1*/   { {} },
     /* tile 2*/   { {},{0} },
     /* tile 3*/   { {},{0},{0} },
@@ -60,8 +62,8 @@ class TileManager{
     /* tile 27*/  { {1,3},{},{1,3},{} }
   };
 
-  // fields is for cities and monastaries (lakes and dens) to keep track of which ones to notify when they are completed.
-  // 0 indicates that they either do not have an adjacent field, or they are not applicable
+  // jungles is for lakes and monastaries (lakes and dens) to keep track of which ones to notify when they are completed.
+  // 0 indicates that they either do not have an adjacent jungle, or they are not applicable
 
 
 

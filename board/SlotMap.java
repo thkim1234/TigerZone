@@ -1,6 +1,10 @@
+package board;
+
+import board.Slot;
+
 import java.util.*;
 
-class SlotMap extends HashMap<Integer,Slot>{
+public class SlotMap extends HashMap<Integer, Slot>{
 
     public int getAdjKey(int key, int direction) {
         int tempKey = key;

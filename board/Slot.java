@@ -1,4 +1,8 @@
+package board;
+
 import java.util.*;
+import tile.*;
+import region.*;
 
 /*Manages all of the information relevant to a given board location
 includes:
@@ -108,6 +112,10 @@ public class Slot{
 
       return (this.tile != null)?("tile: "+this.tile):"(empty)";
 
+  }
+
+  public void setRegion(int index, RegionContainer region){
+      regions[index] = region;
   }
 
   public boolean hasTile(){

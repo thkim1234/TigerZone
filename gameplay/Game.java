@@ -1,3 +1,9 @@
+package gameplay;
+
+import tile.Tile;
+import tile.TileDeck;
+import board.*;
+
 import java.util.*;
 
 
@@ -31,7 +37,7 @@ public class Game{
     NUM_PLAYERS = this.players.size();
 
     //place the first tile at the origin
-    //board.placeTile(tiles.getTopTile(),new MoveOption(Board.CENTER*1001,0));
+    //board.placeTile(tiles.getTopTile(),new gameplay.MoveOption(Board.CENTER*1001,0));
 
     //set the current player to the first of the given players
     currentPlayer = 0;

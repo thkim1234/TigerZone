@@ -1,23 +1,24 @@
+package region;
+
 import java.util.*;
 
-public class Road extends Region{
-  protected HashMap<Integer, Boolean> openPorts;
+public class GameTrail extends Region{
   protected HashMap<Integer, Boolean> slotsContained;
-  protected HashMap<Field,Boolean> adjacentFields;
+  protected HashMap<Jungle,Boolean> adjacentJungles;
   protected ArrayList<Character> animals;
   protected int crocodiles;
 
-  public Road(){
+  public GameTrail(){
     super.init();
     slotsContained = new HashMap<Integer,Boolean>();
-    adjacentFields = new HashMap<Field,Boolean>();
+    adjacentJungles = new HashMap<Jungle,Boolean>();
   }
 
   //absorb another region
   public void absorb(Region otherRegion){
     super.absorb(otherRegion);
-    Road otherRoad = (Road) otherRegion;
-    slotsContained.putAll(otherRoad.slotsContained);
+    GameTrail otherGameTrail = (GameTrail) otherRegion;
+    slotsContained.putAll(otherGameTrail.slotsContained);
   }
 
   public void addCrocodile(){
@@ -28,9 +29,9 @@ public class Road extends Region{
   //remove the specified port from the list of complete ports
   public void closePort(int port){
     super.closePort(port);
-    if(openPorts.isEmpty()){
+    if(super.openPorts.isEmpty()){
       super.score();
-      //notifyComplete(); commented this out because we don't care about completed roads anmore
+      //notifyComplete(); commented this out because we don't care about completed trails anmore
     }
   }
 
@@ -47,25 +48,25 @@ public class Road extends Region{
   }
 
   //observer pattern!
-  //tell all the adjacent fields that this city completed
+  //tell all the adjacent jungles that this lake completed
   private void notifyComplete(){
-    Set<Field> adjFields = adjacentFields.keySet();
-    for(Field field: adjFields){
-      field.addCompleteRoad(this);
+    Set<Jungle> adjJungles = adjacentJungles.keySet();
+    for(Jungle jungle : adjJungles){
+      jungle.addCompleteTrail(this);
     }
   }
 
-  //add an adjacent field (for later notification)
+  //add an adjacent jungle (for later notification)
   public void addAdjacent(Region adjacentRegion){
-    adjacentFields.put((Field) adjacentRegion, true);
+    adjacentJungles.put((Jungle) adjacentRegion, true);
   }
 
   public String toString(){
     String s = super.toString();
-    Iterator<Field> it = adjacentFields.keySet().iterator();
-    s += "adjacent fields: {";
+    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
+    s += " adjacent jungles: {";
     while(it.hasNext()){
-      s += it.next();
+      s += it.next()+",";
     }
 
     return s + "}\n";

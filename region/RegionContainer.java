@@ -1,7 +1,8 @@
-/* forwards all requests to the region objects
+package region;/* forwards all requests to the region objects
 purpose of this class is to allow for replacement
 of objects while making sure old references
 reflect the changed object*/
+import gameplay.Player;
 
 public class RegionContainer{
 
@@ -40,21 +41,21 @@ public class RegionContainer{
   public RegionContainer(char type){
     this.type = type;
     switch(type){
-      case 'g':
-        this.region = new Field();
+      case 'J':
+        this.region = new Jungle();
       break;
-      case 'r':
-        this.region = new Road();
+      case 'T':
+        this.region = new GameTrail();
       break;
-      case 'c':
-        this.region = new City();
+      case 'L':
+        this.region = new Lake();
       break;
-      case 'm':
-        this.region = new Monastery();
+      case 'D':
+        this.region = new Den();
     }
   }
 
   public String toString(){
-    return Character.toString(type) + ": "+ region.toString();
+    return Character.toString(type)+ region.toString();
   }
 }

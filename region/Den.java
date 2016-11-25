@@ -1,13 +1,15 @@
+package region;
+
 import java.util.*;
 
-public class Monastery extends Region{
+public class Den extends Region{
 
     int openPortCount;
-    protected HashMap<Field,Boolean> adjacentFields;
+    protected HashMap<Jungle,Boolean> adjacentJungles;
 
-    public Monastery(){
+    public Den(){
         super.init();
-        adjacentFields = new HashMap<Field,Boolean>();
+        adjacentJungles = new HashMap<Jungle,Boolean>();
         openPortCount = 8;
     }
 
@@ -19,15 +21,15 @@ public class Monastery extends Region{
         }
     }
 
-    //add an adjacent field (for later notification)
+    //add an adjacent jungle (for later notification)
     public void addAdjacent(Region adjacentRegion) {
-        adjacentFields.put((Field) adjacentRegion, true);
+        adjacentJungles.put((Jungle) adjacentRegion, true);
     }
 
     private void notifyComplete(){
-        Set<Field> adjFields = adjacentFields.keySet();
-        for(Field field: adjFields){
-            field.addCompleteMonastery(this);
+        Set<Jungle> adjJungles = adjacentJungles.keySet();
+        for(Jungle jungle : adjJungles){
+            jungle.addCompleteDend(this);
         }
         super.score();
     }

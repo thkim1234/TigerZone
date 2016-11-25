@@ -1,3 +1,5 @@
+package tile;
+
 import java.util.*;
 
 public class TileDeck {
@@ -5,13 +7,13 @@ public class TileDeck {
   private Stack<Tile> tiles;
   //representation: the 4 edges, the center, and the shield placement
   //g = grass
-  //c = city
-  //r = road
+  //c = lake
+  //r = trail
   //m = monastary
   //s = stoplight
   //0 = no shield
   //1 = center shield
-  //2 = corner shield     I don't think there is a corner shield only shields in cities
+  //2 = corner shield     I don't think there is a corner shield only shields in lakes
   //public static String[] tileTypes = {"ggrgm0", "ggggm0", "ccccc1", "rcrgr0", "cgggg0", "gcgcc1", "cgcgc0", "gcgcg0", "gccgg0", "crrgg0", "rcgrg0", "rcrrr0", "cggcg1", "cggcg0", "crrcg1", "crrcg0", "ccgcc1", "ccgcc0", "ccrcc1", "ccrcc0", "rgrgr0", "ggrrg0", "grrrs0", "rrrrs0"};
   //public static int[] numType = {2,4,1,3,5,2,1,3,2,3,3,3,2,3,2,3,1,3,2,1,8,9,4,1};
   public static String[] tileTypes = {"ggggg0", "ggggm0", "ggrgm0", "rrrrr0", "rgrgr0", "rggrg0", "rgrrr0", "ccccc0", "gcccc0", "ccggg0", "gcgcc0", "cgcgg0", "cgggg0", "gccgg0", "rcgrg0", "rcgrg2", "gcrrg0", "gcrrg3", "rcrgr0", "rcrgr1", "rcccc0", "rcrrr0", "rcrrr2", "rccrg0", "rccrg3", "cgrgr0", "cgrgr1"};
@@ -27,7 +29,7 @@ public class TileDeck {
     }
 
     this.shuffle();
-    //tiles.push(new Tile(tileTypes[3]));
+    //tiles.push(new tile.Tile(tileTypes[3]));
   }
 
 

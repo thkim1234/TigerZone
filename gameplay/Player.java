@@ -1,4 +1,8 @@
-import java.util.*;
+package gameplay;
+
+import gameplay.MoveOption;
+import tile.Tile;
+import board.*;
 
 public abstract class Player {
 

@@ -1,4 +1,6 @@
-class GameVisualization {
+package gameplay;
+
+public class GameVisualization {
     Game game;
 
     public GameVisualization (Game game) {

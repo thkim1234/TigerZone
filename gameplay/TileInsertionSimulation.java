@@ -1,3 +1,9 @@
+package gameplay;
+
+import tile.Tile;
+import tile.TileDeck;
+import board.*;
+
 import java.util.*;
 
 /* Runs the game
@@ -6,7 +12,8 @@ tracks:
 - board: the current board
 */
 
-public class TileInsertionSimulation extends Game{
+
+public class TileInsertionSimulation extends Game {
 
     private Board board;
     private ArrayList<Player> players;
@@ -17,7 +24,7 @@ public class TileInsertionSimulation extends Game{
     private int NUM_PLAYERS;
 
     //initializes a game with the players given
-    public TileInsertionSimulation(Player ... players){
+    public TileInsertionSimulation(Player... players){
         board = new Board();
         tiles = new TileDeck();
 
@@ -30,7 +37,7 @@ public class TileInsertionSimulation extends Game{
         NUM_PLAYERS = this.players.size();
 
         //place the first tile at the origin
-        //board.placeTile(tiles.getTopTile(),new MoveOption(Board.CENTER*1001,0));
+        //board.placeTile(tiles.getTopTile(),new gameplay.MoveOption(Board.CENTER*1001,0));
 
         //set the current player to the first of the given players
         currentPlayer = 0;
@@ -70,6 +77,8 @@ public class TileInsertionSimulation extends Game{
             //place the meeple as the player specified
             board.placeMeepleOnBoard(move.location, meeplePlacement);
 
+            System.out.println(board);
+
             //move forward in terms of turns
             updatePlayer();
         }
@@ -77,10 +86,6 @@ public class TileInsertionSimulation extends Game{
     }
 
     //accessors:
-
-    public Board getBoard() {
-        return board;
-    }
 
     public ArrayList<Player> getPlayers() {
         return players;

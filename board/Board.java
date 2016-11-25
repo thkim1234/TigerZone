@@ -1,5 +1,9 @@
+package board;
 import java.util.*;
 import java.lang.*;
+import region.*;
+import gameplay.*;
+import tile.*;
 
 /* Stores all of the information about the
 Current objects in the board.
@@ -42,11 +46,11 @@ public class Board{
     //access the slot object at the given index, sets the tile within that slot object
     slot.setTile(tile,move.rotation);
 
-    //update openLocations to reflect the updated board
-    addNewOptions(move.location);
-
     //update the map of regions to reflect the new information
     regionManager.addRegionsBasedOnTile(tile,move);
+
+    //update openLocations to reflect the updated board
+    addNewOptions(move.location);
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
