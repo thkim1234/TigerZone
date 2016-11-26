@@ -31,7 +31,7 @@ public class Main {
         printGame.printPlayerTurn();
         */
 
-        String hostName = "192.168.1.75"; //Given to us by Dave I'm assuming?
+        String hostName = "localhost"; //Given to us by Dave I'm assuming?
         int portNumber = 4444; //Given to us by Dave I'm assuming?
         String password = ""; //Given to us by Dave I'm assuming?
 
