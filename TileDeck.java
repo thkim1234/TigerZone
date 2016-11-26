@@ -27,6 +27,10 @@ public class TileDeck {
     tiles.push(new Tile(tileTypes[3]));
   }
 
+  public TileDeck(String[] tileTypes){
+    //Need to make this so we can set the tileDeck relative to our local copy of the game for the AI
+  }
+
 
   public Tile getTopTile(){
     return tiles.pop();

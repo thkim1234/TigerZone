@@ -57,11 +57,13 @@ public class BoardTest {
     * */
     @Test
     public void testAddNewOptions(){
+        /*
         Tile tile = new Tile();
         MoveOption move = new MoveOption(72072, 0);
         board.placeTile(tile, move);
         board.
         //assertTrue(listBefore != listAfter);
+        */
     }
 
 

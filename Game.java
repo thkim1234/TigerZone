@@ -89,4 +89,6 @@ public class Game{
     public TileDeck getTiles() {
         return tiles;
     }
+    //Used to set the deck of tiles equal to what the server passes to us
+    public void setTileDeck(TileDeck deck) { this.tiles = deck; }
 }
