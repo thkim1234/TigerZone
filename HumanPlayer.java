@@ -1,3 +1,5 @@
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.util.*;
 
@@ -12,7 +14,6 @@ public class HumanPlayer extends Player {
 
     @Override
     public MoveOption chooseMove(Tile t, Board b) {
-
         ArrayList<MoveOption> temp = b.potentialMoves(t);
         Iterator<MoveOption> iter = temp.iterator();
         MoveOption currentMove;
@@ -31,6 +32,8 @@ public class HumanPlayer extends Player {
 
         return selectedMove;
     }
+
+
 
     @Override
     public int chooseMeeplePlacement() {
