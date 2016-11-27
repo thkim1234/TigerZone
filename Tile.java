@@ -1,13 +1,13 @@
 public class Tile {
     private char centerType;
     private char[] sideTypes = new char[4];
-    private char shieldLoc;
+//    private char shieldLoc;
 
     public Tile () {
-        centerType = 'g';
-        shieldLoc = '0';
+        centerType = 'J';
+//        shieldLoc = '0';
         for(int i=0; i<Slot.NUM_SIDES; i++){
-            sideTypes[i] = 'g';
+            sideTypes[i] = 'J';
         }
 
     }
@@ -19,7 +19,7 @@ public class Tile {
       }
 
       centerType = typeCode.charAt(i);
-      shieldLoc = typeCode.charAt(i+1);
+     // shieldLoc = typeCode.charAt(i+1);
 
     }
 
@@ -29,7 +29,7 @@ public class Tile {
             returnString += this.sideTypes[i];
         }
         returnString += this.centerType;
-        returnString += this.shieldLoc;
+//        returnString += this.shieldLoc;
 
         return returnString;
     }
@@ -38,7 +38,7 @@ public class Tile {
         return sideTypes[i];
     }
     public char getCenterType() { return this.centerType; }
-    public char getShieldLoc() { return this.shieldLoc; }
+//    public char getShieldLoc() { return this.shieldLoc; }
     public char[] getSideTypes() { return this.sideTypes; }
 
 

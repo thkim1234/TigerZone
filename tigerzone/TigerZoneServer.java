@@ -43,7 +43,7 @@ public class TigerZoneServer {
 			out.println(outputLine);
 			Thread.sleep(15000);
 
-			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE TLTTP";
+			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 1 PLACE TLTTP";
 			out.println(outputLine);
 
 			outputLine = "GAME A MOVE 2 PLAYER Blue PLACED LJTJ- AT 0 2 180 TIGER 8";

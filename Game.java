@@ -19,7 +19,7 @@ public class Game{
   //initializes a game with the players given
   public Game(Player ... players){
     board = new Board();
-    tiles = new TileDeck();
+//    tiles = new TileDeck();
 
     //add all of the players passed into the constructor
     this.players = new ArrayList<Player>();
@@ -30,7 +30,7 @@ public class Game{
     NUM_PLAYERS = this.players.size();
 
     //place the first tile at the origin
-    board.placeTile(tiles.getTopTile(),new MoveOption(Board.CENTER*1001,0));
+    board.placeTile(new Tile("TLTJ-"),new MoveOption(Board.CENTER*1001,0));
 
     //set the current player to the first of the given players
     currentPlayer = 0;

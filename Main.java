@@ -95,24 +95,25 @@ public class Main {
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
             //String gameId = getGameId(serverMessage);
-            String gameId = serverMessage.substring(23, (serverMessage.indexOf("WITHIN") - 1));
+            String gameId = getGameId(serverMessage);
             System.out.println("Game ID for AI: " + gameId);
             String tileString = getTileStringForAiMove(serverMessage);
             return aiMakeMove(gameId, tileString);
             //To be replaced by return aiMakeMove(gameId, tileString, moveNumber) not sure yet tho
         }
         //Opponent makes move. Mimic opponent's move on our local game copy with respect to gameID
-        else if(!serverMessage.contains("PLAYER " + username)){
+        else if(serverMessage.contains("MOVE") && serverMessage.contains("PLAYER") && !serverMessage.contains("PLAYER " + username)){
             //Opponent Move logic
-            String gameId = serverMessage.substring(5, (serverMessage.indexOf("MOVE")-1));
+            String gameId = getGameId(serverMessage);
             System.out.println("GAME ID: " + gameId);
             Game gamePlayed = map.get(gameId);
-            opponentMakeMove(gamePlayed, gameId);
+            opponentMakeMove(gamePlayed, gameId, serverMessage);
             return "";
         }
         //Assign TileDeck for the copies of both local games
         else if(serverMessage.contains("THE REMAINING")){
             String tileDeckString = getTileDeckString(serverMessage);
+//            System.out.println("TILE DECK: " + tileDeckString);
             TileDeck deck = new TileDeck(tileDeckString);
             gameA.setTileDeck(deck);
             gameB.setTileDeck(deck);
@@ -133,8 +134,15 @@ public class Main {
 
     //Parse input to get GameID
     public static String getGameId(String serverMessage){
-        System.out.println("Ai Move: ");
-        String gameId = serverMessage.substring(23, 24);
+        String gameId;
+        if(serverMessage.contains("MOVE") && serverMessage.contains("PLAYER ")){
+            System.out.println(serverMessage);
+            System.out.println("index of move " + serverMessage.indexOf("MOVE"));
+            gameId = serverMessage.substring(5, (serverMessage.indexOf("MOVE")-1));
+        }
+        else {
+            gameId =  serverMessage.substring(23, (serverMessage.indexOf("WITHIN") - 1));
+        }
         System.out.println("Game ID: " + gameId);
         if(map.size() == 0){
             map.put(gameId, gameA);
@@ -161,8 +169,33 @@ public class Main {
     }
 
     //This function is called when it's time for the opponent to make a move in a game
-    public static void opponentMakeMove(Game game, String gameId){
+    public static void opponentMakeMove(Game game, String gameId, String serverMessage){
+        String[] parsedString = serverMessage.split(" "); //Parse
+        int placed = serverMessage.indexOf("PLACED");
+        int unplaceable = serverMessage.indexOf("UNPLACEABLE");
+        if(placed != -1){
+            Tile tile = new Tile(parsedString[7]);
+            int x = Integer.parseInt(parsedString[9]);
+            int y = Integer.parseInt(parsedString[10]);
+            int orientation = Integer.parseInt(parsedString[11]);
+            String creature = parsedString[12];
+            if(parsedString[12] == "TIGER"){
+                int zone = Integer.parseInt(parsedString[13]);
+            }
 
+        } else if (unplaceable != -1){
+            if(serverMessage.indexOf("PASS") != -1){
+                return;
+            } else if (serverMessage.indexOf("RETRIEVE TIGER") != -1){
+                int x = Integer.parseInt(parsedString[12]);
+                int y = Integer.parseInt(parsedString[13]);
+                // game or player : retrieveTiger(x,y)
+            } else if (serverMessage.indexOf("ADD ANOTHER TIGER") != -1){
+                int x = Integer.parseInt(parsedString[13]);
+                int y = Integer.parseInt(parsedString[14]);
+                // game or player : playTiger(x,y)
+            }
+        }
     }
 
     public static String getTileStringForAiMove(String message){
@@ -179,7 +212,7 @@ public class Main {
             tileString = m.group(1);
         }
         System.out.println(tileString);
-        return "";
+        return tileString;
     }
 
     public static void resetMatch(){
