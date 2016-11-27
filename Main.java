@@ -17,8 +17,8 @@ public class Main {
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
     static Map<String, Game> map = new HashMap<>();
-
     public static void main(String args[]) {
+
         /*
         Game game = new Game(new HumanPlayer(), new HumanPlayer());
         GameVisualization printGame = new GameVisualization(game);
@@ -81,7 +81,9 @@ public class Main {
         }
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
-            String gameId = getGameId(serverMessage);
+            //String gameId = getGameId(serverMessage);
+            String gameId = serverMessage.substring(23, (serverMessage.indexOf("WITHIN") - 1));
+            System.out.println("Game ID for AI: " + gameId);
             String tileString = getTileStringForAiMove(serverMessage);
             int moveNumber = getMoveNumber(serverMessage); //Haven't written this function yet
             return aiMakeMove(gameId, tileString);
@@ -94,8 +96,10 @@ public class Main {
         }
         //Assign TileDeck for the copies of both local games
         else if(serverMessage.contains("THE REMAINING")){
-            System.out.println("Inside THE REMAINING");
             String tileDeckString = getTileDeckString(serverMessage);
+            TileDeck deck = new TileDeck(tileDeckString);
+            gameA.setTileDeck(deck);
+            gameB.setTileDeck(deck);
             return "";
         }
         else{
