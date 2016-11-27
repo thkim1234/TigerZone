@@ -25,16 +25,6 @@ public class GameTrail extends Region{
     crocodiles ++;
   }
 
-
-  //remove the specified port from the list of complete ports
-  public void closePort(int port){
-    super.closePort(port);
-    if(super.openPorts.isEmpty()){
-      //super.score();
-      //notifyComplete(); commented this out because we don't care about completed trails anmore
-    }
-  }
-
   public void addAnimal(char c){
     animals.add(c);
   }
@@ -47,32 +37,12 @@ public class GameTrail extends Region{
     return super.slotsContained.size()+liveAnimals;
   }
 
-  //observer pattern!
-  //tell all the adjacent jungles that this lake completed
-  private void notifyComplete(){
-    Set<Jungle> adjJungles = adjacentJungles.keySet();
-    for(Jungle jungle : adjJungles){
-      jungle.addCompleteTrail(this);
-    }
-  }
-
-  //add an adjacent jungle (for later notification)
-  public void addAdjacent(Region adjacentRegion){
-    adjacentJungles.put((Jungle) adjacentRegion, true);
-  }
 
   public boolean complete(){
     return super.openPorts.size() == 0;
   }
 
   public String toString(){
-//    String s = super.toString();
-//    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
-//    s += " adjacent jungles: {";
-//    while(it.hasNext()){
-//      s += it.next()+",";
-//    }
-
     return "T "+super.toString() + "\n";
   }
 

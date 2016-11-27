@@ -227,10 +227,6 @@ public class RegionManager{
 
   public String toString(){
     return containersByRegion.keySet().toString()+"\n";
-    //Integer.toString(containersByRegion.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n";
-          //+ Integer.toString(lakes.keySet().size())+" lakes: \n" + lakes.keySet().toString()+"\n"
-          //+ Integer.toString(trails.keySet().size())+" trails: \n" + trails.keySet().toString()+"\n"
-          //+ Integer.toString(dens.keySet().size())+" dens: \n" + dens.keySet().toString()+"\n";
   }
 
   private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};

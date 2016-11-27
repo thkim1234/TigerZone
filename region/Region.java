@@ -113,11 +113,7 @@ public abstract class Region{
 
   public void addAdjacent(RegionContainer adjacentRegion){
     //by default, do nothing
-    //only implemented for region types where this is needed
-  }
-
-  public void setSlot(int center){
-    //by default do nothing, I added this for the den
+    //only implemented in jungle
   }
 
   //for template method - yippee!
@@ -126,16 +122,6 @@ public abstract class Region{
   public int getId() { return id; }
 
   public String toString(){
-//    Iterator<Integer> it = openPorts.keySet().iterator();
-//    String s = "open ports: ";
-//    int current;
-//    while(it.hasNext()){
-//      current = it.next();
-//      s += "[ "+(current/(100000)-72)+", "+((current%100000)/100-72)+" -- "+(current%100)+"]";
-//    }
-//    return s + "  ";
-//          // "lakes: \n" + lakes.toString()+"\n"
-//          // "trails: \n" + trails.toString()+"\n"
     Iterator<Integer> it = slotsContained.keySet().iterator();
 
     String s = Integer.toString(id)+" on slots: ";
@@ -144,9 +130,6 @@ public abstract class Region{
       current = it.next();
       s += "("+(current/1000-72)+","+(current%1000-72)+")";
     }
-    //return s + "  ";
-          // "lakes: \n" + lakes.toString()+"\n"
-          // "trails: \n" + trails.toString()+"\n"
       return s;
   }
 
