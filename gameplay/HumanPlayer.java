@@ -10,14 +10,8 @@ import board.*;
  */
 public class HumanPlayer extends Player {
 
-    private int score;
-
     public HumanPlayer() {
-
-    }
-
-    public void addScore(int score){
-        this.score += score;
+        super.init();
     }
 
     @Override
@@ -43,7 +37,7 @@ public class HumanPlayer extends Player {
     }
 
     @Override
-    public int chooseMeeplePlacement() {
+    public int chooseTigerPlacement() {
         return 0;
     }
 

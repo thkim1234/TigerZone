@@ -3,6 +3,7 @@ package board;
 import java.util.*;
 import tile.*;
 import region.*;
+import gameplay.Tiger;
 
 /*Manages all of the information relevant to a given board location
 includes:
@@ -12,14 +13,13 @@ connections: side types*/
 public class Slot{
 
   public static final int NUM_SIDES = 4; //it's a square
-  private int meeplePlacement; //to be fixed later
   private Tile tile; //the tile placed in this slot
   protected SlotConnection[] connections; //the side types of this slot (set when tile is placed OR when this is connected to another tile)
   protected RegionContainer[] regions;
+  private RegionContainer centerRegion;
 
-  //initializes empty Slot with blank connections and no meeple
+  //initializes empty Slot with blank connections and no tiger
   public Slot(){
-      meeplePlacement = 0;
       connections = new SlotConnection[NUM_SIDES];
       regions = new RegionContainer[12];
       for (int i = 0; i < NUM_SIDES; i++) {
@@ -72,7 +72,7 @@ public class Slot{
     }
   }
 
-  //connects this slot to the parameterized slot on the given side
+//  //connects this slot to the parameterized slot on the given side
   public void connect(Slot slot, int side){
     regions[side*3] = slot.regions[oppositeRegion[side*3]];
     regions[side*3+1] = slot.regions[oppositeRegion[side*3+1]];
@@ -100,15 +100,20 @@ public class Slot{
     return regions;
   }
   //to be changed later
-  public void placeMeeple (int meeplePlacement) {
-      this.meeplePlacement = meeplePlacement;
+  public void placeTiger (int tigerPlacement, Tiger tiger) {
+      int regionIndex = tigerToRegion[tigerPlacement];
+      if(regionIndex == -1){
+          centerRegion.placeTiger(tiger);
+      } else {
+          regions[regionIndex].placeTiger(tiger);
+      }
   }
 
   //the opposite side of this tile
   private static int opposite(int i){ return (i+2)%4; }
 
   public String toString() {
-      // Need to print connections (with their tiles), the tile in this slot, and meeple placement in this slot.
+      // Need to print connections (with their tiles), the tile in this slot, and tiger placement in this slot.
 
       return (this.tile != null)?("tile: "+this.tile):"(empty)";
 
@@ -118,9 +123,14 @@ public class Slot{
       regions[index] = region;
   }
 
+  public void setCenter(RegionContainer region){
+      centerRegion = region;
+  }
+
   public boolean hasTile(){
       return tile != null;
   }
 
   private static int[] oppositeRegion = {8,7,6,11,10,9,2,1,0,5,4,3};
+  private static int[] tigerToRegion = {-1,0,1,2,10,-1,4,8,7,6};
 }

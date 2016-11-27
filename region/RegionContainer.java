@@ -3,6 +3,7 @@ purpose of this class is to allow for replacement
 of objects while making sure old references
 reflect the changed object*/
 import gameplay.Player;
+import gameplay.Tiger;
 
 public class RegionContainer{
 
@@ -14,6 +15,8 @@ public class RegionContainer{
     region = otherRegion.getRegion();
   }
 
+  public int getId() {return region.getId(); }
+
   public Region getRegion(){
     return region;
   }
@@ -22,12 +25,8 @@ public class RegionContainer{
     region.absorb(otherRegion.getRegion());
   }
 
-  public void addMeeple(Player owner){
-    region.addMeeple(owner);
-  }
-
   public void addAdjacent(RegionContainer adjacentRegion){
-    region.addAdjacent(adjacentRegion.getRegion());
+    region.addAdjacent(adjacentRegion);
   }
 
   public void addOpenPort(int port){
@@ -37,6 +36,19 @@ public class RegionContainer{
   public void closePort(int port){
     region.closePort(port);
   }
+
+  public void placeTiger(Tiger tiger) {
+    tiger.setRegion(this);
+    region.placeTiger(tiger);
+  }
+
+  public void score() { region.score(); }
+
+  public void addAnimal(char animal) { region.addAnimal(animal); }
+
+  public boolean readyToScore() { return region.readyToScore(); }
+
+  public void addSlot(int slot) { region.addSlot(slot); }
 
   public RegionContainer(char type){
     this.type = type;

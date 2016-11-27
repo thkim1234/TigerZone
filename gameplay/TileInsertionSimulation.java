@@ -1,5 +1,6 @@
 package gameplay;
 
+import region.Region;
 import tile.Tile;
 import tile.TileDeck;
 import board.*;
@@ -13,7 +14,7 @@ tracks:
 */
 
 
-public class TileInsertionSimulation extends Game {
+public class TileInsertionSimulation extends Game{
 
     private Board board;
     private ArrayList<Player> players;
@@ -53,31 +54,35 @@ public class TileInsertionSimulation extends Game {
 
         Tile tile;
         MoveOption move;
-        int meeplePlacement;
+        String garbage;
 
         Scanner in = new Scanner(System.in);
 
+        board.placeTile(new Tile("TLTJ-"), new MoveOption(72072,0));
+
         // while we have tiles to place
         while(true){
+            System.out.println(board);
+            System.out.println(players);
+            System.out.println("please type move");
 
-            System.out.println("please type the tile code");
+            String command = in.next();
 
-            //get the tile to be placed
-            tile = new Tile(in.next());
+            if(command.charAt(0) == 'd'){
+                finish();
+                return;
+            }
 
-            //ask the current player for his choice of move
-            move = players.get(currentPlayer).chooseMove(tile, board);
-
-            //ask the current player for his choice of meeple placement
-            meeplePlacement = players.get(currentPlayer).chooseMeeplePlacement();
-
-            //place the tile as the player specified
+            tile = new Tile(command);
+            move = new MoveOption(1000*(in.nextInt()+72)+in.nextInt()+72, in.nextInt()/90);
             board.placeTile(tile, move);
 
-            //place the meeple as the player specified
-            board.placeMeepleOnBoard(move.location, meeplePlacement);
+            garbage = in.next();
+            if(!garbage.equals("NO")){
+                board.placeTigerOnBoard(move.location, in.nextInt(), players.get(currentPlayer));
+            }
 
-            System.out.println(board);
+            board.updateScores();
 
             //move forward in terms of turns
             updatePlayer();
@@ -86,6 +91,18 @@ public class TileInsertionSimulation extends Game {
     }
 
     //accessors:
+
+    private void finish(){
+        //board.doAllScores();
+        HashMap<Region, Boolean> regionsToScore = new HashMap<Region, Boolean>();
+        for(Player player: players){
+            regionsToScore.putAll(player.relevantRegions());
+        }
+        for(Region region: regionsToScore.keySet()){
+            region.score();
+        }
+        System.out.println(players);
+    }
 
     public ArrayList<Player> getPlayers() {
         return players;

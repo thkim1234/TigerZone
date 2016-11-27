@@ -1,20 +1,27 @@
 package region;
 
+import java.lang.reflect.Array;
 import java.util.*;
-import gameplay.Player;
+import gameplay.*;
 
 public abstract class Region{
 
   private int id;
 
-  protected HashMap<Player,Integer> meeplesByPlayer;
+  protected HashMap<Player,ArrayList<Tiger>> tigersByPlayer;
   protected HashMap<Integer,Boolean> openPorts;
+  protected HashMap<Integer,Boolean> slotsContained;
 
   //merge another region into this one
   public void absorb(Region otherRegion){
-    meeplesByPlayer.putAll(otherRegion.meeplesByPlayer);
+    tigersByPlayer.putAll(otherRegion.tigersByPlayer);
     openPorts.putAll(otherRegion.openPorts);
+    slotsContained.putAll(otherRegion.slotsContained);
     //most regions will add to this, merging other attributes also
+  }
+
+  public void addSlot(int slot){
+    slotsContained.put(slot, true);
   }
 
   public void addOpenPort(int port){ openPorts.put(port,true); }
@@ -26,32 +33,40 @@ public abstract class Region{
   public void init(){
     id = RegionManager.getId();
     openPorts = new HashMap<Integer, Boolean>();
-    meeplesByPlayer = new HashMap<Player, Integer>();
+    tigersByPlayer = new HashMap<Player, ArrayList<Tiger>>();
+    slotsContained = new HashMap<Integer, Boolean>();
+  }
+
+  public void addAnimal(char animal){
+    //by default, do nothing
   }
 
   public void score(){
 
-    //if there are no meeples, we don't care
-    if(meeplesByPlayer.size() == 0){
+    //if there are no tigers, we don't care
+    if(tigersByPlayer.size() == 0){
       return;
     }
 
-    //find the player with the most meeples in the area
-    int maxOfMeeplesByPlayer = 0;
+    //find the player with the most tigers in the area
+    int maxOfTigersByPlayer = 0;
     ArrayList<Player> playersWithMax = new ArrayList<Player>();
-    int currentMeeples;
+    int currentTigers;
 
     //iterate through the players, finding which players
-    //have the max num meeples in the region
-    for(Player player: meeplesByPlayer.keySet()){
-      currentMeeples = meeplesByPlayer.get(player);
-      if(currentMeeples == maxOfMeeplesByPlayer){
+    //have the max num tigers in the region
+    for(Player player: tigersByPlayer.keySet()){
+      currentTigers = tigersByPlayer.get(player).size();
+      if(currentTigers == maxOfTigersByPlayer){
         playersWithMax.add(player);
-      } else if(currentMeeples > maxOfMeeplesByPlayer){
+      } else if(currentTigers > maxOfTigersByPlayer){
         playersWithMax.clear();
         playersWithMax.add(player);
-        maxOfMeeplesByPlayer = currentMeeples;
+        maxOfTigersByPlayer = currentTigers;
       }
+
+      //return the tigers to the player
+      player.reclaimTigers(tigersByPlayer.get(player));
     }
 
     //divide the total score by how many players share the region
@@ -62,19 +77,30 @@ public abstract class Region{
     for(Player owner: playersWithMax){
       owner.addScore(scoreToAdd);
     }
-  };
 
-  //given the specified owner of the meeple, note that that player has added
-  //a meeple to this region
-  public void addMeeple(Player owner){
-    if(!meeplesByPlayer.containsKey(owner)){
-      meeplesByPlayer.put(owner,1);
+    tigersByPlayer.clear();
+  }
+
+  public int getCurrentScore(){
+    return totalScore();
+  }
+
+  //given the specified owner of the tiger, note that that player has added
+  //a tiger to this region
+  public void placeTiger(Tiger tiger){
+    if(!tigersByPlayer.containsKey(tiger.owner)){
+      ArrayList<Tiger> tigers = new ArrayList<Tiger>();
+      tigers.add(tiger);
+      tigersByPlayer.put(tiger.owner,tigers);
     } else {
-      meeplesByPlayer.put(owner,meeplesByPlayer.get(owner)+1);
+      tigersByPlayer.get(tiger.owner).add(tiger);
     }
   }
 
-  public void addAdjacent(Region adjacentRegion){
+  public abstract boolean readyToScore();
+
+
+  public void addAdjacent(RegionContainer adjacentRegion){
     //by default, do nothing
     //only implemented for region types where this is needed
   }
@@ -85,6 +111,8 @@ public abstract class Region{
 
   //for template method - yippee!
   protected abstract int totalScore();
+
+  public int getId() { return id; }
 
   public String toString(){
 //    Iterator<Integer> it = openPorts.keySet().iterator();
@@ -97,7 +125,17 @@ public abstract class Region{
 //    return s + "  ";
 //          // "lakes: \n" + lakes.toString()+"\n"
 //          // "trails: \n" + trails.toString()+"\n"
-      return Integer.toString(id);
+    Iterator<Integer> it = slotsContained.keySet().iterator();
+    String s = Integer.toString(id)+" on slots: ";
+    int current;
+    while(it.hasNext()){
+      current = it.next();
+      s += "("+(current/1000-72)+","+(current%1000-72)+")";
+    }
+    //return s + "  ";
+          // "lakes: \n" + lakes.toString()+"\n"
+          // "trails: \n" + trails.toString()+"\n"
+      return s;
   }
 
 }

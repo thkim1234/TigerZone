@@ -18,4 +18,6 @@ public class GameVisualization {
     public void printBoard() {
         System.out.println(game.getBoard());
     }
+
+    public void printPlayers(){ System.out.println(game.getPlayers()); }
  }

@@ -33,7 +33,7 @@ public class Board{
     openLocations = new ArrayList<Integer>();
     openLocations.add(CENTER*1001);
     map = new SlotMap();
-    map.put(CENTER*1001, newSlot(CENTER*1001));
+    map.put(CENTER*1001, new Slot());
     regionManager = new RegionManager(map);
   }
 
@@ -51,6 +51,8 @@ public class Board{
 
     //update openLocations to reflect the updated board
     addNewOptions(move.location);
+
+    updateAdjacent(move.location);
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
@@ -92,34 +94,33 @@ public class Board{
 
         //add a new slot to the board, and denote that the location is open
         openLocations.add(key);
-        map.put(key,newSlot(key));
+        map.put(key,new Slot());
       }
     }
   }
 
   //creates a brand new slot and connects it to any pre-existing, adjacent slots on the map
-  private Slot newSlot(int location){
 
-    Slot slot = new Slot();
+  private void updateAdjacent(int slotNum){
+    Slot slot = map.get(slotNum);
     int key;
 
-    //test the adjacent slots in every direction
-    for(int direction = 0; direction<Slot.NUM_SIDES; direction++){
-
-      //get the index in this direction of the adjacent tile
-      key = map.getAdjKey(location, direction);
-
-      //if this index is in the map, connect this slot in that direction
-      if(map.containsKey(key)){
-        slot.connect(map.get(key),direction);
-      }
+    for(int i = 0; i<slot.NUM_SIDES; i++){
+      map.get(map.getAdjKey(slotNum,i)).connect(slot,(i+2)%4);
     }
-    return slot;
   }
 
+  public void updateScores(){
+    regionManager.updateScores();
+  }
+
+//  public void doAllScores(){
+//    regionManager.doAllScores();
+//  }
+
   //will change
-  public void placeMeepleOnBoard(int loc, int meeplePlacement){
-    map.get(loc).placeMeeple(meeplePlacement);
+  public void placeTigerOnBoard(int loc, int tigerPlacement, Player player){
+    map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
   }
 
   //accessor

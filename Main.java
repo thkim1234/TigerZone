@@ -10,9 +10,9 @@ public class Main {
         System.out.println("gameplay.Game being played");
         game.playGame();
         System.out.println("gameplay.Game played, printing player ");
-        printGame.printTileDeck();
-        printGame.printBoard();
-        printGame.printPlayerTurn();
+        //printGame.printTileDeck();
+        //printGame.printBoard();
+        //printGame.printPlayerTurn();
 
     };
 }

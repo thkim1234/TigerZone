@@ -15,8 +15,8 @@ tracks:
 
 public class Game{
 
-  private Board board;
-  private TileDeck tiles;
+  private Board board = new Board();
+  private TileDeck tiles = new TileDeck();
   private ArrayList<Player> players;
   private HumanPlayer player1 = new HumanPlayer();
   private HumanPlayer player2 = new HumanPlayer();
@@ -25,8 +25,6 @@ public class Game{
 
   //initializes a game with the players given
   public Game(Player ... players){
-    board = new Board();
-    tiles = new TileDeck();
 
     //add all of the players passed into the constructor
     this.players = new ArrayList<Player>();
@@ -53,7 +51,7 @@ public class Game{
 
     Tile tile;
     MoveOption move;
-    int meeplePlacement;
+    int tigerPlacement;
 
     // while we have tiles to place
     while(!tiles.isEmpty()){
@@ -64,14 +62,14 @@ public class Game{
       //ask the current player for his choice of move
       move = players.get(currentPlayer).chooseMove(tile, board);
 
-      //ask the current player for his choice of meeple placement
-      meeplePlacement = players.get(currentPlayer).chooseMeeplePlacement();
+      //ask the current player for his choice of tiger placement
+      tigerPlacement = players.get(currentPlayer).chooseTigerPlacement();
 
       //place the tile as the player specified
       board.placeTile(tile, move);
 
-      //place the meeple as the player specified
-      board.placeMeepleOnBoard(move.location, meeplePlacement);
+      //place the tiger as the player specified
+      board.placeTigerOnBoard(move.location, tigerPlacement, players.get(currentPlayer));
 
       //move forward in terms of turns
       updatePlayer();

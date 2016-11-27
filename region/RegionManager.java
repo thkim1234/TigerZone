@@ -15,6 +15,7 @@ public class RegionManager{
   HashMap<RegionContainer,Boolean> dens;
   HashMap<Integer, ArrayList<RegionContainer>> slotListeners;
   SlotMap slots;
+  Stack<RegionContainer> regionsToScore;
 
   private static int id = 0;
 
@@ -28,6 +29,7 @@ public class RegionManager{
     trails = new HashMap<RegionContainer,Boolean>();
     dens = new HashMap<RegionContainer,Boolean>();
     slotListeners = new HashMap<Integer,ArrayList<RegionContainer>>();
+    regionsToScore = new Stack<RegionContainer>();
     slots = map;
 
     TileManager.init();
@@ -57,6 +59,10 @@ public class RegionManager{
         //absorb the existing neighboring region
         currentNewRegion.absorb(slotRegions[i]);
 
+        if(slotRegions[i].type == 'J'){
+          slotRegions[i].absorb(currentNewRegion);
+        }
+
         //replace the neighboring region with the newly merged region
         slotRegions[i].replaceWith(currentNewRegion);
 
@@ -68,12 +74,12 @@ public class RegionManager{
         //otherwise, open the port on the adjacent tile
         currentNewRegion.addOpenPort(slots.getAdjKey(move.location,i/3)*100+oppositePort[i]);
 
+        //set the region on the slot
+        slotRegions[i] = currentNewRegion;
+
         //add the region to the lists
         getListByType(currentNewRegion.type).put(currentNewRegion, true);
       }
-
-      //set the region on the slot
-      slots.get(move.location).setRegion(i,currentNewRegion);
 
     }
 
@@ -105,6 +111,7 @@ public class RegionManager{
     for(int i = 0; i<tileInfo.numRegions; i++){
 
         newRegions[i] = new RegionContainer(tileInfo.portTypes[i]);
+        newRegions[i].addSlot(location);
     }
 
     RegionContainer[] regionsByPort = new RegionContainer[12];
@@ -112,10 +119,14 @@ public class RegionManager{
     //go back through and add adjacent jungles and ports
     for(int i = 0; i<tileInfo.numRegions; i++){
 
+      //add these to go back and check if finished later
+      regionsToScore.push(newRegions[i]);
+
       //add adjacent jungles for this region
       if (tileInfo.jungles[i].length > 0) {
         for (int jungleIndex : tileInfo.jungles[i]) {
-          newRegions[i].addAdjacent(newRegions[jungleIndex]);
+          newRegions[jungleIndex].addAdjacent(newRegions[i]);
+          //newRegions[i].addAdjacent(newRegions[jungleIndex]);
         }
       }
 
@@ -129,6 +140,10 @@ public class RegionManager{
           //sort the regions by port
           regionsByPort[port] = newRegions[i];
         }
+      }
+
+      if(tileInfo.animal != '-' && tileInfo.animal != 'X'){
+        newRegions[i].addAnimal(tileInfo.animal);
       }
 
     }
@@ -151,6 +166,7 @@ public class RegionManager{
         }
       }
     }
+    slots.get(location).setCenter(centerRegion);
     getListByType(centerRegion.type).put(centerRegion, true);
   }
 
@@ -159,16 +175,55 @@ public class RegionManager{
       ArrayList<RegionContainer> observingRegions = slotListeners.get(slotLocation);
       for(RegionContainer region: observingRegions){
         region.closePort(1);
+        if(region.readyToScore()){
+          regionsToScore.add(region);
+        }
       }
     }
   }
 
+  public void updateScores(){
+    RegionContainer currentRegion;
+    while(!regionsToScore.isEmpty()){
+      currentRegion = regionsToScore.pop();
+      if(currentRegion.readyToScore())
+        currentRegion.score();
+    }
+  }
+
+
+
+//  public void doAllScores(){
+//    scoreUnfinishedInList(jungles);
+//    scoreUnfinishedInList(lakes);
+//    scoreUnfinishedInList(trails);
+//    scoreUnfinishedInList(dens);
+//  }
+
+//  private void scoreUnfinishedInList(HashMap<RegionContainer,Boolean> list){
+//    for(RegionContainer region: list.keySet()){
+//      if(!region.readyToScore()){
+//        region.score();
+//      }
+//    }
+//  }
+
+//  private void replace(RegionContainer oldRC, RegionContainer newRC){
+//    Collection<RegionContainer> searchList = getListByType(oldRC.type).keySet();
+//    int id = oldRC.getId();
+//    for(RegionContainer currentRC : searchList){
+//      if(currentRC.getId() == id){
+//        currentRC.replaceWith(newRC);
+//        return;
+//      }
+//    }
+//  }
 
   public String toString(){
-    return Integer.toString(jungles.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n"
-          + Integer.toString(lakes.keySet().size())+" lakes: \n" + lakes.keySet().toString()+"\n"
-          + Integer.toString(trails.keySet().size())+" trails: \n" + trails.keySet().toString()+"\n"
-          + Integer.toString(dens.keySet().size())+" dens: \n" + dens.keySet().toString()+"\n";
+    return Integer.toString(jungles.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n";
+          //+ Integer.toString(lakes.keySet().size())+" lakes: \n" + lakes.keySet().toString()+"\n"
+          //+ Integer.toString(trails.keySet().size())+" trails: \n" + trails.keySet().toString()+"\n"
+          //+ Integer.toString(dens.keySet().size())+" dens: \n" + dens.keySet().toString()+"\n";
   }
 
   private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};
