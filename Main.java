@@ -24,6 +24,7 @@ public class Main {
     static String password;
 
     public static void main(String args[]) {
+
         /*
         Game game = new Game(new HumanPlayer(), new HumanPlayer());
         GameVisualization printGame = new GameVisualization(game);
@@ -93,7 +94,9 @@ public class Main {
         }
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
-            String gameId = getGameId(serverMessage);
+            //String gameId = getGameId(serverMessage);
+            String gameId = serverMessage.substring(23, (serverMessage.indexOf("WITHIN") - 1));
+            System.out.println("Game ID for AI: " + gameId);
             String tileString = getTileStringForAiMove(serverMessage);
             return aiMakeMove(gameId, tileString);
             //To be replaced by return aiMakeMove(gameId, tileString, moveNumber) not sure yet tho
@@ -109,8 +112,10 @@ public class Main {
         }
         //Assign TileDeck for the copies of both local games
         else if(serverMessage.contains("THE REMAINING")){
-            System.out.println("Inside THE REMAINING");
             String tileDeckString = getTileDeckString(serverMessage);
+            TileDeck deck = new TileDeck(tileDeckString);
+            gameA.setTileDeck(deck);
+            gameB.setTileDeck(deck);
             return "";
         }
         else if(serverMessage.contains("END OF ROUND")){
