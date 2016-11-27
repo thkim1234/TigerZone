@@ -55,14 +55,14 @@ public class BoardTest {
     /*
     * This test places a tile on the board then tests to see
     * */
-    @Test
-    public void testAddNewOptions(){
-        Tile tile = new Tile();
-        MoveOption move = new MoveOption(72072, 0);
-        board.placeTile(tile, move);
-        board.
-        //assertTrue(listBefore != listAfter);
-    }
+//    @Test
+//    public void testAddNewOptions(){
+//        Tile tile = new Tile();
+//        MoveOption move = new MoveOption(72072, 0);
+//        board.placeTile(tile, move);
+//        board.
+//        //assertTrue(listBefore != listAfter);
+//    }
 
 
 
