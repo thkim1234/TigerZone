@@ -96,6 +96,18 @@ public abstract class Region{
     }
   }
 
+  //given the specified owner of the tiger, note that that player has added
+  //a tiger to this region
+  public void removeTiger(Tiger tiger){
+    if(!tigersByPlayer.containsKey(tiger.owner)){
+      ArrayList<Tiger> tigers = new ArrayList<Tiger>();
+      tigers.add(tiger);
+      tigersByPlayer.put(tiger.owner,tigers);
+    } else {
+      tigersByPlayer.get(tiger.owner).add(tiger);
+    }
+  }
+
   public abstract boolean complete();
 
 

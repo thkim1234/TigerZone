@@ -43,7 +43,7 @@ public class Den extends Region{
     }
 
     public String toString(){
-        return Integer.toString(openPortCount) + " ports left to complete";
+        return "D: "+Integer.toString(openPortCount) + " ports left to complete\n";
     }
 
 }

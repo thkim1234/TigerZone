@@ -114,13 +114,13 @@ public class Board{
     regionManager.updateScores();
   }
 
-//  public void doAllScores(){
-//    regionManager.doAllScores();
-//  }
-
-  //will change
   public void placeTigerOnBoard(int loc, int tigerPlacement, Player player){
     map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
+  }
+
+  //will change
+  public void removeTigerFromBoard(int loc){
+    map.get(loc).removeTiger();
   }
 
   //accessor

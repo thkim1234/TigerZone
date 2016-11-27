@@ -30,7 +30,7 @@ public class Lake extends Region{
 
   public void closePort(int port){
     super.closePort(port);
-    if(openPorts.isEmpty()){
+    if(super.openPorts.isEmpty()){
       notifyComplete();
     }
   }
@@ -60,15 +60,16 @@ public class Lake extends Region{
     adjacentJungles.put((Jungle) adjacentRegion, true);
   }
 
-  public String toString(){
-    String s = super.toString();
-    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
-    s += " adjacent jungles: {";
-    while(it.hasNext()){
-      s += it.next()+",";
-    }
 
-    return s + "}\n";
+  public String toString(){
+    return "L " + super.toString()+"\n";
+//    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
+//    s += " adjacent jungles: {";
+//    while(it.hasNext()){
+//      s += it.next()+",";
+//    }
+//
+//    return s + "}\n";
   }
 
   public boolean complete(){

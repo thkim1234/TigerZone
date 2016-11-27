@@ -3,14 +3,12 @@ package region;
 import java.util.*;
 
 public class GameTrail extends Region{
-  protected HashMap<Integer, Boolean> slotsContained;
   protected HashMap<Jungle,Boolean> adjacentJungles;
   protected ArrayList<Character> animals;
   protected int crocodiles;
 
   public GameTrail(){
     super.init();
-    slotsContained = new HashMap<Integer,Boolean>();
     adjacentJungles = new HashMap<Jungle,Boolean>();
     animals = new ArrayList<Character>();
 
@@ -20,7 +18,6 @@ public class GameTrail extends Region{
   public void absorb(Region otherRegion){
     super.absorb(otherRegion);
     GameTrail otherGameTrail = (GameTrail) otherRegion;
-    slotsContained.putAll(otherGameTrail.slotsContained);
     animals.addAll(otherGameTrail.animals);
   }
 
@@ -47,7 +44,7 @@ public class GameTrail extends Region{
     if(liveAnimals < 0){
       liveAnimals = 0;
     }
-    return slotsContained.size()+(1+liveAnimals);
+    return super.slotsContained.size()+liveAnimals;
   }
 
   //observer pattern!
@@ -69,14 +66,14 @@ public class GameTrail extends Region{
   }
 
   public String toString(){
-    String s = super.toString();
-    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
-    s += " adjacent jungles: {";
-    while(it.hasNext()){
-      s += it.next()+",";
-    }
+//    String s = super.toString();
+//    Iterator<Jungle> it = adjacentJungles.keySet().iterator();
+//    s += " adjacent jungles: {";
+//    while(it.hasNext()){
+//      s += it.next()+",";
+//    }
 
-    return s + "}\n";
+    return "T "+super.toString() + "\n";
   }
 
 }
