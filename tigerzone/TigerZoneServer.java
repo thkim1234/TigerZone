@@ -42,10 +42,9 @@ public class TigerZoneServer {
 			outputLine = "MATCH BEGINS IN 15 SECONDS";
 			out.println(outputLine);
 			Thread.sleep(15000);
-			
+
 			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE TLTTP";
 			out.println(outputLine);
-			
 			
 		} catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "

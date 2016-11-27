@@ -17,6 +17,11 @@ public class Main {
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
     static Map<String, Game> map = new HashMap<>();
+    static String hostName;
+    static int portNumber;
+    static String tourneyPassword;
+    static String username;
+    static String password;
 
     public static void main(String args[]) {
         /*
@@ -30,10 +35,16 @@ public class Main {
         printGame.printBoard();
         printGame.printPlayerTurn();
         */
+        if (args.length != 5) {
+            System.err.println("java Main <hostname> <port#> <tourneypassword> <username> <password>");
+            System.exit(1);
+        }
 
-        String hostName = "localhost"; //Given to us by Dave I'm assuming?
-        int portNumber = 4444; //Given to us by Dave I'm assuming?
-        String password = ""; //Given to us by Dave I'm assuming?
+        hostName = args[0]; //Given to us by Dave I'm assuming?
+        portNumber =  Integer.parseInt(args[1]);; //Given to us by Dave I'm assuming?
+        tourneyPassword = args[2]; //Given to us by Dave I'm assuming?
+        username = args[3];
+        password = args[4];
 
         try (
                 Socket socket = new Socket(hostName, portNumber);
@@ -70,26 +81,30 @@ public class Main {
     //Function to decide plan of action based on the message of the server
     public static String processInput(String serverMessage){
         //Tournament Authentication
-        if(serverMessage.equals("THIS IS SPARTA!") || serverMessage.equals("HELLO!")){
+        if(serverMessage.equals("THIS IS SPARTA!")){
             String message = "";
-            try {
-                message = stdIn.readLine();
-            } catch(IOException e){
-                System.err.println(e);
-            }
+            message = "JOIN " + tourneyPassword;
+            return message;
+        }
+        else if(serverMessage.equals("HELLO!")){
+            String message = "";
+            message = "I AM " + username + " " + password;
             return message;
         }
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
             String gameId = getGameId(serverMessage);
             String tileString = getTileStringForAiMove(serverMessage);
-            int moveNumber = getMoveNumber(serverMessage); //Haven't written this function yet
             return aiMakeMove(gameId, tileString);
             //To be replaced by return aiMakeMove(gameId, tileString, moveNumber) not sure yet tho
         }
         //Opponent makes move. Mimic opponent's move on our local game copy with respect to gameID
-        else if(serverMessage.substring(0, 4) == "GAME"){
+        else if(!serverMessage.contains("PLAYER " + username)){
             //Opponent Move logic
+            String gameId = serverMessage.substring(5, (serverMessage.indexOf("MOVE")-1));
+            System.out.println("GAME ID: " + gameId);
+            Game gamePlayed = map.get(gameId);
+            opponentMakeMove(gamePlayed, gameId);
             return "";
         }
         //Assign TileDeck for the copies of both local games
@@ -98,7 +113,12 @@ public class Main {
             String tileDeckString = getTileDeckString(serverMessage);
             return "";
         }
+        else if(serverMessage.contains("END OF ROUND")){
+            resetMatch();
+            return "";
+        }
         else{
+
             return "";
         }
     }
@@ -136,7 +156,9 @@ public class Main {
     }
 
     //This function is called when it's time for the opponent to make a move in a game
-    public void opponentMakeMove(Game game, String gameId){}
+    public static void opponentMakeMove(Game game, String gameId){
+
+    }
 
     public static String getTileStringForAiMove(String message){
         int startIndex = message.length() - 5;
@@ -155,8 +177,12 @@ public class Main {
         return "";
     }
 
-    public static int getMoveNumber(String message){
-        return 0;
+    public static void resetMatch(){
+        ai = new HumanPlayer();
+        opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
+        gameA = new Game(ai, opponent);
+        gameB = new Game(ai, opponent);
+        map = new HashMap<>();
     }
 
 }
