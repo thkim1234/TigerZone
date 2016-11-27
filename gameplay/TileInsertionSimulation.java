@@ -78,7 +78,7 @@ public class TileInsertionSimulation extends Game{
             board.placeTile(tile, move);
 
             garbage = in.next();
-            if(!garbage.equals("NO")){
+            if(!garbage.equals("NONE")){
                 board.placeTigerOnBoard(move.location, in.nextInt(), players.get(currentPlayer));
             }
 

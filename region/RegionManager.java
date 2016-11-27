@@ -59,10 +59,6 @@ public class RegionManager{
         //absorb the existing neighboring region
         currentNewRegion.absorb(slotRegions[i]);
 
-        if(slotRegions[i].type == 'J'){
-          slotRegions[i].absorb(currentNewRegion);
-        }
-
         //replace the neighboring region with the newly merged region
         slotRegions[i].replaceWith(currentNewRegion);
 
@@ -175,7 +171,7 @@ public class RegionManager{
       ArrayList<RegionContainer> observingRegions = slotListeners.get(slotLocation);
       for(RegionContainer region: observingRegions){
         region.closePort(1);
-        if(region.readyToScore()){
+        if(region.complete()){
           regionsToScore.add(region);
         }
       }
@@ -186,38 +182,10 @@ public class RegionManager{
     RegionContainer currentRegion;
     while(!regionsToScore.isEmpty()){
       currentRegion = regionsToScore.pop();
-      if(currentRegion.readyToScore())
+      if(currentRegion.complete())
         currentRegion.score();
     }
   }
-
-
-
-//  public void doAllScores(){
-//    scoreUnfinishedInList(jungles);
-//    scoreUnfinishedInList(lakes);
-//    scoreUnfinishedInList(trails);
-//    scoreUnfinishedInList(dens);
-//  }
-
-//  private void scoreUnfinishedInList(HashMap<RegionContainer,Boolean> list){
-//    for(RegionContainer region: list.keySet()){
-//      if(!region.readyToScore()){
-//        region.score();
-//      }
-//    }
-//  }
-
-//  private void replace(RegionContainer oldRC, RegionContainer newRC){
-//    Collection<RegionContainer> searchList = getListByType(oldRC.type).keySet();
-//    int id = oldRC.getId();
-//    for(RegionContainer currentRC : searchList){
-//      if(currentRC.getId() == id){
-//        currentRC.replaceWith(newRC);
-//        return;
-//      }
-//    }
-//  }
 
   public String toString(){
     return Integer.toString(jungles.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n";

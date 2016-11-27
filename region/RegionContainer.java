@@ -46,7 +46,7 @@ public class RegionContainer{
 
   public void addAnimal(char animal) { region.addAnimal(animal); }
 
-  public boolean readyToScore() { return region.readyToScore(); }
+  public boolean complete() { return region.complete(); }
 
   public void addSlot(int slot) { region.addSlot(slot); }
 

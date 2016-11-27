@@ -1,6 +1,5 @@
 package region;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import gameplay.*;
 
@@ -97,7 +96,7 @@ public abstract class Region{
     }
   }
 
-  public abstract boolean readyToScore();
+  public abstract boolean complete();
 
 
   public void addAdjacent(RegionContainer adjacentRegion){
@@ -126,6 +125,7 @@ public abstract class Region{
 //          // "lakes: \n" + lakes.toString()+"\n"
 //          // "trails: \n" + trails.toString()+"\n"
     Iterator<Integer> it = slotsContained.keySet().iterator();
+
     String s = Integer.toString(id)+" on slots: ";
     int current;
     while(it.hasNext()){
