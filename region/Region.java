@@ -40,6 +40,10 @@ public abstract class Region{
     //by default, do nothing
   }
 
+  public void addCrocodile(){
+    //not sure
+  }
+
   public void score(){
 
     //if there are no tigers, we don't care
@@ -96,24 +100,16 @@ public abstract class Region{
     }
   }
 
-  //given the specified owner of the tiger, note that that player has added
-  //a tiger to this region
-  public void removeTiger(Tiger tiger){
-    if(!tigersByPlayer.containsKey(tiger.owner)){
-      ArrayList<Tiger> tigers = new ArrayList<Tiger>();
-      tigers.add(tiger);
-      tigersByPlayer.put(tiger.owner,tigers);
-    } else {
-      tigersByPlayer.get(tiger.owner).add(tiger);
-    }
-  }
-
   public abstract boolean complete();
 
 
   public void addAdjacent(RegionContainer adjacentRegion){
     //by default, do nothing
-    //only implemented in jungle
+    //only implemented for region types where this is needed
+  }
+
+  public void setSlot(int center){
+    //by default do nothing, I added this for the den
   }
 
   //for template method - yippee!
@@ -122,14 +118,27 @@ public abstract class Region{
   public int getId() { return id; }
 
   public String toString(){
+//    Iterator<Integer> it = openPorts.keySet().iterator();
+//    String s = "open ports: ";
+//    int current;
+//    while(it.hasNext()){
+//      current = it.next();
+//      s += "[ "+(current/(100000)-77)+", "+((current%100000)/100-77)+" -- "+(current%100)+"]";
+//    }
+//    return s + "  ";
+//          // "lakes: \n" + lakes.toString()+"\n"
+//          // "trails: \n" + trails.toString()+"\n"
     Iterator<Integer> it = slotsContained.keySet().iterator();
 
     String s = Integer.toString(id)+" on slots: ";
     int current;
     while(it.hasNext()){
       current = it.next();
-      s += "("+(current/1000-72)+","+(current%1000-72)+")";
+      s += "("+(current/1000-77)+","+(current%1000-77)+")";
     }
+    //return s + "  ";
+          // "lakes: \n" + lakes.toString()+"\n"
+          // "trails: \n" + trails.toString()+"\n"
       return s;
   }
 

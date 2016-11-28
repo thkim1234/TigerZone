@@ -58,7 +58,7 @@ public class TileInsertionSimulation extends Game{
 
         Scanner in = new Scanner(System.in);
 
-        board.placeTile(new Tile("TLTJ-"), new MoveOption(72072,0));
+        board.placeTile(new Tile("TLTJ-"), new MoveOption(Board.CENTER*1001,0));
 
         // while we have tiles to place
         while(true){
@@ -74,7 +74,7 @@ public class TileInsertionSimulation extends Game{
             }
 
             tile = new Tile(command);
-            move = new MoveOption(1000*(in.nextInt()+72)+in.nextInt()+72, in.nextInt()/90);
+            move = new MoveOption(1000*(in.nextInt()+Board.CENTER)+in.nextInt()+Board.CENTER, in.nextInt()/90);
             board.placeTile(tile, move);
 
             garbage = in.next();

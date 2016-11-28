@@ -13,7 +13,6 @@ public class RegionManager{
   HashMap<RegionContainer,Boolean> lakes;
   HashMap<RegionContainer,Boolean> trails;
   HashMap<RegionContainer,Boolean> dens;
-  HashMap<Region, ArrayList<RegionContainer>> containersByRegion;
   HashMap<Integer, ArrayList<RegionContainer>> slotListeners;
   SlotMap slots;
   Stack<RegionContainer> regionsToScore;
@@ -31,7 +30,6 @@ public class RegionManager{
     dens = new HashMap<RegionContainer,Boolean>();
     slotListeners = new HashMap<Integer,ArrayList<RegionContainer>>();
     regionsToScore = new Stack<RegionContainer>();
-    containersByRegion = new HashMap<Region, ArrayList<RegionContainer>>();
     slots = map;
 
     TileManager.init();
@@ -45,9 +43,6 @@ public class RegionManager{
 
     //make the potential new regions
     RegionContainer[] newRegions = createRegions(tile, move.location);
-
-    ArrayList<Region> regionsToReplace = new ArrayList<Region>();
-    ArrayList<RegionContainer> replacements = new ArrayList<RegionContainer>();
 
     Iterator<RegionContainer> newRegionsIt = (new RotatedIterator<RegionContainer>(newRegions,3*move.rotation)).iterator();
 
@@ -65,11 +60,7 @@ public class RegionManager{
         currentNewRegion.absorb(slotRegions[i]);
 
         //replace the neighboring region with the newly merged region
-
-        regionsToReplace.add(slotRegions[i].getRegion());
-        replacements.add(currentNewRegion);
         slotRegions[i].replaceWith(currentNewRegion);
-
 
         //remove the port we linked through from the list of open ports
         currentNewRegion.closePort(move.location*100+i);
@@ -86,13 +77,6 @@ public class RegionManager{
         getListByType(currentNewRegion.type).put(currentNewRegion, true);
       }
 
-    }
-
-    //updateScores();
-
-    //go back and replace regions
-    for(int i = 0; i<regionsToReplace.size(); i++){
-      replaceRegion(regionsToReplace.get(i),replacements.get(i));
     }
 
     notifyPlaced(move.location);
@@ -123,7 +107,6 @@ public class RegionManager{
     for(int i = 0; i<tileInfo.numRegions; i++){
 
         newRegions[i] = new RegionContainer(tileInfo.portTypes[i]);
-        addContainer(newRegions[i]);
         newRegions[i].addSlot(location);
     }
 
@@ -139,7 +122,7 @@ public class RegionManager{
       if (tileInfo.jungles[i].length > 0) {
         for (int jungleIndex : tileInfo.jungles[i]) {
           newRegions[jungleIndex].addAdjacent(newRegions[i]);
-          newRegions[i].addAdjacent(newRegions[jungleIndex]);
+          //newRegions[i].addAdjacent(newRegions[jungleIndex]);
         }
       }
 
@@ -155,8 +138,12 @@ public class RegionManager{
         }
       }
 
-      if(tileInfo.animal != '-' && tileInfo.animal != 'X'){
+      if(tileInfo.animal != '-' && tileInfo.animal != 'X' && tileInfo != 'C'){
         newRegions[i].addAnimal(tileInfo.animal);
+      }
+
+      if(tileInfo.animal == 'C'){
+        newRegions[i].addCrocodile();
       }
 
     }
@@ -204,29 +191,11 @@ public class RegionManager{
     }
   }
 
-  private void replaceRegion(Region oldRegion, RegionContainer newRegion){
-    if(oldRegion == newRegion.getRegion())
-      return;
-    for(RegionContainer container : containersByRegion.get(oldRegion)){
-      container.replaceWith(newRegion);
-      addContainer(container);
-    }
-    containersByRegion.remove(oldRegion);
-  }
-
-  private void addContainer(RegionContainer container){
-    Region region = container.getRegion();
-    if(containersByRegion.containsKey(region)){
-      containersByRegion.get(region).add(container);
-    } else {
-      ArrayList<RegionContainer> containers = new ArrayList<RegionContainer>();
-      containers.add(container);
-      containersByRegion.put(region,containers);
-    }
-  }
-
   public String toString(){
-    return containersByRegion.keySet().toString()+"\n";
+    return Integer.toString(jungles.keySet().size())+" jungles: \n" + jungles.keySet().toString()+"\n";
+          //+ Integer.toString(lakes.keySet().size())+" lakes: \n" + lakes.keySet().toString()+"\n"
+          //+ Integer.toString(trails.keySet().size())+" trails: \n" + trails.keySet().toString()+"\n"
+          //+ Integer.toString(dens.keySet().size())+" dens: \n" + dens.keySet().toString()+"\n";
   }
 
   private int[] oppositePort = {8,7,6,11,10,9,2,1,0,5,4,3};
