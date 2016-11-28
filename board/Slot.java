@@ -135,6 +135,15 @@ public class Slot{
       return tile != null;
   }
 
+  public RegionContainer getRegion(int index){
+    int regIndex = tigerToRegion[index];
+    if(regIndex == -1){
+      return centerRegion;
+    } else {
+      return regions[regIndex];
+    }
+  }
+
   private static int[] oppositeRegion = {8,7,6,11,10,9,2,1,0,5,4,3};
   private static int[] tigerToRegion = {-1,0,1,2,10,-1,4,8,7,6};
 }

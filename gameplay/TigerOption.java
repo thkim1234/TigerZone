@@ -2,6 +2,7 @@ package gameplay;
 
 //to group all the information relevant to a move (the slot and the tile's rotation)
 public class TigerOption {
+
     public int location;
     public int rotation;
     public int tigerLocation = 0;
@@ -12,9 +13,5 @@ public class TigerOption {
         this.rotation = rotation;
         this.tigerLocation = tigerLocation;
         this.tigerType = tigerType;
-    }
-
-    public MoveOption asMoveOption(){
-        return new MoveOption(location,rotation);
     }
 }

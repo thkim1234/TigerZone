@@ -90,10 +90,15 @@ public class Board{
 
     Iterator<MoveOption> iter = possibleMoves.iterator();
     MoveOption currentMove;
+
+    Slot slot;
      
     while(iter.hasNext()){
         currentMove = iter.next();
         TileAttributes tileInfo = TileManager.getTileAttributes(tile);
+        slot = map.get(currentMove.location);
+
+        //not sure what's going on here...
         
         for(int i = 0; i < tileInfo.numRegions; i++){
 
@@ -102,7 +107,9 @@ public class Board{
             //test if the region can have a tiger placed, set temp to false if unable to
 
            if (temp == true){
-            //tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, tileInfo.placement[i], tileInfo.portTypes[i]));
+
+            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ getPlacementLocation(tileInfo.placement[i],currentMove.rotation), tileInfo.portTypes[i]));
+
            }
         }
     }
@@ -150,6 +157,7 @@ public class Board{
   //will change
   public void placeTigerOnBoard(int loc, int tigerPlacement, Player player){
     map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
+
   }
 
   public String toString() {
@@ -172,5 +180,7 @@ public class Board{
     return this.openLocations;
   }
   public Slot getSlot(int location){ return map.get(location); }
+
+  private int getPlacementLocation(int[] a, int b){ return 0; }
 
 }
