@@ -56,7 +56,8 @@ public class Board{
 
     //remove this slot from the openLocations (it's been used)
     int indexToRemove = openLocations.indexOf(move.location);
-    openLocations.remove(indexToRemove);
+    if(openLocations.contains(move.location))
+        openLocations.remove(indexToRemove);
   }
 
   //tries all slots in openLocations with all orientations of a given tile, returns a list of possible moves

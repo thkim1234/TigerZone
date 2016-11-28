@@ -47,43 +47,52 @@ public class Game{
   }
 
   //runs the game
-  public void playGame(){
-
-    Tile tile;
-    MoveOption move;
-    int tigerPlacement;
-    Scanner in = new Scanner(System.in);
-
-    // while we have tiles to place
-    while(!tiles.isEmpty()){
-
-      //get the tile to be placed
-      tile = new Tile(in.next());//tiles.getTopTile();
-
-      makeMove(tile, players.get(currentPlayer), players.get(currentPlayer).chooseMove(tile, board));
-
-//      //ask the current player for his choice of move
-//      move = players.get(currentPlayer).chooseMove(tile, board);
+//  public void playGame(){
 //
-//      //ask the current player for his choice of tiger placement
-//      tigerPlacement = players.get(currentPlayer).chooseTigerPlacement();
+//    Tile tile;
+//    MoveOption move;
+//    int tigerPlacement;
+//    Scanner in = new Scanner(System.in);
 //
-//      //place the tile as the player specified
-//      board.placeTile(tile, move);
+//    // while we have tiles to place
+//    while(!tiles.isEmpty()){
 //
-//      //place the tiger as the player specified
-//      board.placeTigerOnBoard(move.location, tigerPlacement, players.get(currentPlayer));
+//      //get the tile to be placed
+//      tile = new Tile(in.next());//tiles.getTopTile();
+//
+//      makeMove(tile, players.get(currentPlayer), players.get(currentPlayer).chooseMove(tile, board));
+//
+////      //ask the current player for his choice of move
+////      move = players.get(currentPlayer).chooseMove(tile, board);
+////
+////      //ask the current player for his choice of tiger placement
+////      tigerPlacement = players.get(currentPlayer).chooseTigerPlacement();
+////
+////      //place the tile as the player specified
+////      board.placeTile(tile, move);
+////
+////      //place the tiger as the player specified
+////      board.placeTigerOnBoard(move.location, tigerPlacement, players.get(currentPlayer));
+//
+//      //move forward in terms of turns
+//
+//      board.updateScores();
+//
+//      updatePlayer();
+//    }
+//
+//  }
 
-      //move forward in terms of turns
+  public void makeMove(Tile tile, Player player){
 
-      board.updateScores();
+    //choose it
+    TigerOption move = player.chooseMove(tile, board);
 
-      updatePlayer();
-    }
-
+    //set it
+    setMove(tile, player, move);
   }
 
-  public void makeMove(Tile tile, Player player, TigerOption move){
+  public void setMove(Tile tile, Player player, TigerOption move){
     board.placeTile(tile,new MoveOption(move.location, move.rotation));
     if(move.tigerLocation != -1) {
       board.placeTigerOnBoard(move.location, move.tigerLocation, player);
@@ -109,4 +118,8 @@ public class Game{
     }
     //Used to set the deck of tiles equal to what the server passes to us
     public void setTileDeck(TileDeck deck) { this.tiles = deck; }
+
+    public String toString(){
+      return "BOARD: " + board + "\nPLAYERS" + players + "\n";
+    }
 }

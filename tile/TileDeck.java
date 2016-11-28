@@ -40,7 +40,8 @@ public class TileDeck {
 //          System.out.println("IN TILEDECK CONSTRUCTOR" + tileString);
           String[] splitArray = tileString.split("\\s+");
           for(int i = 0; i < splitArray.length; i++){
-              tiles.push(new Tile(splitArray[i]));
+              if(splitArray[i].length() == 5)
+                tiles.push(new Tile(splitArray[i]));
           }
       } catch (PatternSyntaxException ex) {
           System.out.println("Could not split tileDeck String into array");
