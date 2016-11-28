@@ -54,6 +54,10 @@ public abstract class Player {
     return "player- tigers left: "+availableTigers.size()+" score: "+Integer.toString(score);
   }
 
+  public TigerOption passMethod(){
+    TigerOption pass = null;
+    return pass;
+    }
 
 
 }
