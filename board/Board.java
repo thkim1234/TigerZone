@@ -162,6 +162,10 @@ public class Board{
 
   }
 
+  public void removeTigerFromBoard(int loc){
+    map.get(loc).removeTiger();
+  }
+
   public String toString() {
       String boardString = "LOCATIONS: \n";
       Iterator<Integer> iter = map.keySet().iterator();
@@ -171,7 +175,7 @@ public class Board{
           boardString += (current/1000-CENTER)+" "+(current%1000-CENTER)+"    "+map.get(current) + "\n";
       }
 
-      //boardString += "\n REGIONS: \n" + regionManager;
+      boardString += "\n REGIONS: \n" + regionManager;
 
       return boardString;
   }

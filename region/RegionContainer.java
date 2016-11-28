@@ -50,18 +50,20 @@ public class RegionContainer{
 
   public void addSlot(int slot) { region.addSlot(slot); }
 
+  public void removeTiger(Tiger tiger) { region.removeTiger(tiger); }
+
   public RegionContainer(char type){
     this.type = type;
     switch(type){
       case 'J':
         this.region = new Jungle();
-      break;
+        break;
       case 'T':
         this.region = new GameTrail();
-      break;
+        break;
       case 'L':
         this.region = new Lake();
-      break;
+        break;
       case 'X':
         this.region = new Den();
     }
