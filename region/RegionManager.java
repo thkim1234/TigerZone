@@ -138,7 +138,7 @@ public class RegionManager{
         }
       }
 
-      if(tileInfo.animal != '-' && tileInfo.animal != 'X' && tileInfo != 'C'){
+      if(tileInfo.animal != '-' && tileInfo.animal != 'X' && tileInfo.animal != 'C'){
         newRegions[i].addAnimal(tileInfo.animal);
       }
 

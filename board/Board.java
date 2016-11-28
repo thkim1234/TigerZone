@@ -102,7 +102,7 @@ public class Board{
             //test if the region can have a tiger placed, set temp to false if unable to
 
            if (temp == true){
-            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, m tileInfo.placement[i], tileInfo.portTypes[i]));
+            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, tileInfo.placement[i], tileInfo.portTypes[i]));
            }
         }
     }
@@ -152,11 +152,6 @@ public class Board{
     map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
   }
 
-  //accessor
-  public ArrayList<Integer> getOpenLocations() {
-    return this.openLocations;
-  }
-
   public String toString() {
       String boardString = "LOCATIONS: \n";
       Iterator<Integer> iter = map.keySet().iterator();
@@ -170,4 +165,12 @@ public class Board{
 
       return boardString;
   }
+
+  //Accessors
+  public SlotMap getMap(){ return map; }
+  public ArrayList<Integer> getOpenLocations() {
+    return this.openLocations;
+  }
+  public Slot getSlot(int location){ return map.get(location); }
+
 }

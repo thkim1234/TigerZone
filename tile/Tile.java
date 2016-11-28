@@ -5,10 +5,15 @@ import board.Slot;
 public class Tile {
     private char centerType;
     private char[] sideTypes = new char[4];
-    private char shieldLoc;
+//    private char shieldLoc;
 
-    public char getSide(int i){
-      return sideTypes[i];
+    public Tile () {
+        centerType = 'J';
+//        shieldLoc = '0';
+        for(int i=0; i<Slot.NUM_SIDES; i++){
+            sideTypes[i] = 'J';
+        }
+
     }
 
     public Tile(String typeCode){
@@ -18,7 +23,6 @@ public class Tile {
       }
 
       centerType = typeCode.charAt(i);
-      //shieldLoc = typeCode.charAt(i+1);
 
     }
 
@@ -28,9 +32,16 @@ public class Tile {
             returnString += this.sideTypes[i];
         }
         returnString += this.centerType;
-        //returnString += this.shieldLoc;
 
         return returnString;
     }
+
+    public char getSide(int i){
+        return sideTypes[i];
+    }
+    public char getCenterType() { return this.centerType; }
+//    public char getShieldLoc() { return this.shieldLoc; }
+    public char[] getSideTypes() { return this.sideTypes; }
+
 
 }

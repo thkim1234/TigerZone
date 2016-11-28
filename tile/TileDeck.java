@@ -1,6 +1,7 @@
 package tile;
 
 import java.util.*;
+import java.util.regex.PatternSyntaxException;
 
 public class TileDeck {
 
@@ -32,6 +33,20 @@ public class TileDeck {
     this.shuffle();
     //tiles.push(new tile.Tile(tileTypes[3]));
   }
+  //Accepts a string of tileTypes delimited by spaces and returns a TileDeck created from it
+  public TileDeck(String tileString){
+      tiles = new Stack<Tile>();
+      try {
+//          System.out.println("IN TILEDECK CONSTRUCTOR" + tileString);
+          String[] splitArray = tileString.split("\\s+");
+          for(int i = 0; i < splitArray.length; i++){
+              tiles.push(new Tile(splitArray[i]));
+          }
+      } catch (PatternSyntaxException ex) {
+          System.out.println("Could not split tileDeck String into array");
+      }
+      tiles.push(new Tile("TLTJ-"));
+  }
 
 
   public Tile getTopTile(){
@@ -59,6 +74,14 @@ public class TileDeck {
     for(int i = 0; i<deck.length; i++){
       tiles.push(deck[i]);
     }
+  }
+
+  public int getTileDeckSize() {
+      return tiles.size();
+  }
+
+  public Stack<Tile> getTiles() {
+      return tiles;
   }
 
 

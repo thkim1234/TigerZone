@@ -8,4 +8,5 @@ public class MoveOption {
     this.location = location;
     this.rotation = rotation;
   }
+
 }

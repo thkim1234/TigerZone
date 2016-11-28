@@ -109,6 +109,10 @@ public class Slot{
       }
   }
 
+  public Tile getTile() {
+    return tile;
+  }
+
   //the opposite side of this tile
   private static int opposite(int i){ return (i+2)%4; }
 

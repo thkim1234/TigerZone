@@ -25,6 +25,7 @@ public class Game{
 
   //initializes a game with the players given
   public Game(Player ... players){
+    board = new Board();
 
     //add all of the players passed into the constructor
     this.players = new ArrayList<Player>();
@@ -34,8 +35,7 @@ public class Game{
 
     NUM_PLAYERS = this.players.size();
 
-    //place the first tile at the origin
-    //board.placeTile(tiles.getTopTile(),new gameplay.MoveOption(Board.CENTER*1001,0));
+    board.placeTile(new Tile("TLTJ-"),new MoveOption(Board.CENTER*1001,0));
 
     //set the current player to the first of the given players
     currentPlayer = 0;
@@ -96,10 +96,12 @@ public class Game{
     }
 
     public int getCurrentPlayer() {
-        return currentPlayer%2;
+        return currentPlayer%NUM_PLAYERS;
     }
 
     public TileDeck getTiles() {
         return tiles;
     }
+    //Used to set the deck of tiles equal to what the server passes to us
+    public void setTileDeck(TileDeck deck) { this.tiles = deck; }
 }
