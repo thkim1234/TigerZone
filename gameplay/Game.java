@@ -18,8 +18,8 @@ public class Game{
   private Board board = new Board();
   private TileDeck tiles = new TileDeck();
   private ArrayList<Player> players;
-  private HumanPlayer player1 = new HumanPlayer();
-  private HumanPlayer player2 = new HumanPlayer();
+  private Player player1 = new HumanPlayer();
+  private Player player2 = new HumanPlayer();
   private int currentPlayer;
   private int NUM_PLAYERS;
 
