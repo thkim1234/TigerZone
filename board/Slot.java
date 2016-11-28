@@ -17,8 +17,6 @@ public class Slot{
   protected SlotConnection[] connections; //the side types of this slot (set when tile is placed OR when this is connected to another tile)
   protected RegionContainer[] regions;
   private RegionContainer centerRegion;
-  private Tiger tiger;
-  private int tigerPlacement;
 
   //initializes empty Slot with blank connections and no tiger
   public Slot(){
@@ -103,23 +101,11 @@ public class Slot{
   }
   //to be changed later
   public void placeTiger (int tigerPlacement, Tiger tiger) {
-      this.tiger = tiger;
-      this.tigerPlacement = tigerPlacement;
       int regionIndex = tigerToRegion[tigerPlacement];
       if(regionIndex == -1){
           centerRegion.placeTiger(tiger);
       } else {
           regions[regionIndex].placeTiger(tiger);
-      }
-  }
-
-  public void removeTiger () {
-      this.tiger = null;
-      int regionIndex = tigerToRegion[this.tigerPlacement];
-      if(regionIndex == -1){
-          centerRegion.removeTiger(tiger);
-      } else {
-          regions[regionIndex].removeTiger(tiger);
       }
   }
 
@@ -143,6 +129,20 @@ public class Slot{
 
   public boolean hasTile(){
       return tile != null;
+  }
+
+  public RegionContainer getRegion(int index){
+    int regIndex = tigerToRegion[index];
+    if(regIndex == -1){
+      return centerRegion;
+    } else {
+      return regions[regIndex];
+    }
+  }
+
+    public RegionContainer[] getRegions(){
+      return regions;
+    }
   }
 
   private static int[] oppositeRegion = {8,7,6,11,10,9,2,1,0,5,4,3};

@@ -18,6 +18,7 @@ public class HumanPlayer extends Player {
     public MoveOption chooseMove(Tile t, Board b) {
 
         ArrayList<MoveOption> temp = b.potentialMoves(t);
+        ArrayList<TigerOption> tigerMoves = potentialTigers(temp, t);
         Iterator<MoveOption> iter = temp.iterator();
         MoveOption currentMove;
         int index = 0;

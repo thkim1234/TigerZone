@@ -26,7 +26,7 @@ public class Board{
 
   //This number is so that we need not incorporate negatives;
   //the center of the board should be at least equal to the number of tiles
-  public static final int CENTER = 72;
+  public static final int CENTER = 77;
 
   //create empty board with new origin slot at center
   public Board(){
@@ -75,10 +75,43 @@ public class Board{
         //if that would be a valid placement of the tile, add it to possibleMoves
         if(slot.canFit(tile,rotation)){
           possibleMoves.add(new MoveOption(location,rotation));
+          //for AI testing
+          //possibleMoves2.add(new MoveOption(location,rotation, tigerLocation, tigerType));
+
         }
       }
     }
     return possibleMoves;
+  }
+
+  public ArrayList<TigerOption> potentialTigers(ArrayList<MoveOption> possibleMoves, Tile tile){
+
+    ArrayList<TigerOption> tigerMoves = new ArrayList<TigerOption>();
+
+    Iterator<MoveOption> iter = possibleMoves.iterator();
+    MoveOption currentMove;
+    Slot slot;
+     
+    while(iter.hasNext()){
+        currentMove = iter.next();
+        TileAttributes tileInfo = TileManager.getTileAttributes(t);
+        slot = map.get(currentMove.location);
+
+        //not sure what's going on here...
+        
+        for(int i = 0; i < tileInfo.numRegions; i++){
+
+           bool temp = true;
+
+            //test if the region can have a tiger placed, set temp to false if unable to
+
+           if (temp == true){
+            tigerMoves.add(new TigerOption(possibleMoves.location, possibleMoves.rotation,/*find min*/ getPlacementLocation(tileInfo.placement[i],possibleMoves.rotation), tileInfo.portTypes[i]));
+           }
+        }
+    }
+
+    return tigerMoves;
   }
 
   //updates the openLocations ArrayList with the slots that have opened up from the current slot
@@ -114,13 +147,13 @@ public class Board{
     regionManager.updateScores();
   }
 
-  public void placeTigerOnBoard(int loc, int tigerPlacement, Player player){
-    map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
-  }
+//  public void doAllScores(){
+//    regionManager.doAllScores();
+//  }
 
   //will change
-  public void removeTigerFromBoard(int loc){
-    map.get(loc).removeTiger();
+  public void placeTigerOnBoard(int loc, int tigerPlacement, Player player){
+    map.get(loc).placeTiger(tigerPlacement, player.giveTiger());
   }
 
   //accessor

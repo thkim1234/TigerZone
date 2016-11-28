@@ -138,4 +138,64 @@ public class TileManager{
     /* tile 28*/ { {1},{2},{3},{4,5,6,7,8,9} }
             };
 
+
+
+int getPlacementLocation(int region, int rotations)
+{
+  int minVal = 100;
+  int array[] = tileAttributes.nodes[region];
+  for(int i = 0; i < array.size; i++)
+  {
+    for(int j = 0; j < rotations; j++)
+    {
+      switch (array[i])
+      {
+         case 1: 
+         array[i] = 7;
+         break;
+
+         case 2: 
+         array[i] = 4;
+         break;
+
+         case 3: 
+         array[i] = 1;
+         break;
+
+         case 4: 
+         array[i] = 8;
+         break;
+
+         case 5: 
+         array[i] = 5;
+         break;
+
+         case 6: 
+         array[i] = 2;
+         break;
+
+         case 7: 
+         array[i] = 9;
+         break;
+
+         case 8: 
+         array[i] = 6;
+         break;
+
+         case 9: 
+         array[i] = 3;
+         break;
+         
+         default: array[i] = 100;
+         break;
+      }
+    }
+
+    minVal = min(minVal,array[i]);
+
+  }
+
+  return minVal;
+  
+  }
 }
