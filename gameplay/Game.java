@@ -77,6 +77,14 @@ public class Game{
 
   }
 
+  public void makeMove(Player player, TigerOption move){
+    Tile tile = tiles.getTopTile();
+    board.placeTile(tile,move.asMoveOption());
+    if(move.tigerLocation != -1) {
+      board.placeTigerOnBoard(move.location, move.tigerLocation, player);
+    }
+  }
+
   //accessors:
 
     public Board getBoard() {

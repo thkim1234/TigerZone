@@ -93,16 +93,16 @@ public class Board{
      
     while(iter.hasNext()){
         currentMove = iter.next();
-        TileAttributes tileInfo = TileManager.getTileAttributes(t);
+        TileAttributes tileInfo = TileManager.getTileAttributes(tile);
         
         for(int i = 0; i < tileInfo.numRegions; i++){
 
-           bool temp = true;
+           boolean temp = true;
 
             //test if the region can have a tiger placed, set temp to false if unable to
 
            if (temp == true){
-            tigerMoves.add(new TigerOption(possibleMoves.location, possibleMoves.rotation,/*find min*/ tileInfo.placement[i], tileInfo.portTypes[i]));
+            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, m tileInfo.placement[i], tileInfo.portTypes[i]));
            }
         }
     }

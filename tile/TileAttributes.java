@@ -7,4 +7,5 @@ public class TileAttributes{
   public int[][] ports;
   public int[][] nodes;
   public char animal;
+  public int[][] placement;
 }

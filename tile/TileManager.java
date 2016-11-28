@@ -22,6 +22,7 @@ public class TileManager{
     tileAttributes.nodes = placement[index];
     tileAttributes.ports = portNum[index];
     tileAttributes.animal = tile.toString().charAt(4);
+    tileAttributes.placement = placement[index];
     return tileAttributes;
   }
 
