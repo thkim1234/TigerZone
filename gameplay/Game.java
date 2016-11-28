@@ -100,13 +100,18 @@ public class Game{
     //choose it
     TigerOption move = player.chooseMove(tile, board, tiles);
 
-    String moveStr = Integer.toString(move.location/1000-Board.CENTER)
-            +" "+Integer.toString(move.location%1000-Board.CENTER)
-            +" "+Integer.toString(move.rotation*90)
-            +" TIGER "+Integer.toString(move.tigerLocation);
+    String moveStr;
 
     //set it
-    setMove(tile, player, move);
+    if(move != null){
+      moveStr = Integer.toString(move.location/1000-Board.CENTER)
+              +" "+Integer.toString(move.location%1000-Board.CENTER)
+              +" "+Integer.toString(move.rotation*90)
+              +" TIGER "+Integer.toString(move.tigerLocation);
+      setMove(tile, player, move);
+    } else {
+      moveStr = "UNPLACEABLE PASS";
+    }
 
     return moveStr;
   }

@@ -104,11 +104,9 @@ public abstract class Region{
   //a tiger to this region
   public void removeTiger(Tiger tiger){
     if(!tigersByPlayer.containsKey(tiger.owner)){
-      ArrayList<Tiger> tigers = new ArrayList<Tiger>();
-      tigers.add(tiger);
-      tigersByPlayer.put(tiger.owner,tigers);
+      return;
     } else {
-      tigersByPlayer.get(tiger.owner).add(tiger);
+      tigersByPlayer.get(tiger.owner).remove(tiger);
     }
   }
 
