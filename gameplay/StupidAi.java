@@ -1,9 +1,10 @@
 package gameplay;
 
+import board.Board;
 import tile.Tile;
+import tile.TileDeck;
 
-import java.util.*;
-import board.*;
+import java.util.ArrayList;
 
 /**
  * Created by camerongera on 11/6/16.
@@ -15,7 +16,7 @@ public class StupidAi extends Player {
     }
 
     @Override
-    public TigerOption chooseMove(Tile t, Board b) {
+    public TigerOption chooseMove(Tile t, Board b, TileDeck tiles) {
 
         ArrayList<MoveOption> temp = b.potentialMoves(t);
         ArrayList<TigerOption> tigerMoves = b.potentialTigers(temp, t);

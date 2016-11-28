@@ -39,15 +39,15 @@ public class AIPlayer2 extends Player {
                 AIPlayer1 p2 = new AIPlayer1();
                 Game game2 = new Game(p1, p2, tiles, b);
                 game2.setMove(t, p1, tigerMoves.get(i)); //forces first move of new game to be possible move
-                for(int j = 0; j < 10; j++){
+                for(int j = 0; j < 3; j++){
                     if(!game2.getTiles().isEmpty()){
                         Tile tile1 = game2.getTiles().getTopTile();
-                        TigerOption move = p2.chooseMove(tile1, game2.getBoard());
+                        TigerOption move = p2.chooseMove(tile1, game2.getBoard(), tiles);
                         game2.setMove(tile1, p2, move);
                     }
                     if(!game2.getTiles().isEmpty()){
                         Tile tile1 = game2.getTiles().getTopTile();
-                        TigerOption move = p1.chooseMove(tile1, game2.getBoard());
+                        TigerOption move = p1.chooseMove(tile1, game2.getBoard(), tiles);
                         game2.setMove(tile1, p1, move);
                     }
                 }

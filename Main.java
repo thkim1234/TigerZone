@@ -19,13 +19,20 @@
 
 
 import board.Board;
-import gameplay.GameVisualization;
-import gameplay.*;
-import tile.*;
-import java.io.*;
-import java.net.*;
-import java.util.*;
-import java.util.regex.*;
+import gameplay.AIPlayer2;
+import gameplay.Game;
+import gameplay.HumanPlayer;
+import gameplay.TigerOption;
+import tile.Tile;
+import tile.TileDeck;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Main {
 
@@ -37,7 +44,7 @@ public class Main {
     * */
     //AI ai = new AI(); (Maybe AI can be a subclass of Player so that it works in Game's constructor?)
 
-    static HumanPlayer ai = new HumanPlayer();
+    static AIPlayer2 ai = new AIPlayer2();
     static HumanPlayer opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
@@ -258,7 +265,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new HumanPlayer();
+        ai = new AIPlayer2();
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);
