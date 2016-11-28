@@ -138,11 +138,11 @@ public class Slot{
   }
 
   public RegionContainer getRegion(int index){
-    int regIndex = tigerToRegion[index];
-    if(regIndex == -1){
+    //int regIndex = tigerToRegion[index];
+    if(index == -1){
       return centerRegion;
     } else {
-      return regions[regIndex];
+      return regions[index];
     }
   }
 

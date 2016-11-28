@@ -116,6 +116,10 @@ public abstract class Region{
     //only implemented in jungle
   }
 
+  public boolean hasTiger(){
+    return tigersByPlayer.size() > 0;
+  }
+
   //for template method - yippee!
   protected abstract int totalScore();
 

@@ -50,6 +50,8 @@ public class RegionContainer{
 
   public void addSlot(int slot) { region.addSlot(slot); }
 
+  public boolean hasTiger() { return region.hasTiger(); }
+
   public void removeTiger(Tiger tiger) { region.removeTiger(tiger); }
 
   public RegionContainer(char type){

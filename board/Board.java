@@ -100,6 +100,7 @@ public class Board{
         slot = map.get(currentMove.location);
 
         //not sure what's going on here...
+        int tigerLocation;
         
         for(int i = 0; i < tileInfo.numRegions; i++){
 
@@ -107,10 +108,19 @@ public class Board{
 
             //test if the region can have a tiger placed, set temp to false if unable to
 
+            tigerLocation = getPlacementLocation(tileInfo.placement[i],currentMove.rotation);
+
+            for(int regIndex : tigerRegionToSlotRegion[tigerLocation]){
+              if(slot.getRegion(regIndex) != null
+                      && slot.getRegion(regIndex).hasTiger()){
+                temp = false;
+              }
+            }
+
 
            if (temp == true){
 
-            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ getPlacementLocation(tileInfo.placement[i],currentMove.rotation), tileInfo.portTypes[i]));
+              tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ tigerLocation, tileInfo.portTypes[i]));
 
            }
         }
@@ -199,5 +209,6 @@ public class Board{
   }
 
   private int[] rotations = {-1,7,4,1,8,5,2,9,6,3};
+  private int[][] tigerRegionToSlotRegion = {{},{0,11},{1},{2,3},{10},{-1},{4},{8,9},{7},{6,5}};
 
 }
