@@ -98,7 +98,7 @@ public class Game{
   public void makeMove(Tile tile, Player player){
 
     //choose it
-    TigerOption move = player.chooseMove(tile, board);
+    TigerOption move = player.chooseMove(tile, board, tiles);
 
     //set it
     setMove(tile, player, move);

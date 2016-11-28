@@ -1,10 +1,13 @@
 package gameplay;
 
-import gameplay.MoveOption;
+import board.Board;
+import region.Region;
 import tile.Tile;
-import board.*;
-import java.util.*;
-import region.*;
+import tile.TileDeck;
+
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Stack;
 
 public abstract class Player {
 
@@ -23,12 +26,16 @@ public abstract class Player {
 
   //public abstract MoveOption chooseMove(Tile t, Board b);
 
-  public abstract TigerOption chooseMove(Tile t, Board b);
+  public abstract TigerOption chooseMove(Tile t, Board b, TileDeck tiles);
 
   public abstract int chooseTigerPlacement();
 
   public void addScore(int score){
     this.score += score;
+  }
+
+  public int getScore(){
+    return this.score;
   }
 
   public Tiger giveTiger(){
