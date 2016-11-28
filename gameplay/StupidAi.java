@@ -36,12 +36,12 @@ public class StupidAi extends Player {
 //        System.out.println("You are: "+super.toString());
 //        System.out.println("Which option would you like to play?");
 //        int response = option.nextInt();
-        if(tigerMoves.size()>0){
-            if(super.availableTigers.size() == 0){
+        if(tigerMoves.size()>0) {
+            if (super.availableTigers.size() == 0) {
                 boolean x = true;
                 int i = 0;
-                while(x){
-                    if(tigerMoves.get(i).tigerType == 'N'){
+                while (x) {
+                    if (tigerMoves.get(i).tigerType == 'N') {
                         x = false;
                         return tigerMoves.get(i);
                     }
@@ -49,10 +49,30 @@ public class StupidAi extends Player {
                 }
                 return null;
             } else {
-                return tigerMoves.get(0);
+                for (int i = 0; i < tigerMoves.size(); i++) {
+                    if (tigerMoves.get(i).tigerType == 'L')
+                        return tigerMoves.get(i);
+                }
+                for (int i = 0; i < tigerMoves.size(); i++) {
+                    if (tigerMoves.get(i).tigerType == 'X')
+                        return tigerMoves.get(i);
+                }
+                for (int i = 0; i < tigerMoves.size(); i++) {
+                    if (tigerMoves.get(i).tigerType == 'T')
+                        return tigerMoves.get(i);
+                }
+                for (int i = 0; i < tigerMoves.size(); i++) {
+                    if (tigerMoves.get(i).tigerType == 'J')
+                        return tigerMoves.get(i);
+                }
+                for (int i = 0; i < tigerMoves.size(); i++) {
+                    if (tigerMoves.get(i).tigerType == 'N')
+                        return tigerMoves.get(i);
+                }
             }
-
-        } else {
+            return tigerMoves.get(0);
+        }
+        else {
             return null;
         }
 
@@ -64,3 +84,4 @@ public class StupidAi extends Player {
     }
 
 }
+
