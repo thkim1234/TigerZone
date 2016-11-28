@@ -85,7 +85,7 @@ public class TigerZoneServer {
 			outputLine = "GAME A MOVE 6 PLAYER Blue PLACED TLLT- AT 0 -1 270 CROCODILE";
 			out.println(outputLine);
 
-			outputLine = "GAME A OVER PLAYER Red 6 PLAYER Blue 14\n" + "GAME B OVER PLAYER Red 20 PLAYER Blue 19";
+			outputLine = "GAME A OVER PLAYER Red 6 PLAYER Blue 14\nGAME B OVER PLAYER Red 20 PLAYER Blue 19";
 			out.println(outputLine);
 		} catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "

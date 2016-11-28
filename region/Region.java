@@ -1,7 +1,11 @@
 package region;
 
-import java.util.*;
-import gameplay.*;
+import gameplay.Player;
+import gameplay.Tiger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 
 public abstract class Region{
 
@@ -128,7 +132,7 @@ public abstract class Region{
     int current;
     while(it.hasNext()){
       current = it.next();
-      s += "("+(current/1000-72)+","+(current%1000-72)+")";
+      s += "("+(current/1000-77)+","+(current%1000-77)+")";
     }
     return s;
   }

@@ -220,13 +220,14 @@ public class Main {
             String creature = parsedString[12];
             int zone;
             char tiger;
-            if(parsedString[12] == "TIGER"){
+            if(parsedString[12].equals("TIGER")){
                 zone = Integer.parseInt(parsedString[13]);
                 tiger = 'Y';
             } else {
                 zone = -1;
                 tiger = 'N';
             }
+            System.out.println("location: " + location + " orientation: " + orientation + " zone: " + zone + " tiger: " + tiger + " tile: " + tile);
             game.setMove(tile, opponent, new TigerOption(location,orientation,zone,tiger));
 
         } else if (unplaceable != -1){
