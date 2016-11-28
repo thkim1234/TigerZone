@@ -1,9 +1,14 @@
 package board;
-import java.util.*;
-import java.lang.*;
-import region.*;
-import gameplay.*;
-import tile.*;
+import gameplay.MoveOption;
+import gameplay.Player;
+import gameplay.TigerOption;
+import region.RegionManager;
+import tile.Tile;
+import tile.TileAttributes;
+import tile.TileManager;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /* Stores all of the information about the
 Current objects in the board.
@@ -113,7 +118,9 @@ public class Board{
             tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ getPlacementLocation(tileInfo.placement[i],currentMove.rotation), tileInfo.portTypes[i]));
 
            }
+
         }
+      tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, -1, 'N'));
     }
 
     return tigerMoves;

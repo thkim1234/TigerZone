@@ -19,17 +19,18 @@
 
 
 import board.Board;
-import gameplay.Game;
-import gameplay.HumanPlayer;
-import gameplay.TigerOption;
+import gameplay.*;
 import tile.Tile;
 import tile.TileDeck;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,7 +44,7 @@ public class Main {
     * */
     //AI ai = new AI(); (Maybe AI can be a subclass of Player so that it works in Game's constructor?)
 
-    static HumanPlayer ai = new HumanPlayer();
+    static StupidAi ai = new StupidAi();
     static HumanPlayer opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
@@ -56,59 +57,58 @@ public class Main {
 
     public static void main(String args[]) {
 
-        Scanner in = new Scanner(System.in);
-        String input = in.nextLine();
-        String output;
-        username = "Red";
-        while(input != "FIN"){
-            System.out.println(processInput(input));
-            System.out.println("GAME A:\n"+gameA);
-            System.out.println("GAME B:\n"+gameB);
-            System.out.println("\n\n\n");
-            input = in.nextLine();
+//        Scanner in = new Scanner(System.in);
+//        String input = in.nextLine();
+//        String output;
+//        while(input != "FIN"){
+//            System.out.println(processInput(input));
+//            System.out.println("GAME A:\n"+gameA);
+//            System.out.println("GAME B:\n"+gameB);
+//            System.out.println("\n\n\n");
+//            input = in.nextLine();
+//
+//        }
 
+        if (args.length != 5) {
+            System.err.println("java Main <hostname> <port#> <tourneypassword> <username> <password>");
+            System.exit(1);
         }
 
-//        if (args.length != 5) {
-//            System.err.println("java Main <hostname> <port#> <tourneypassword> <username> <password>");
-//            System.exit(1);
-//        }
-//
-//        hostName = args[0]; //Given to us by Dave I'm assuming?
-//        portNumber =  Integer.parseInt(args[1]);; //Given to us by Dave I'm assuming?
-//        tourneyPassword = args[2]; //Given to us by Dave I'm assuming?
-//        username = args[3];
-//        password = args[4];
-//
-//        try (
-//                Socket socket = new Socket(hostName, portNumber);
-//                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-//                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        ) {
-//            //Convert user input into a string
-//            String fromServer;
-//            //To read and display output from the server
-//            String fromUser;
-//
-//            while ((fromServer = in.readLine()) != null) {
-//                //What the server outputs
-//                System.out.println("Server: " + fromServer);
-//
-//                //What we input
-//                fromUser = processInput(fromServer);
-//                if (fromUser != null) {
-//                    //System.out.println("Client: " + fromUser); //What we typed
-//                    out.println(fromUser);  //Send what we typed to server
-//                }
-//            }
-//
-//        } catch (UnknownHostException e) {
-//            System.err.println("Don't know about host " + hostName);
-//            System.exit(1);
-//        } catch (IOException e) {
-//            System.err.println("Couldn't get I/O for the connection to " + hostName);
-//            System.exit(1);
-//        }
+        hostName = args[0]; //Given to us by Dave I'm assuming?
+        portNumber =  Integer.parseInt(args[1]);; //Given to us by Dave I'm assuming?
+        tourneyPassword = args[2]; //Given to us by Dave I'm assuming?
+        username = args[3];
+        password = args[4];
+
+        try (
+                Socket socket = new Socket(hostName, portNumber);
+                PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
+                BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+        ) {
+            //Convert user input into a string
+            String fromServer;
+            //To read and display output from the server
+            String fromUser;
+
+            while ((fromServer = in.readLine()) != null) {
+                //What the server outputs
+                System.out.println("Server: " + fromServer);
+
+                //What we input
+                fromUser = processInput(fromServer);
+                if (fromUser != null) {
+                    //System.out.println("Client: " + fromUser); //What we typed
+                    out.println(fromUser);  //Send what we typed to server
+                }
+            }
+
+        } catch (UnknownHostException e) {
+            System.err.println("Don't know about host " + hostName);
+            System.exit(1);
+        } catch (IOException e) {
+            System.err.println("Couldn't get I/O for the connection to " + hostName);
+            System.exit(1);
+        }
 
     }
 
@@ -174,8 +174,6 @@ public class Main {
     public static String getGameId(String serverMessage){
         String gameId;
         if(serverMessage.contains("MOVE") && serverMessage.contains("PLAYER ")){
-            System.out.println(serverMessage);
-            System.out.println("index of move " + serverMessage.indexOf("MOVE"));
             gameId = serverMessage.substring(5, (serverMessage.indexOf("MOVE")-1));
         }
         else {
@@ -264,7 +262,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new HumanPlayer();
+        ai = new StupidAi();
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);

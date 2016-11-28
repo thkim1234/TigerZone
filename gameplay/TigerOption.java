@@ -5,7 +5,7 @@ public class TigerOption {
 
     public int location;
     public int rotation;
-    public int tigerLocation = 0;
+    public int tigerLocation = -1;
     public char tigerType = 'N';
 
     public TigerOption(int location, int rotation, int tigerLocation, char tigerType) {
