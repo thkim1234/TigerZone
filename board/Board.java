@@ -102,7 +102,7 @@ public class Board{
             //test if the region can have a tiger placed, set temp to false if unable to
 
            if (temp == true){
-            tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, tileInfo.placement[i], tileInfo.portTypes[i]));
+            //tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, tileInfo.placement[i], tileInfo.portTypes[i]));
            }
         }
     }

@@ -143,7 +143,7 @@ public class RegionManager{
       }
 
       if(tileInfo.animal == 'C'){
-        newRegions[i].addCrocodile();
+        //newRegions[i].addCrocodile();
       }
 
     }
