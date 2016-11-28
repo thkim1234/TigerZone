@@ -36,7 +36,8 @@ public class Main {
     * which is held in the server, but we don't have access to it
     * */
     //AI ai = new AI(); (Maybe AI can be a subclass of Player so that it works in Game's constructor?)
-    static StupidAi ai = new StupidAi();
+
+    static HumanPlayer ai = new HumanPlayer();
     static HumanPlayer opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
@@ -257,7 +258,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new StupidAi();
+        ai = new HumanPlayer();
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);
