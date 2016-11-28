@@ -40,6 +40,18 @@ public class Game{
     //set the current player to the first of the given players
     currentPlayer = 0;
   }
+  
+  public Game(AIPlayer1 player1, AIPlayer1 player2, TileDeck tiles, Board b){
+	this.tiles = tiles;
+	this.player1 = player1;
+	this.player2 = player2;
+	this.board = b;
+	this.players = new ArrayList<Player>();
+	this.players.add(player1);
+	this.players.add(player2);
+	NUM_PLAYERS = this.players.size();
+	currentPlayer = 0;
+}
 
   //self explanatory
   private void updatePlayer(){
