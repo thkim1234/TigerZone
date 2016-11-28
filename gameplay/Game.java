@@ -41,7 +41,7 @@ public class Game{
     currentPlayer = 0;
   }
   
-  public Game(AIPlayer1 player1, AIPlayer1 player2, TileDeck tiles, Board b){
+  public Game(Player player1, Player player2, TileDeck tiles, Board b){
 	this.tiles = tiles;
 	this.player1 = player1;
 	this.player2 = player2;
