@@ -48,8 +48,28 @@ public class StupidAi extends Player {
                     i++;
                 }
             }
-            else
-                return tigerMoves.get(0);
+            else{
+                for(int i = 0; i<tigerMoves.size(); i++){
+                    if(tigerMoves.get(i).tigerType == 'L')
+                        return tigerMoves.get(i);
+                }
+                for(int i = 0; i<tigerMoves.size(); i++){
+                    if(tigerMoves.get(i).tigerType == 'X')
+                        return tigerMoves.get(i);
+                }
+                for(int i = 0; i<tigerMoves.size(); i++){
+                    if(tigerMoves.get(i).tigerType == 'T')
+                        return tigerMoves.get(i);
+                }
+                for(int i = 0; i<tigerMoves.size(); i++){
+                    if(tigerMoves.get(i).tigerType == 'J')
+                        return tigerMoves.get(i);
+                }
+                for(int i = 0; i<tigerMoves.size(); i++){
+                    if(tigerMoves.get(i).tigerType == 'N')
+                        return tigerMoves.get(i);
+                }
+            }
         else
             return null;
     }
@@ -60,3 +80,4 @@ public class StupidAi extends Player {
     }
 
 }
+
