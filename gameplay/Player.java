@@ -11,7 +11,7 @@ import java.util.Stack;
 
 public abstract class Player {
 
-  private Stack<Tiger> availableTigers;
+  protected Stack<Tiger> availableTigers;
   private Stack<Tiger> placedTigers;
   private int score;
 

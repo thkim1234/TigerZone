@@ -236,11 +236,13 @@ public class Main {
             } else if (serverMessage.indexOf("RETRIEVE TIGER") != -1){
                 int x = Integer.parseInt(parsedString[12]);
                 int y = Integer.parseInt(parsedString[13]);
-                // game or player : retrieveTiger(x,y)
+                int location = (x+Board.CENTER)*1000+y+Board.CENTER;
+                game.getBoard().placeTigerOnBoard(location, 1, opponent);
             } else if (serverMessage.indexOf("ADD ANOTHER TIGER") != -1){
                 int x = Integer.parseInt(parsedString[13]);
                 int y = Integer.parseInt(parsedString[14]);
-                // game or player : playTiger(x,y)
+                int location = (x+Board.CENTER)*1000+y+Board.CENTER;
+                game.getBoard().removeTigerFromBoard(location);
             }
         }
     }

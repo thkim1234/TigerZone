@@ -36,8 +36,8 @@ public class StupidAi extends Player {
 //        System.out.println("You are: "+super.toString());
 //        System.out.println("Which option would you like to play?");
 //        int response = option.nextInt();
-        if(tigerMoves.size()>0)
-            if(this.availableTigers.size() == 0){
+        if(tigerMoves.size()>0){
+            if(super.availableTigers.size() == 0){
                 boolean x = true;
                 int i = 0;
                 while(x){
@@ -47,11 +47,15 @@ public class StupidAi extends Player {
                     }
                     i++;
                 }
-            }
-            else
+                return null;
+            } else {
                 return tigerMoves.get(0);
-        else
+            }
+
+        } else {
             return null;
+        }
+
     }
 
     @Override
