@@ -37,7 +37,19 @@ public class StupidAi extends Player {
 //        System.out.println("Which option would you like to play?");
 //        int response = option.nextInt();
         if(tigerMoves.size()>0)
-            return tigerMoves.get(0);
+            if(this.availableTigers.size() == 0){
+                boolean x = true;
+                int i = 0;
+                while(x){
+                    if(tigerMoves.get(i).tigerType == 'N'){
+                        x = false;
+                        return tigerMoves.get(i);
+                    }
+                    i++;
+                }
+            }
+            else
+                return tigerMoves.get(0);
         else
             return null;
     }
