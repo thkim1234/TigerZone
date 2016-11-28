@@ -43,50 +43,50 @@ public class TigerZoneServer {
 			out.println(outputLine);
 			Thread.sleep(15000);
 
-			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE TLTTP";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME B MOVE 1 PLAYER Blue PLACED TLTTP AT 0 1 90 TIGER 8";
-			out.println(outputLine);
-
-			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 2 PLACE LJTJ-";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME A MOVE 2 PLAYER Blue PLACED LJTJ- AT 0 2 180 TIGER 8";
-			out.println(outputLine);
-
-			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 3 PLACE JLJL-";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME B MOVE 3 PLAYER Blue PLACED JLJL- AT 1 0 0 TIGER 4";
-			out.println(outputLine);
-
-			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 4 PLACE JJTJX";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME A MOVE 4 PLAYER Blue PLACED JJTJX AT 1 1 270 TIGER 5";
-			out.println(outputLine);
-
-			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 5 PLACE JLTTB";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME B MOVE 5 PLAYER Blue PLACED JLTTB AT 2 0 180 TIGER 1";
-			out.println(outputLine);
-
-			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 6 PLACE TLLT-";
-			out.println(outputLine);
-
-			inputLine = in.readLine();
-			outputLine = "GAME A MOVE 6 PLAYER Blue PLACED TLLT- AT 0 -1 270 CROCODILE";
-			out.println(outputLine);
-
-			outputLine = "GAME A OVER PLAYER Red 6 PLAYER Blue 14\nGAME B OVER PLAYER Red 20 PLAYER Blue 19";
-			out.println(outputLine);
+//			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 1 PLACE TLTTP";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME B MOVE 1 PLAYER Blue PLACED TLTTP AT 0 1 90 TIGER 8";
+//			out.println(outputLine);
+//
+//			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 2 PLACE LJTJ-";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME A MOVE 2 PLAYER Blue PLACED LJTJ- AT 0 2 180 TIGER 8";
+//			out.println(outputLine);
+//
+//			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 3 PLACE JLJL-";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME B MOVE 3 PLAYER Blue PLACED JLJL- AT 1 0 0 TIGER 4";
+//			out.println(outputLine);
+//
+//			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 4 PLACE JJTJX";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME A MOVE 4 PLAYER Blue PLACED JJTJX AT 1 1 270 TIGER 5";
+//			out.println(outputLine);
+//
+//			outputLine = "MAKE YOUR MOVE IN GAME A WITHIN 1 SECOND: MOVE 5 PLACE JLTTB";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME B MOVE 5 PLAYER Blue PLACED JLTTB AT 2 0 180 TIGER 1";
+//			out.println(outputLine);
+//
+//			outputLine = "MAKE YOUR MOVE IN GAME B WITHIN 1 SECOND: MOVE 6 PLACE TLLT-";
+//			out.println(outputLine);
+//
+//			inputLine = in.readLine();
+//			outputLine = "GAME A MOVE 6 PLAYER Blue PLACED TLLT- AT 0 -1 270 CROCODILE";
+//			out.println(outputLine);
+//
+//			outputLine = "GAME A OVER PLAYER Red 6 PLAYER Blue 14\nGAME B OVER PLAYER Red 20 PLAYER Blue 19";
+//			out.println(outputLine);
 		} catch (IOException e) {
             System.out.println("Exception caught when trying to listen on port "
                 + portNumber + " or listening for a connection");

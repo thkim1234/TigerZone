@@ -227,7 +227,7 @@ public class Main {
                 zone = -1;
                 tiger = 'N';
             }
-            System.out.println("location: " + location + " orientation: " + orientation + " zone: " + zone + " tiger: " + tiger + " tile: " + tile);
+//             System.out.println("location: " + location + " orientation: " + orientation + " zone: " + zone + " tiger: " + tiger + " tile: " + tile);
             game.setMove(tile, opponent, new TigerOption(location,orientation,zone,tiger));
 
         } else if (unplaceable != -1){
