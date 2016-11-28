@@ -19,7 +19,6 @@
 
 
 import board.Board;
-import gameplay.AIPlayer2;
 import gameplay.Game;
 import gameplay.HumanPlayer;
 import gameplay.TigerOption;
@@ -44,7 +43,7 @@ public class Main {
     * */
     //AI ai = new AI(); (Maybe AI can be a subclass of Player so that it works in Game's constructor?)
 
-    static AIPlayer2 ai = new AIPlayer2();
+    static HumanPlayer ai = new HumanPlayer();
     static HumanPlayer opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
@@ -265,7 +264,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new AIPlayer2();
+        ai = new HumanPlayer();
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);
