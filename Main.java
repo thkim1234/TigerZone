@@ -36,7 +36,7 @@ public class Main {
     * which is held in the server, but we don't have access to it
     * */
     //AI ai = new AI(); (Maybe AI can be a subclass of Player so that it works in Game's constructor?)
-    static HumanPlayer ai = new HumanPlayer();
+    static StupidAi ai = new StupidAi();
     static HumanPlayer opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
     static Game gameA = new Game(ai, opponent);
     static Game gameB = new Game(ai, opponent);
@@ -121,10 +121,12 @@ public class Main {
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
             //String gameId = getGameId(serverMessage);
+            String moveStr = serverMessage.substring(serverMessage.indexOf(':')+1);
             String gameId = getGameId(serverMessage);
             System.out.println("Game ID for AI: " + gameId);
             String tileString = getTileStringForAiMove(serverMessage);
-            return aiMakeMove(gameId, tileString);
+            String returnStr = "GAME "+gameId+moveStr+" AT "+aiMakeMove(gameId, tileString);
+            return returnStr;
             //To be replaced by return aiMakeMove(gameId, tileString, moveNumber) not sure yet tho
         }
         //Opponent makes move. Mimic opponent's move on our local game copy with respect to gameID
@@ -187,7 +189,7 @@ public class Main {
         //This is the game the AI needs to make a move in
         Game game = map.get(gameId);
 
-        game.makeMove(new Tile(tileString), ai);
+
         /*
         AI DOES stuff here to make moves
         */
@@ -196,7 +198,7 @@ public class Main {
         * a properly formatted AI move. Example - GAME A MOVE 1 PLACE TLTTP AT 0 1 90 TIGER 8*/
 
 
-        return "AI place tile " + tileString + " in Game " + gameId;
+        return game.makeMove(new Tile(tileString), ai);
     }
 
     //This function is called when it's time for the opponent to make a move in a game
@@ -255,7 +257,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new HumanPlayer();
+        ai = new StupidAi();
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);

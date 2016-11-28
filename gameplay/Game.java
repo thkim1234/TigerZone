@@ -83,13 +83,20 @@ public class Game{
 //
 //  }
 
-  public void makeMove(Tile tile, Player player){
+  public String makeMove(Tile tile, Player player){
 
     //choose it
     TigerOption move = player.chooseMove(tile, board);
 
+    String moveStr = Integer.toString(move.location/1000-Board.CENTER)
+            +" "+Integer.toString(move.location%1000-Board.CENTER)
+            +" "+Integer.toString(move.rotation*90)
+            +" TIGER "+Integer.toString(move.tigerLocation);
+
     //set it
     setMove(tile, player, move);
+
+    return moveStr;
   }
 
   public void setMove(Tile tile, Player player, TigerOption move){
