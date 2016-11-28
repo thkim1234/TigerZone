@@ -262,7 +262,7 @@ public class Main {
     }
 
     public static void resetMatch(){
-        ai = new StupidAi();
+        ai = new StupidAi(); // dumbie AI. Change if possible
         opponent = new HumanPlayer(); //(used to keep track of opponent's moves)
         gameA = new Game(ai, opponent);
         gameB = new Game(ai, opponent);
