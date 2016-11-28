@@ -106,6 +106,7 @@ public class Board{
 
             //test if the region can have a tiger placed, set temp to false if unable to
 
+
            if (temp == true){
 
             tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ getPlacementLocation(tileInfo.placement[i],currentMove.rotation), tileInfo.portTypes[i]));
@@ -169,7 +170,7 @@ public class Board{
           boardString += (current/1000-CENTER)+" "+(current%1000-CENTER)+"    "+map.get(current) + "\n";
       }
 
-      boardString += "\n REGIONS: \n" + regionManager;
+      //boardString += "\n REGIONS: \n" + regionManager;
 
       return boardString;
   }
@@ -181,6 +182,17 @@ public class Board{
   }
   public Slot getSlot(int location){ return map.get(location); }
 
-  private int getPlacementLocation(int[] a, int b){ return 0; }
+  private int getPlacementLocation(int[] placement, int rotation){
+    int min = 20;
+    for(int current : placement){
+      for(int i = 0; i<rotation; i++){
+        current = rotations[current];
+      }
+      if(min > current) min = current;
+    }
+    return min;
+  }
+
+  private int[] rotations = {-1,7,4,1,8,5,2,9,6,3};
 
 }

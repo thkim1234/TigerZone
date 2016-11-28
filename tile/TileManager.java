@@ -83,7 +83,7 @@ public class TileManager{
     /* tile 4*/   { {0,11},{1},{2,3},{4},{5,6},{7},{8,9},{10} },
     /* tile 5*/   { {0,8,9,10,11},{1,7},{2,3,4,5,6} },
     /* tile 6*/   { {0,11},{1,10},{2,3,4,5,6,7,8,9} },
-    /* tile 7*/   { {0,11},{1},{2,3,4,5,6},{7},{8,9},{10},{11} },
+    /* tile 7*/   { {0,11},{1},{2,3,4,5,6},{7},{8,9},{10}},
     /* tile 8*/   { {0,1,2,3,4,5,6,7,8,9,10,11} },
     /* tile 9*/   { {0,1,2},{3,4,5,6,7,8,9,10,11} },
     /* tile 10*/  { {0,1,2,3,4,5},{6,7,8,9,10,11} },
@@ -112,15 +112,15 @@ public class TileManager{
     /* tile 1*/  { {1,2,3,4,5,6,7,8,9} },
     /* tile 2*/  { {1,2,3,4,6,7,8,9},{5} },
     /* tile 3*/  { {1,2,3,4,6,7,9},{5},{8} },
-    /* tile 4*/  { {1},{2,},{3},{6},{9},{8},{7},{4} },
+    /* tile 4*/  { {1},{2},{3},{6},{9},{8},{7},{4} },
     /* tile 5*/  { {1,4,7},{2,5,8},{3,6,9} },
     /* tile 6*/  { {1},{2,4,5},{6,7,8,9} },
     /* tile 7*/  { {1},{2},{3,6,9},{8},{7},{4} },
     /* tile 8*/  { {1,2,3,4,5,6,7,8,9} },
     /* tile 9*/  { {1,2,3},{4,5,6,7,8,9} },
     /* tile 10*/ { {2,3,6,},{1,4,5,7,8,9} },
-    /* tile 11*/ { {1,2,3,7,8,9},{4,5,6} },
-    /* tile 12*/ { {1,3,4,5,6,7,9},{2,8} },
+    /* tile 11*/ { {1,2,3},{4,5,6},{7,8,9} },
+    /* tile 12*/ { {2},{1,3,4,5,6,7,9},{8} },
     /* tile 13*/ { {2},{1,3,4,5,6,7,8,9} },
     /* tile 14*/ { {1,2,3,4,5,7,9},{6},{8} }, //NEED VERIFICATION, THINK WE EXCLUDE 9  --> confirmed 9 is a jungle
     /* tile 15*/ { {1},{2,4,5},{3,7,8,9},{6} }, //ASK IF TILE 5 IS ROAD                --> confirmed 5 is a road
@@ -134,19 +134,18 @@ public class TileManager{
     /* tile 23*/ { {1},{2},{3,9},{6},{8},{7},{4} },
     /* tile 24*/ { {1},{2,4,5},{3,7},{6,8,9} }, //WHERE DOES 5 GO                      --> confirmed 5 is a road
     /* tile 25*/ { {1},{2,4,5},{3,7},{6,8,9} }, //same
-    /* tile 26*/ { {2},{1,3,4,6,7,9},{5,8} },  //IS 5 A ROAD?                        --> confirmed 5 is a road
-    /* tile 27*/ { {2},{1,3,4,6,7,9},{5,8} },
+    /* tile 26*/ { {2},{3,6,9},{5,8},{1,4,7} },  //IS 5 A ROAD?                        --> confirmed 5 is a road
+    /* tile 27*/ { {2},{3,6,9},{5,8},{1,4,7} },
     /* tile 28*/ { {1},{2},{3},{4,5,6,7,8,9} }
             };
 
 
-
-//static int getPlacementLocation(int region, int rotations)
+//  static int getPlacementLocation(int region, int rotations)
 //{
-//  TileAttributes tileAttributes = getTileAttributes()
+//  TileAttributes tileAttributes = getTileAttributes();
 //  int minVal = 100;
 //  int array[] = tileAttributes.nodes[region];
-//  for(int i = 0; i < array.size; i++)
+//  for(int i = 0; i < array.length; i++)
 //  {
 //    for(int j = 0; j < rotations; j++)
 //    {
@@ -196,7 +195,7 @@ public class TileManager{
 //    minVal = min(minVal,array[i]);
 //
 //  }
-
+//
 //  return minVal;
 //
 //  }

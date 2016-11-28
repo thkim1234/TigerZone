@@ -101,7 +101,7 @@ public class Slot{
   }
   //to be changed later
   public void placeTiger (int tigerPlacement, Tiger tiger) {
-      int regionIndex = tigerToRegion[tigerPlacement];
+      int regionIndex = tigerPlacement;
       if(regionIndex == -1){
           centerRegion.placeTiger(tiger);
       } else {

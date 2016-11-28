@@ -52,33 +52,38 @@ public class Game{
     Tile tile;
     MoveOption move;
     int tigerPlacement;
+    Scanner in = new Scanner(System.in);
 
     // while we have tiles to place
     while(!tiles.isEmpty()){
 
       //get the tile to be placed
-      tile = tiles.getTopTile();
+      tile = new Tile(in.next());//tiles.getTopTile();
 
-      //ask the current player for his choice of move
-      move = players.get(currentPlayer).chooseMove(tile, board);
+      makeMove(tile, players.get(currentPlayer), players.get(currentPlayer).chooseMove(tile, board));
 
-      //ask the current player for his choice of tiger placement
-      tigerPlacement = players.get(currentPlayer).chooseTigerPlacement();
-
-      //place the tile as the player specified
-      board.placeTile(tile, move);
-
-      //place the tiger as the player specified
-      board.placeTigerOnBoard(move.location, tigerPlacement, players.get(currentPlayer));
+//      //ask the current player for his choice of move
+//      move = players.get(currentPlayer).chooseMove(tile, board);
+//
+//      //ask the current player for his choice of tiger placement
+//      tigerPlacement = players.get(currentPlayer).chooseTigerPlacement();
+//
+//      //place the tile as the player specified
+//      board.placeTile(tile, move);
+//
+//      //place the tiger as the player specified
+//      board.placeTigerOnBoard(move.location, tigerPlacement, players.get(currentPlayer));
 
       //move forward in terms of turns
+
+      board.updateScores();
+
       updatePlayer();
     }
 
   }
 
-  public void makeMove(Player player, TigerOption move){
-    Tile tile = tiles.getTopTile();
+  public void makeMove(Tile tile, Player player, TigerOption move){
     board.placeTile(tile,new MoveOption(move.location, move.rotation));
     if(move.tigerLocation != -1) {
       board.placeTigerOnBoard(move.location, move.tigerLocation, player);
