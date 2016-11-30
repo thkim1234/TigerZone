@@ -11,12 +11,16 @@ import java.util.ArrayList;
  */
 public class StupidAi extends Player {
 
+    int count = 0;
+
     public StupidAi() {
         super.init();
     }
 
     @Override
     public TigerOption chooseMove(Tile t, Board b, TileDeck tiles) {
+
+        count ++;
 
         ArrayList<MoveOption> temp = b.potentialMoves(t);
         ArrayList<TigerOption> tigerMoves = b.potentialTigers(temp, t);

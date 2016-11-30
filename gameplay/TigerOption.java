@@ -7,11 +7,13 @@ public class TigerOption {
     public int rotation;
     public int tigerLocation = -1;
     public char tigerType = 'N';
+    public int score;
 
-    public TigerOption(int location, int rotation, int tigerLocation, char tigerType) {
+    public TigerOption(int location, int rotation, int tigerLocation, char tigerType, int score) {
         this.location = location;
         this.rotation = rotation;
         this.tigerLocation = tigerLocation;
         this.tigerType = tigerType;
+        this.score = score;
     }
 }

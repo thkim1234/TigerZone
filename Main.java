@@ -135,7 +135,8 @@ public class Main {
             String tileString = getTileStringForAiMove(serverMessage);
             String aiMoveRecieved = aiMakeMove(gameId, tileString);
             if(aiMoveRecieved.contains(" TIGER -1")){
-                String parsedAIResponse = aiMoveRecieved.substring(26);
+                int index = aiMoveRecieved.indexOf("TIGER -1");
+                String parsedAIResponse = aiMoveRecieved.substring(0,index);
                 aiMoveRecieved = parsedAIResponse + "NONE";
             }
             if(aiMoveRecieved.contains("UNPLACEABLE")){
@@ -238,7 +239,7 @@ public class Main {
                 tiger = 'N';
             }
 //             System.out.println("location: " + location + " orientation: " + orientation + " zone: " + zone + " tiger: " + tiger + " tile: " + tile);
-            game.setMove(tile, opponent, new TigerOption(location,orientation,zone,tiger));
+            game.setMove(tile, opponent, new TigerOption(location,orientation,zone,tiger,0));
 
         } else if (unplaceable != -1){
             if(serverMessage.indexOf("PASS") != -1){

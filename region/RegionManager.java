@@ -58,7 +58,7 @@ public class RegionManager{
     RegionContainer currentNewRegion;
 
     //iterate through the slot regions passed in
-    for(int i = 0; i<slotRegions.length; i++){
+    for(int i = 0; i<slotRegions.length && newRegionsIt.hasNext(); i++){
 
       currentNewRegion = newRegionsIt.next();
 

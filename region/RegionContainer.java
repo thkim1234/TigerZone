@@ -37,6 +37,8 @@ public class RegionContainer{
     region.closePort(port);
   }
 
+  public int getCurrentScore() { return region.getCurrentScore(); }
+
   public void placeTiger(Tiger tiger) {
     tiger.setRegion(this);
     region.placeTiger(tiger);

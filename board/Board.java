@@ -114,23 +114,26 @@ public class Board{
             //test if the region can have a tiger placed, set temp to false if unable to
 
             tigerLocation = getPlacementLocation(tileInfo.placement[i],currentMove.rotation);
+            int score = 0;
 
             for(int regIndex : tigerRegionToSlotRegion[tigerLocation]){
               if(slot.getRegion(regIndex) != null
                       && slot.getRegion(regIndex).hasTiger()){
                 temp = false;
+              } else if(slot.getRegion(regIndex) != null && tileInfo.portTypes[i] != 'L'){
+                score = slot.getRegion(regIndex).getCurrentScore();
               }
             }
 
 
            if (temp == true){
 
-              tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ tigerLocation, tileInfo.portTypes[i]));
+              tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation,/*find min*/ tigerLocation, tileInfo.portTypes[i],score));
 
            }
 
         }
-      tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, -1, 'N'));
+      tigerMoves.add(new TigerOption(currentMove.location, currentMove.rotation, -1, 'N',0));
     }
 
     return tigerMoves;

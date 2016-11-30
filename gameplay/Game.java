@@ -122,6 +122,7 @@ public class Game{
     if(move.tigerLocation != -1) {
       board.placeTigerOnBoard(move.location, move.tigerLocation, player);
     }
+    board.updateScores();
   }
 
   //accessors:
