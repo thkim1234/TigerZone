@@ -67,7 +67,8 @@ public class TileManager{
     /* tile 24*/  { {},{0,2},{},{2} },
     /* tile 25*/  { {},{0,2},{},{2} },
     /* tile 26*/  { {1,3},{},{1,3},{} },
-    /* tile 27*/  { {1,3},{},{1,3},{} }
+    /* tile 27*/  { {1,3},{},{1,3},{} },
+    /* tile 28*/  { {},{0,2},{},{0,2} },
   };
 
   // jungles is for lakes and monastaries (lakes and dens) to keep track of which ones to notify when they are completed.

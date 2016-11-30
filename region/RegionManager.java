@@ -1,12 +1,16 @@
 package region;
 
 import board.SlotMap;
-import tile.*;
-import gameplay.*;
-import tools.*;
-import region.*;
+import gameplay.MoveOption;
+import tile.Tile;
+import tile.TileAttributes;
+import tile.TileManager;
+import tools.RotatedIterator;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Stack;
 
 public class RegionManager{
   HashMap<RegionContainer,Boolean> jungles;
@@ -92,7 +96,18 @@ public class RegionManager{
 
     //go back and replace regions
     for(int i = 0; i<regionsToReplace.size(); i++){
-      replaceRegion(regionsToReplace.get(i),replacements.get(i));
+      try {
+        replaceRegion(regionsToReplace.get(i),replacements.get(i));
+      }
+      catch (NullPointerException e) {
+        System.err.println("NullPointerException: " + e.getMessage());
+      }
+      catch (ArrayIndexOutOfBoundsException e) {
+        System.err.println("ArrayIndexOutOfBoundsException: " + e.getMessage());
+      }
+      catch (IndexOutOfBoundsException e) {
+        System.err.println("IndexOutOfBoundsException: " + e.getMessage());
+      }
     }
 
     notifyPlaced(move.location);
@@ -205,7 +220,7 @@ public class RegionManager{
   }
 
   private void replaceRegion(Region oldRegion, RegionContainer newRegion){
-    if(oldRegion == newRegion.getRegion())
+    if(oldRegion == newRegion.getRegion() || !containersByRegion.containsKey(oldRegion))
       return;
     for(RegionContainer container : containersByRegion.get(oldRegion)){
       container.replaceWith(newRegion);

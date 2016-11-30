@@ -102,15 +102,16 @@ public class Game{
 
     String moveStr;
 
+//    System.out.println("What is my move? " + move.location);
     //set it
     if(move != null){
-      moveStr = Integer.toString(move.location/1000-Board.CENTER)
+      moveStr =" AT " + Integer.toString(move.location/1000-Board.CENTER)
               +" "+Integer.toString(move.location%1000-Board.CENTER)
               +" "+Integer.toString(move.rotation*90)
               +" TIGER "+Integer.toString(move.tigerLocation);
       setMove(tile, player, move);
     } else {
-      moveStr = "UNPLACEABLE PASS";
+      moveStr = "UNPLACEABLE PASSED";
     }
 
     return moveStr;

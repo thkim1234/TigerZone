@@ -96,8 +96,8 @@ public class Main {
 
                 //What we input
                 fromUser = processInput(fromServer);
-                if (fromUser != null) {
-                    //System.out.println("Client: " + fromUser); //What we typed
+                if (fromUser != null && fromUser != "") {
+                     System.out.println("Client: " + fromUser); //What we typed
                     out.println(fromUser);  //Send what we typed to server
                 }
             }
@@ -128,11 +128,21 @@ public class Main {
         //AI's turn to make Move
         else if(serverMessage.contains("MAKE YOUR MOVE")){
             //String gameId = getGameId(serverMessage);
+            String[] parsedString = serverMessage.split(" "); //Parse
             String moveStr = serverMessage.substring(serverMessage.indexOf(':')+1);
             String gameId = getGameId(serverMessage);
-            System.out.println("Game ID for AI: " + gameId);
+//            System.out.println("Game ID for AI: " + gameId);
             String tileString = getTileStringForAiMove(serverMessage);
-            String returnStr = "GAME "+gameId+moveStr+" AT "+aiMakeMove(gameId, tileString);
+            String aiMoveRecieved = aiMakeMove(gameId, tileString);
+            if(aiMoveRecieved.contains(" TIGER -1")){
+                String parsedAIResponse = aiMoveRecieved.substring(26);
+                aiMoveRecieved = parsedAIResponse + "NONE";
+            }
+            if(aiMoveRecieved.contains("UNPLACEABLE")){
+                moveStr = " " + parsedString[9] + " " + parsedString[10] + " TILE " + tileString + " ";
+            }
+            String returnStr = "GAME "+gameId+moveStr+aiMoveRecieved;
+//            System.out.println("Client: " + returnStr);
             return returnStr;
             //To be replaced by return aiMakeMove(gameId, tileString, moveNumber) not sure yet tho
         }
@@ -140,7 +150,7 @@ public class Main {
         else if(serverMessage.contains("MOVE") && serverMessage.contains("PLAYER") && !serverMessage.contains("PLAYER " + username)){
             //Opponent Move logic
             String gameId = getGameId(serverMessage);
-            System.out.println("GAME ID: " + gameId);
+//            System.out.println("GAME ID: " + gameId);
             Game gamePlayed = map.get(gameId);
             opponentMakeMove(gamePlayed, gameId, serverMessage);
             return "";
@@ -179,7 +189,7 @@ public class Main {
         else {
             gameId =  serverMessage.substring(23, (serverMessage.indexOf("WITHIN") - 1));
         }
-        System.out.println("Game ID: " + gameId);
+//        System.out.println("Game ID: " + gameId);
         if(map.size() == 0){
             map.put(gameId, gameA);
         }
@@ -250,7 +260,7 @@ public class Main {
     public static String getTileStringForAiMove(String message){
         int startIndex = message.length() - 5;
         String tile = message.substring(startIndex);
-        System.out.print("Tile: " + tile);
+//        System.out.print("Tile: " + tile);
         return tile;
     }
 
@@ -260,7 +270,7 @@ public class Main {
         while(m.find()) {
             tileString = m.group(1);
         }
-        System.out.println(tileString);
+//        System.out.println(tileString);
         return tileString;
     }
 
