@@ -40,6 +40,7 @@ public abstract class Player {
 
   public Tiger giveTiger(){
     Tiger givenTiger;
+
     if(!availableTigers.isEmpty())
       givenTiger = availableTigers.pop();
     else
