@@ -38,14 +38,28 @@ public class AIPlayer1 extends Player {
                 index++;
             }
 
-            TigerOption currentMove1;
-            int x = 0;
-            currentMove1 = tigerMoves.get(x);
-            for(int i = 0; i < moveValue.length; i++){
-                if(moveValue[i] > moveValue[x])
-                    currentMove1 = tigerMoves.get(i);
+            if (super.availableTigers.size() == 0) {
+                boolean x = true;
+                int i = 0;
+                while (x) {
+                    if (tigerMoves.get(i).tigerType == 'N') {
+                        x = false;
+                        return tigerMoves.get(i);
+                    }
+                    i++;
+                }
+                return null;
+            } else {
+                TigerOption currentMove1;
+                int x = 0;
+                currentMove1 = tigerMoves.get(x);
+                for(int i = 0; i < moveValue.length; i++){
+                    if(moveValue[i] > moveValue[x])
+                        currentMove1 = tigerMoves.get(i);
+                }
+                return currentMove1;
             }
-            return currentMove1;
+
         }
     }
 

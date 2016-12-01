@@ -39,7 +39,12 @@ public abstract class Player {
   }
 
   public Tiger giveTiger(){
-    Tiger givenTiger = availableTigers.pop();
+    Tiger givenTiger;
+    if(!availableTigers.isEmpty()) {
+      givenTiger = availableTigers.pop();
+    } else {
+      givenTiger = new Tiger(this);
+    }
     placedTigers.add(givenTiger);
     return givenTiger;
   }

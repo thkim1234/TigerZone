@@ -19,7 +19,7 @@ public class Lake extends Region{
 
   public void absorb(Region otherRegion){
     super.absorb(otherRegion);
-    System.out.println(otherRegion);
+//    System.out.println(otherRegion);
     Lake otherLake = (Lake) otherRegion;
     animals.putAll(otherLake.animals);
   }
